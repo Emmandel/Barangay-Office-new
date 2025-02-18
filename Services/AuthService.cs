@@ -10,58 +10,29 @@ namespace Barangay_Office.Services
 {
     public class AuthService
     {
-        private readonly SQLiteAsyncConnection _connection;
         private const string AuthStateKey = "AuthState";
-        private const string UserRoleKey = "UserRole";
 
-        public AuthService(LocalDatabase DbService)
+
+        //authenticate the user
+        public async Task<bool> IsAuthenticatedAsync()
         {
-            _connection = DbService.GetConnection();
+            await Task.Delay(1000);
+
+            var authState = Preferences.Default.Get(AuthStateKey, false);
+
+            return authState;
         }
 
-
-
-        public async Task<bool> LoginAsync(string username, string password)
+        public void LogIn()
         {
-            var user = await _connection.Table<UsersInfo>()
-                .Where(u => u.Username == username && u.Password == password)
-                .FirstOrDefaultAsync();
-
-            if(user != null)
-            {
-                //user is authenticated and store their role
-                //Login(user.Role);
-                Preferences.Default.Set(AuthStateKey, true);
-                Preferences.Default.Set(UserRoleKey, user.Role);
-                return true;
-            }
-
-            return false;
-            //return Preferences.Default.Get<bool>(AuthStateKey, false);
-
+            Preferences.Default.Set(AuthStateKey, true);
         }
 
-        public void Logout()
+        public void LogOut()
         {
             Preferences.Default.Remove(AuthStateKey);
-            Preferences.Default.Remove(UserRoleKey);
         }
 
-
-        public bool IsAuthenticated()
-        {
-            return Preferences.Default.Get<bool>(AuthStateKey, false);
-        }
-
-        public string GetUserRole()
-        {
-            return Preferences.Default.Get<string>(UserRoleKey, "customer"); //Default to customer
-        }
-        //public void Login(string role)
-        //{
-        //    Preferences.Default.Set(AuthStateKey, true);
-        //    Preferences.Default.Set(UserRoleKey, role);
-        //}
 
     }
 }

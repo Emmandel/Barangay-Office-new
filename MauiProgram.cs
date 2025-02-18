@@ -20,9 +20,8 @@ namespace Barangay_Office
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<LocalDatabase>();
 
-            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddTransient<AuthService>();
             builder.Services.AddTransient<LoadingPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<ProfilePage>();

@@ -14,7 +14,9 @@ public partial class ProfilePage : ContentPage
 
     private void OutButton_Clicked(object sender, EventArgs e)
     {
-        _authService.Logout();
+
+        //after logging out, the user will be redirected to login page
+        _authService.LogOut();
         Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
     }
 }

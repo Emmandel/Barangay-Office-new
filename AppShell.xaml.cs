@@ -9,11 +9,9 @@ namespace Barangay_Office
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));//for adminpage
-            Routing.RegisterRoute(nameof(ListingPage), typeof(ListingPage));
             Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
             Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-            Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));//for customerPage
 
 
 

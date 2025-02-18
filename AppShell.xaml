@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="Barangay_Office.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns="http://schemas.microsoft.com/    dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Barangay_Office"
     xmlns:views="clr-namespace:Barangay_Office.Views"
@@ -30,12 +30,6 @@
             Title="Home"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
-
-        <!--Listing Page-->
-        <ShellContent
-            Title="Listing"
-            ContentTemplate="{DataTemplate views:ListingPage}"
-            Route="ListingPage" />
 
         <!--Profile Page-->
         <ShellContent

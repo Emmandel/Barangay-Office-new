@@ -16,26 +16,14 @@ public partial class LoadingPage : ContentPage
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-
-        bool isAuthenticated = await _authService.IsAuthenticatedAsync();
-        string role = _authService.GetUserRole();
-
-        if (isAuthenticated)
+        if (await _authService.IsAuthenticatedAsync())
         {
-            //redirect based on the user's role
-            if (role == "super_admin")
-            {
-                //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-            }
-            else
-            {
-                await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
-            }
+            //user is logged in
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
         else
         {
-            //user has not logged in
+            //user need to log in
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }

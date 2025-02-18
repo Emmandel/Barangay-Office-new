@@ -1,4 +1,4 @@
-﻿    using Barangay_Office.Services;
+﻿using Barangay_Office.Services;
 using Barangay_Office.Views;
 using Microsoft.Extensions.Logging;
 
@@ -20,7 +20,9 @@ namespace Barangay_Office
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddTransient<AuthService>();
+            builder.Services.AddSingleton<LocalDatabase>();
+
+            builder.Services.AddSingleton<AuthService>();
             builder.Services.AddTransient<LoadingPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<ProfilePage>();

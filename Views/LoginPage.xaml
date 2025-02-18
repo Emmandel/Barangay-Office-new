@@ -69,6 +69,7 @@
 
             </Grid.RowDefinitions>
 
+            <!-- Introduction -->
             <Label 
                 Grid.Row="1" 
                 Text="Welcome!" 
@@ -119,6 +120,7 @@
                                 Margin="5"/>
                         </Border>
                         <Entry 
+                            x:Name="txtUsername"
                             Text="{Binding Username}" 
                             Placeholder="Username"
                             Style="{StaticResource EntryStyle}"
@@ -204,7 +206,7 @@
                     TextColor="#ffffff"
                     WidthRequest="200"
                     Margin="0,15,0,0"
-                    Command="{Binding LoginCommand}"
+                    Clicked="Button_Clicked"
                     BackgroundColor="#e63c3f"
                     CornerRadius="30"
                     BorderColor="#1f0572"

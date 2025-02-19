@@ -21,7 +21,6 @@ namespace Barangay_Office.Services
             var authState = Preferences.Default.Get(AuthStateKey, false);
 
             return authState;
-            Console.WriteLine("sample");
         }
 
         public void LogIn()

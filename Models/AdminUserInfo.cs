@@ -10,8 +10,10 @@ namespace Barangay_Office.Models
 {
     public class AdminUserInfo
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public required string Id { get; set; }
+
+        [Unique]
         public required string Username { get; set; }
         public required string Password { get; set; }
         public required string Role { get; set; } //super admin or customer

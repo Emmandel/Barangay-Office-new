@@ -69,22 +69,19 @@ namespace Barangay_Office.Services
             return Preferences.Get(AuthStateKey, false);
         }
 
+
+        //store login state
         public string GetRole()
         {
-            return Preferences.Get(UserRoleKey, "customer"); //Default to customer
+            return Preferences.Get("UserRole", string.Empty);
         }
 
+
+        //Logout and remove the authentication state
         public void Logout()
         {
             Preferences.Default.Remove(AuthStateKey);
-            Preferences.Default.Remove(UserRoleKey);
+            Preferences.Default.Remove("UserRole");
         }
-
-        //public void Login(string role)
-        //{
-        //    Preferences.Default.Set(AuthStateKey, true);
-        //    Preferences.Default.Set(UserRoleKey, role);
-        //}
-
     }
 }

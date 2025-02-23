@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using SQLite;
+﻿using SQLite;
 
 namespace Barangay_Office.Models
 {
     public class AdminUserInfo
     {
-        [PrimaryKey]
-        public required string Id { get; set; } = Guid.NewGuid().ToString();
-        public required string Username { get; set; }
-        public required string Password { get; set; }
-        public required string Role { get; set; } //super admin or customer
+        [PrimaryKey, AutoIncrement]
+        public string Id { get; set; }
+
+        [Unique]
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; } //admin or customer
     }
 }

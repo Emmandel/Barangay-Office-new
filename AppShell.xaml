@@ -13,8 +13,8 @@
         ContentTemplate="{DataTemplate views:LoadingPage}"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"
-        Route="LoadingPage" />
-    
+        Route="LoadingPage"/>
+
     <!--Login Page-->
     <ShellContent
         Title="Login"
@@ -23,31 +23,45 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
 
-    <!-- TabBar with other pages -->
-    <TabBar FlyoutDisplayOptions="AsMultipleItems">
-        <!--Home Page-->
-        <ShellContent
-            Title="Home"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
+    <!-- Signup Page -->
+    <ShellContent
+        Title="Signup"
+        ContentTemplate="{DataTemplate views:SignupPage}"
+        Route="SignupPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
 
-        <!--Listing Page-->
+    <FlyoutItem>
+        <!-- Customer Page-->
         <ShellContent
-            Title="Listing"
-            ContentTemplate="{DataTemplate views:ListingPage}"
-            Route="ListingPage" />
+            Title="Customer"
+            ContentTemplate="{DataTemplate views:CustomerPage}"
+            Route="CustomerPage"/>
 
         <!--Profile Page-->
         <ShellContent
             Title="Profile"
             ContentTemplate="{DataTemplate views:ProfilePage}"
-            Route="ProfilePage" />
-        
-        <!--Customer Page-->
+            Route="ProfilePage"
+            Shell.NavBarIsVisible="False"
+            Shell.FlyoutBehavior="Disabled"/>
+    </FlyoutItem>
+
+    <!-- TabBar with other pages -->
+    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+        <!-- Admin Page-->
         <ShellContent
-            Title="Customer"
-            ContentTemplate="{DataTemplate views:CustomerPage}"
-            Route="CustomerPage" />
+            Title="Admin"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage"/>
+
+
+
+        <!--Profile Page-->
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ProfilePage}"
+            Route="ProfilePage"/>
     </TabBar>
 
 </Shell>

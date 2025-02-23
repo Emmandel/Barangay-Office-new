@@ -11,11 +11,5 @@
         {
             return new Window(new AppShell());
         }
-
-        protected override async void OnStart()
-        {
-            var DbService = Services.GetService<LocalDatabase>();
-            await DbService.InitAsync();
-        }
     }
 }

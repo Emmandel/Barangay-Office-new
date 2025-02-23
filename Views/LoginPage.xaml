@@ -99,8 +99,6 @@
                     Margin="0,0,0,10"
                     HorizontalOptions="FillAndExpand"
                     StrokeShape="RoundRectangle 30">
-
-                    <!--<StackLayout Orientation="Horizontal"></StackLayout>-->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -206,7 +204,7 @@
                     TextColor="#ffffff"
                     WidthRequest="200"
                     Margin="0,15,0,0"
-                    Clicked="Button_Clicked"
+                    Clicked="Login_Clicked"
                     BackgroundColor="#e63c3f"
                     CornerRadius="30"
                     BorderColor="#1f0572"
@@ -225,7 +223,11 @@
                         Text="Register here."
                         FontAttributes="Bold"
                         FontSize="Small"
-                        TextColor="Blue"/>
+                        TextColor="Blue">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="LinkToSignUp"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
 
             </StackLayout>

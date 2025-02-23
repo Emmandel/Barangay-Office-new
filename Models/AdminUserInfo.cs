@@ -5,7 +5,7 @@ namespace Barangay_Office.Models
     public class AdminUserInfo
     {
         [PrimaryKey, AutoIncrement]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Unique]
         public string Username { get; set; }

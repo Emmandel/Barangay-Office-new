@@ -1,6 +1,7 @@
 ﻿using Barangay_Office.Services;
 using Barangay_Office.Views;
 using Microsoft.Extensions.Logging;
+using SQLite;
 
 namespace Barangay_Office
 {
@@ -20,12 +21,20 @@ namespace Barangay_Office
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<LocalDatabase>();
+            //Register SQLite as singleton
+            builder.Services.AddSingleton<SQLiteAsyncConnection>(_ =>
+            {
+                var dbPath = Path.Combine(FileSystem.AppDataDirectory, "barangay_office.db");
+                return new SQLiteAsyncConnection(dbPath);
+            });
 
             builder.Services.AddSingleton<AuthService>();
+
             builder.Services.AddTransient<LoadingPage>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<SignupPage>();
+            //builder.Services.AddTransient<CustomerPage>();
 
             return builder.Build();
         }

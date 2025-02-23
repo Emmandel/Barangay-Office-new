@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.MainPage"
              Shell.NavBarIsVisible="false">
-    
-    
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcom Admin!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+
 </ContentPage>

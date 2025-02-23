@@ -7,45 +7,61 @@ public partial class LoginPage : ContentPage
 {
     private readonly AuthService _authService;
 
-    private readonly LocalDatabase _DbService;
 
     public LoginPage(AuthService authService)
     {
 		InitializeComponent();
         _authService = authService;
-        _DbService = new LocalDatabase();
     }
 
     private void OntogglePasswordVisibility(object sender, EventArgs e)
     {
         PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
-        ((ImageButton)sender).Source = PasswordEntry.IsPassword ? "open_eye.png" : "close_eye.png";
+        ((ImageButton)sender).Source = PasswordEntry.IsPassword ? "close_eye.png" : "open_eye.png";
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void Login_Clicked(object sender, EventArgs e)
     {
-        string email = txtUsername.Text;
-        string pass = PasswordEntry.Text;
 
-        var user = await _DbService.AuthenticateUser(email, pass);
+        string username = txtUsername.Text;
+        string password = PasswordEntry.Text;
 
-        if (user != null)
+        if (string.IsNullOrWhiteSpace(username))
         {
-            //user is authenticated and store their role
-            _authService.Login(user.Role);
-            if (user.Role == "super_admin")
-            {
-                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-            }
-            else
-            {
-                await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
-            }
+            await DisplayAlert("Log in Error!", "Username Required", "OK");
+            await Task.Delay(1000);
+            return;
+        }
+        else if (string.IsNullOrWhiteSpace(password))
+        {
+            await DisplayAlert("Log in Error!", "Password Required", "OK");
+            await Task.Delay(1000);
+            return;
+
+        }
+
+
+        var role = await _authService.LoginAsync(username, password);
+        if (!string.IsNullOrEmpty(role))
+        {
+
+            string WelcomeMessage = role == "Admin" ? "Welcome Admin!" : "Welcome Customer!";
+            await DisplayAlert("Success", WelcomeMessage, "OK");
+
+            string TargetPage = role == "Admin" ? nameof(MainPage) : nameof(CustomerPage);
+            await Shell.Current.GoToAsync($"//{TargetPage}");
+
         }
         else
         {
-            await DisplayAlert("Login Failed!", " Invalid username or password","OK");
+            await DisplayAlert("Error", "Username or Password is Incorrect!", "OK");
         }
+
+    }
+
+    private async void LinkToSignUp(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(SignupPage)}");
     }
 
 }

@@ -17,26 +17,37 @@ public partial class LoadingPage : ContentPage
     {
         base.OnNavigatedTo(args);
 
-        bool isAuthenticated = await _authService.IsAuthenticatedAsync();
-        string role = _authService.GetUserRole();
-
-        if (isAuthenticated)
+        try
         {
-            //redirect based on the user's role
-            if (role == "super_admin")
+            if (await _authService.IsAuthenticatedAsync())
             {
-                //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                string userRole = _authService.GetRole();
+                //redirect based on the user's role
+                if (userRole == "Admin")
+                {
+                    //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
+                else if (userRole == "Customer")
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                }
             }
             else
             {
-                await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
+                //user has not logged in
+                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
             }
         }
-        else
+        catch (Exception ex)
         {
-            //user has not logged in
+            await DisplayAlert("Error", $"An error occurred:{ex.Message}", "OK");
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
+
     }
 }

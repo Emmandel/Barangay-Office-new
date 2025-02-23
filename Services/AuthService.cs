@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Barangay_Office.Models;
+﻿using Barangay_Office.Models;
 using SQLite;
 
 namespace Barangay_Office.Services
@@ -18,8 +12,38 @@ namespace Barangay_Office.Services
         {
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "barangay_office.db");
             _Connection = new SQLiteAsyncConnection(dbPath);
-            _Connection.CreateTableAsync<AdminUserInfo>().Wait();//ensure table exists
+            Task.Run(async () => await _Connection.CreateTableAsync<AdminUserInfo>()).Wait();//ensure table exists
+            Task.Run(async () => await InitializeDefaultUsers()).Wait();
         }
+
+
+
+        private async Task InitializeDefaultUsers()
+        {
+            var adminExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == "Admin@gmail.com");
+            var userExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == "Customer@gmail.com");
+
+            if (adminExists == null) // Insert Admin if not exists
+            {
+                await _Connection.InsertAsync(new AdminUserInfo
+                {
+                    Username = "Admin@gmail.com",
+                    Password = "Test123",
+                    Role = "Admin"
+                });
+            }
+
+            if (userExists == null) // Insert User if not exists
+            {
+                await _Connection.InsertAsync(new AdminUserInfo
+                {
+                    Username = "Customer@gmail.com",
+                    Password = "Test123",
+                    Role = "Customer"
+                });
+            }
+        }
+
 
         //authenticate user and password
         public async Task<AdminUserInfo> GetAdminUserInfoAsync(string username, string password)
@@ -27,8 +51,6 @@ namespace Barangay_Office.Services
             return await _Connection.Table<AdminUserInfo>()
                 .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
         }
-
-
 
 
         //check if user is authenticated from sqlite
@@ -39,36 +61,32 @@ namespace Barangay_Office.Services
             if (user != null && user.Password == password)
             {
                 Preferences.Default.Set(AuthStateKey, true); //store login state
-                return user.Role; // return role
+                Preferences.Default.Set("UserRole", user.Role); //store role for future reference
+                return user.Role; //return role
             }
-
             return null;
         }
 
-        //Register new user
-        public async Task<bool> RegisteredAsync(string username, string password, string role)
+        //Register new User, ensure that the role is also stored
+        public async Task<bool> RegisterAsync(string username, string password, string role)
         {
-            var ExistingUser = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == username);
+            var existingUser = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == username);
 
-            if (ExistingUser != null) return false;
+            if (existingUser != null) return false; //user already exists
 
-            await _Connection.InsertAsync(new AdminUserInfo
-            {
-                Username = username,
-                Password = password,
-                Role = role
-            });
+            await _Connection.InsertAsync(new AdminUserInfo { Username = username, Password = password, Role = role });
             return true;
         }
-        
-        //check authentication state from preference
+
+
+
+        //Check authentication state from preference
         public async Task<bool> IsAuthenticatedAsync()
         {
-
             await Task.Delay(500);
-            return Preferences.Get(AuthStateKey, false);
+            string storedRole = Preferences.Get("UserRole", string.Empty);
+            return !string.IsNullOrEmpty(storedRole); //ensure role exists
         }
-
 
         //store login state
         public string GetRole()
@@ -76,12 +94,21 @@ namespace Barangay_Office.Services
             return Preferences.Get("UserRole", string.Empty);
         }
 
+        public async Task<(bool IsAuthenticated, string role)> GetAuthenticatedUserRoleAsync()
+        {
+            bool isAuthenticated = Preferences.Get(AuthStateKey, false);
+            string role = Preferences.Get("UserRole", string.Empty);
 
-        //Logout and remove the authentication state
-        public void Logout()
+            return isAuthenticated && !string.IsNullOrEmpty(role) ? (true, role) : (false, null);
+        }
+
+
+        //logout and remove authentication state
+        public void LogOut()
         {
             Preferences.Default.Remove(AuthStateKey);
             Preferences.Default.Remove("UserRole");
         }
+
     }
 }

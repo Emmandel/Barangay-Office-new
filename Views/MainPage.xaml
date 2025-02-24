@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.MainPage"
-             Shell.NavBarIsVisible="false">
-    <VerticalStackLayout>
+             Shell.NavBarIsVisible="false"
+             Shell.FlyoutBehavior="Disabled">
+    <VerticalStackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center">
         <Label 
             Text="Welcom Admin!"
             VerticalOptions="Center" 

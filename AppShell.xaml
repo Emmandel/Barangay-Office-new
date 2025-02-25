@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="Barangay_Office.AppShell"
-    xmlns="http://schemas.microsoft.com/    dotnet/2021/maui"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Barangay_Office"
     xmlns:views="clr-namespace:Barangay_Office.Views"
@@ -30,8 +30,9 @@
         Route="SignupPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
-
-    <FlyoutItem>
+    
+    
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="Customer Panel">
         <!-- Customer Page-->
         <ShellContent
             Title="Customer"
@@ -48,7 +49,7 @@
     </FlyoutItem>
 
     <!-- TabBar with other pages -->
-    <TabBar FlyoutDisplayOptions="AsMultipleItems">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="Admin Panel">
         <!-- Admin Page-->
         <ShellContent
             Title="Admin"
@@ -60,8 +61,17 @@
         <!--Profile Page-->
         <ShellContent
             Title="Profile"
-            ContentTemplate="{DataTemplate views:ProfilePage}"
+            ContentTemplate="{DataTemplate views:AdminProfile}"
             Route="ProfilePage"/>
-    </TabBar>
+    </FlyoutItem>
+
+
+    <!-- forgotten passwoord -->
+    <ShellContent Title="Forgot Password" 
+                  ContentTemplate="{DataTemplate views:ForgotPasswordPage}" 
+                  Route="ForgotPasswordPage" 
+                  Shell.FlyoutItemIsVisible="False"
+                  Shell.NavBarIsVisible="False"/>
+
 
 </Shell>

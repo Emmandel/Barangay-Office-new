@@ -91,7 +91,7 @@
                          Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
 
-                <!-- username -->
+                <!-- Email -->
                 <Border
                     BackgroundColor="Transparent"
                     Stroke="#1f0572"
@@ -118,9 +118,10 @@
                                 Margin="5"/>
                         </Border>
                         <Entry 
-                            x:Name="txtUsername"
-                            Text="{Binding Username}" 
-                            Placeholder="Username"
+                            x:Name="txtEmail"
+                            Text="{Binding Email}" 
+                            Placeholder="Email"
+                            Keyboard="Email"
                             Style="{StaticResource EntryStyle}"
                             Grid.Column="1"
                             Margin="0,0,75,0"/>
@@ -163,7 +164,7 @@
                             IsPassword="True"
                             Style="{StaticResource EntryStyle}"
                             Grid.Column="1"/>
-                        <ImageButton Source="open_eye.png"
+                        <ImageButton Source="close_eye.png"
                                      Clicked="OntogglePasswordVisibility"
                                      WidthRequest="5"
                                      HeightRequest="5"
@@ -195,7 +196,11 @@
                         FontAttributes="Bold"
                         HorizontalOptions="EndAndExpand"
                         VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"/>
+                        HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ResetPassword"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
 
                 <!-- Login Button -->

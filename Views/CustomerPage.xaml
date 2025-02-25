@@ -5,9 +5,9 @@
              Title="CustomerPage"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
+    <VerticalStackLayout VerticalOptions="Center">
         <Label 
-            Text="Customer Page"
+            Text="Welcome Customer!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
     </VerticalStackLayout>

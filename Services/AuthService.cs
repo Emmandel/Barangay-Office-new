@@ -20,24 +20,24 @@ namespace Barangay_Office.Services
 
         private async Task InitializeDefaultUsers()
         {
-            var adminExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == "Admin@gmail.com");
-            var userExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == "Customer@gmail.com");
+            var adminExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == "Admin@gmail.com");
+            var CustomerExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == "Customer@gmail.com");
 
             if (adminExists == null) // Insert Admin if not exists
             {
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
-                    Username = "Admin@gmail.com",
+                    Email = "Admin@gmail.com",
                     Password = "Test123",
                     Role = "Admin"
                 });
             }
 
-            if (userExists == null) // Insert User if not exists
+            if (CustomerExists == null) // Insert User if not exists
             {
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
-                    Username = "Customer@gmail.com",
+                    Email = "Customer@gmail.com",
                     Password = "Test123",
                     Role = "Customer"
                 });
@@ -49,7 +49,7 @@ namespace Barangay_Office.Services
         public async Task<AdminUserInfo> GetAdminUserInfoAsync(string username, string password)
         {
             return await _Connection.Table<AdminUserInfo>()
-                .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+                .FirstOrDefaultAsync(u => u.Email == username && u.Password == password);
         }
 
 
@@ -68,13 +68,14 @@ namespace Barangay_Office.Services
         }
 
         //Register new User, ensure that the role is also stored
-        public async Task<bool> RegisterAsync(string username, string password, string role)
+        public async Task<bool> RegisterAsync(string email, string password, string role)
         {
-            var existingUser = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == username);
+            if (!email.Contains("@") || !email.Contains(".")) return false; //simple email validation
 
+            var existingUser = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
             if (existingUser != null) return false; //user already exists
 
-            await _Connection.InsertAsync(new AdminUserInfo { Username = username, Password = password, Role = role });
+            await _Connection.InsertAsync(new AdminUserInfo { Email = email, Password = password, Role = role });
             return true;
         }
 
@@ -101,6 +102,28 @@ namespace Barangay_Office.Services
 
             return isAuthenticated && !string.IsNullOrEmpty(role) ? (true, role) : (false, null);
         }
+
+        //method for resetting the password
+        public async Task<bool> ResetPasswordAsync(string email, string newPassword)
+        {
+            var user = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
+            if (user != null)
+            {
+                user.Password = newPassword; // Ideally, hash this password
+                await _Connection.UpdateAsync(user);
+                return true;
+            }
+            return false;
+        }
+
+
+        //check if the email exist
+        public async Task<bool> IsEmailRegisteredAsync(string email)
+        {
+            var user = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
+            return user != null;
+        }
+
 
 
         //logout and remove authentication state

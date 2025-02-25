@@ -34,7 +34,9 @@ namespace Barangay_Office
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<ProfilePage>();
             builder.Services.AddTransient<SignupPage>();
-            //builder.Services.AddTransient<CustomerPage>();
+            builder.Services.AddTransient<CustomerPage>();
+            builder.Services.AddTransient<ForgotPasswordPage>();
+            builder.Services.AddTransient<AdminProfile>();
 
             return builder.Build();
         }

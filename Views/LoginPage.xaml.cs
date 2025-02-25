@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Barangay_Office.Models;
 using Barangay_Office.Services;
 
@@ -14,21 +15,15 @@ public partial class LoginPage : ContentPage
         _authService = authService;
     }
 
-    private void OntogglePasswordVisibility(object sender, EventArgs e)
-    {
-        PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
-        ((ImageButton)sender).Source = PasswordEntry.IsPassword ? "close_eye.png" : "open_eye.png";
-    }
-
+    //login button
     private async void Login_Clicked(object sender, EventArgs e)
     {
-
-        string username = txtUsername.Text;
+        string email = txtEmail.Text;
         string password = PasswordEntry.Text;
 
-        if (string.IsNullOrWhiteSpace(username))
+        if (string.IsNullOrWhiteSpace(email))
         {
-            await DisplayAlert("Log in Error!", "Username Required", "OK");
+            await DisplayAlert("Log in Error!", "Email Required", "OK");
             await Task.Delay(1000);
             return;
         }
@@ -41,7 +36,7 @@ public partial class LoginPage : ContentPage
         }
 
 
-        var role = await _authService.LoginAsync(username, password);
+        var role = await _authService.LoginAsync(email, password);
         if (!string.IsNullOrEmpty(role))
         {
 
@@ -59,9 +54,22 @@ public partial class LoginPage : ContentPage
 
     }
 
+    //link to signup page
     private async void LinkToSignUp(object sender, TappedEventArgs e)
     {
         await Shell.Current.GoToAsync($"//{nameof(SignupPage)}");
+    }
+
+
+    //reset password
+    private async void ResetPassword(object sender, TappedEventArgs e) => await Navigation.PushAsync(new ForgotPasswordPage()); //redirected to reset password page
+
+
+    //toggle password visibility
+    private void OntogglePasswordVisibility(object sender, EventArgs e)
+    {
+        PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
+        ((ImageButton)sender).Source = PasswordEntry.IsPassword ? "close_eye.png" : "open_eye.png";
     }
 
 }

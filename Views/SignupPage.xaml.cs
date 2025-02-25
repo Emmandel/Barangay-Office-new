@@ -1,6 +1,8 @@
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Barangay_Office.Models;
 using Barangay_Office.Services;
+using Google.Apis.Admin.Directory.directory_v1.Data;
 using SQLite;
 
 namespace Barangay_Office.Views;
@@ -18,19 +20,37 @@ public partial class SignupPage : ContentPage
         _authService = authService;
         _connection = db;
 
+        txtEmail.Keyboard = Keyboard.Email;
+
     }
+
+    //simple validation for email
+    private bool IsValidEmail(string email)
+    {
+        return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase);
+    }
+
     private async void Signup_Clicked(object sender, EventArgs e)
     {
-        string username = txtUsername.Text;
+        string email = txtEmail.Text;
         string password = PasswordEntry.Text;
         string confirmPassword = ConfirmPasswordEntry.Text;
-        string role = RolePicker.SelectedItem?.ToString();
+        string role = "Customer";
+        //string role = RolePicker.SelectedItem?.ToString();
 
-        if (string.IsNullOrWhiteSpace(username))
+        if (string.IsNullOrWhiteSpace(email))
         {
-            await DisplayAlert("Error", "Username required", "OK");
+            await DisplayAlert("Error", "Email required", "OK");
             return;
         }
+
+        //validate email before proceeding
+        if (!IsValidEmail(email))
+        {
+            await DisplayAlert("Error", "Invalid Email format", "OK");
+            return;
+        }
+
         else if (string.IsNullOrWhiteSpace(password))
         {
             await DisplayAlert("Error", "Password required", "OK");
@@ -47,25 +67,16 @@ public partial class SignupPage : ContentPage
         {
             await DisplayAlert("Error", "Password don't match", "OK");
             return;
-        }
+        }        
 
-        if (string.IsNullOrEmpty(role))
-        {
-            await DisplayAlert("Error", "Enter your role first!", "OK");
-            return;
-
-        }
-        
-
-        var existingUser = await _connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Username == username);
+        var existingUser = await _connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
         if (existingUser != null)
         {
             await DisplayAlert("Error", "User Already Exist!", "OK");
             return;
         }
 
-
-        var newUser = new AdminUserInfo { Username = username, Password = password, Role = role }; //store all inputs at the database
+        var newUser = new AdminUserInfo { Email = email, Password = password, Role = role }; //store all inputs at the database
         await _connection.InsertAsync(newUser); //insert into kapag sa mysql
 
         await Task.Delay(1000);

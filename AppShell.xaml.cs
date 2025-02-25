@@ -25,17 +25,17 @@ namespace Barangay_Office
 
                 if (!isAuthenticated)
                 {
-                    await Shell.Current.GoToAsync("//LoginPage"); // 🔥 Redirect to login if not authenticated
+                    await Shell.Current.GoToAsync("//LoginPage"); //Redirect to login if not authenticated
                 }
                 else
                 {
                     // 🔥 Redirect based on role
                     if (role == "Admin")
-                        await Shell.Current.GoToAsync("//MainPage"); // ✅ Admin goes to MainPage
+                        await Shell.Current.GoToAsync("//MainPage"); //Admin goes to MainPage
                     else if (role == "Customer")
-                        await Shell.Current.GoToAsync("//CustomerPage"); // ✅ Customer goes to CustomerPage
+                        await Shell.Current.GoToAsync("//CustomerPage"); //Customer goes to CustomerPage
                     else
-                        await Shell.Current.GoToAsync("//LoginPage"); // 🔥 Default to login if role is invalid
+                        await Shell.Current.GoToAsync("//LoginPage"); //Default to login if role is invalid
                 }
 
             }
@@ -50,7 +50,7 @@ namespace Barangay_Office
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));//for adminpage
             Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
             Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
-
+            Routing.RegisterRoute(nameof(AdminProfile), typeof(AdminProfile));//for adminProfile
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));
             Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));//for customer page

@@ -12,9 +12,8 @@
         Margin="0,0,0,50"
         >
         <Label 
-            Text="Profile Page"
-            Grid.Row="0"
-            VerticalOptions="Start" 
+            Text="Customer Profile Page"
+            VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
         <Button 

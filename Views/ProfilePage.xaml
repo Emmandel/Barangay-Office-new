@@ -7,10 +7,9 @@
              Shell.FlyoutBehavior="Disabled">
     <Grid
         Padding="25"
-        Spacing="25"
+        ColumnSpacing="25"
         VerticalOptions="Center"
-        Margin="0,0,0,50"
-        >
+        Margin="0,0,0,50">
         <Label 
             Text="Customer Profile Page"
             VerticalOptions="Center" 

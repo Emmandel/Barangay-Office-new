@@ -29,7 +29,7 @@ namespace Barangay_Office
                 }
                 else
                 {
-                    // 🔥 Redirect based on role
+                    //Redirect based on role
                     if (role == "Admin")
                         await Shell.Current.GoToAsync("//MainPage"); //Admin goes to MainPage
                     else if (role == "Customer")
@@ -52,7 +52,8 @@ namespace Barangay_Office
             Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
             Routing.RegisterRoute(nameof(AdminProfile), typeof(AdminProfile));//for adminProfile
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-            Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));
+            Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));//Default Signuo Page
+            //Routing.RegisterRoute(nameof(AdminSignupPage), typeof(AdminSignupPage));//Admin Signuo Page
             Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));//for customer page
         }
     }

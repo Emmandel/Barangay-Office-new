@@ -10,6 +10,9 @@
             Text="Admin Profile Page"
             VerticalOptions="Center" 
             HorizontalOptions="Center"/>
+        <Button
+            Text="Admin Signup"
+            Clicked="AdminSignup_Clicked"/>
 
         <Button 
             Text="logout"

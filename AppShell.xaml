@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Barangay_Office"
     xmlns:views="clr-namespace:Barangay_Office.Views"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Disabled">
 
     <!--Loading Page-->
     <ShellContent
@@ -31,47 +31,61 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
     
-    
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="Customer Panel">
-        <!-- Customer Page-->
-        <ShellContent
-            Title="Customer"
-            ContentTemplate="{DataTemplate views:CustomerPage}"
-            Route="CustomerPage"/>
+    <!-- Admin Signup Page-->
+    <ShellContent
+        Title="Admin Signup"
+        ContentTemplate="{DataTemplate views:AdminSignupPage}"
+        Route="AdminSignupPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
 
-        <!--Profile Page-->
-        <ShellContent
-            Title="Profile"
-            ContentTemplate="{DataTemplate views:ProfilePage}"
-            Route="ProfilePage"
-            Shell.NavBarIsVisible="False"
-            Shell.FlyoutBehavior="Disabled"/>
-    </FlyoutItem>
+    <!-- Customer TabBar -->
+    <TabBar>
+        <Tab Title="Customer Panel">
+            <!-- Customer Page-->
+            <ShellContent
+                Title="Customer"
+                ContentTemplate="{DataTemplate views:CustomerPage}"
+                Route="CustomerPage"/>
 
-    <!-- TabBar with other pages -->
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="Admin Panel">
-        <!-- Admin Page-->
-        <ShellContent
-            Title="Admin"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage"/>
+            <!--Profile Page-->
+            <ShellContent
+                Title="Profile"
+                ContentTemplate="{DataTemplate views:ProfilePage}"
+                Route="ProfilePage"
+                Shell.NavBarIsVisible="False"
+                Shell.FlyoutBehavior="Disabled"/>
+        </Tab>
+    </TabBar>
+
+    <!-- Admin TabBar -->
+    <TabBar>
+        <Tab Title="Admin Panel" Icon="profile.png">
+            <!-- Admin Page-->
+            <ShellContent
+                Title="Admin"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Shell.NavBarIsVisible="False"
+                Route="MainPage"/>
 
 
 
-        <!--Profile Page-->
-        <ShellContent
-            Title="Profile"
-            ContentTemplate="{DataTemplate views:AdminProfile}"
-            Route="ProfilePage"/>
-    </FlyoutItem>
+            <!-- Admin Profile Page-->
+            <ShellContent
+                Title="Profile"
+                ContentTemplate="{DataTemplate views:AdminProfile}"
+                Route="AdminProfile"
+                Shell.FlyoutBehavior="Disabled"
+                Shell.NavBarIsVisible="False"/>
+        </Tab>
+    </TabBar>
 
 
     <!-- forgotten passwoord -->
-    <ShellContent Title="Forgot Password" 
-                  ContentTemplate="{DataTemplate views:ForgotPasswordPage}" 
-                  Route="ForgotPasswordPage" 
-                  Shell.FlyoutItemIsVisible="False"
-                  Shell.NavBarIsVisible="False"/>
-
-
+    <ShellContent 
+        Title="Forgot Password" 
+        ContentTemplate="{DataTemplate views:ForgotPasswordPage}" 
+        Route="ForgotPasswordPage" 
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False"/>
 </Shell>

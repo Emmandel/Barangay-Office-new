@@ -10,7 +10,7 @@ namespace Barangay_Office.Views;
 public partial class SignupPage : ContentPage
 {
     private readonly AuthService _authService;
-    private readonly SQLiteAsyncConnection _connection;
+    private readonly SQLiteAsyncConnection _Connection;
 
 
 
@@ -18,7 +18,7 @@ public partial class SignupPage : ContentPage
     {
         InitializeComponent();
         _authService = authService;
-        _connection = db;
+        _Connection = db;
 
         txtEmail.Keyboard = Keyboard.Email;
 
@@ -69,7 +69,7 @@ public partial class SignupPage : ContentPage
             return;
         }        
 
-        var existingUser = await _connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
+        var existingUser = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
         if (existingUser != null)
         {
             await DisplayAlert("Error", "User Already Exist!", "OK");
@@ -77,7 +77,7 @@ public partial class SignupPage : ContentPage
         }
 
         var newUser = new AdminUserInfo { Email = email, Password = password, Role = role }; //store all inputs at the database
-        await _connection.InsertAsync(newUser); //insert into kapag sa mysql
+        await _Connection.InsertAsync(newUser); //insert into kapag sa mysql
 
         await Task.Delay(1000);
         await DisplayAlert("Success", "Registered Successfully", "OK");

@@ -2,17 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.Views.ProfilePage"
-             Title="ProfilePage">
-    <VerticalStackLayout
+             Title="ProfilePage"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled">
+    <Grid
         Padding="25"
-        Spacing="25">
+        ColumnSpacing="25"
+        VerticalOptions="Center"
+        Margin="0,0,0,50">
         <Label 
             Text="Customer Profile Page"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
         <Button 
+            Grid.Row="1"
             Text="logout"
             Clicked="OutButton_Clicked"/>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

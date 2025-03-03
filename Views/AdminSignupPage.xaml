@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Barangay_Office.Views.AdminSignupPage"
+             Title="AdminSignupPage"
+             Shell.FlyoutBehavior="Disabled">
+    <ContentPage.Resources>
+        <Style x:Key="EntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="Margin" Value="0,0,20,0"/>
+        </Style>
+    </ContentPage.Resources>
+
+
+    <Grid BackgroundColor = "#d0d0d0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- for banner layout -->
+        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z">
+            <Path.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0.1" />
+                    <GradientStop Color="Blue" Offset="1.0" />
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
+
+        <!-- for Logo -->
+        <StackLayout Margin="-85">
+            <Border BackgroundColor="Black" 
+                HeightRequest="60" 
+                WidthRequest="60" 
+                StrokeShape="RoundRectangle 30" 
+                Padding="0" 
+                Margin="0,100,0,0" 
+                HorizontalOptions="Center">
+                <Image Source="barangay_pembo.png" 
+                   Aspect="AspectFill" 
+                   Margin="0"/>
+            </Border>
+        </StackLayout>
+
+
+        <Grid RowSpacing="5"
+          Grid.Row="1"
+          Margin="20,20,20,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+
+            <!-- Introduction -->
+            <Label 
+            Grid.Row="1" 
+            Text="Welcome!" 
+            HorizontalOptions="Center" 
+            FontSize="Title" 
+            FontAttributes="Bold" 
+            Padding="0" 
+            Margin="0"
+            TextColor="Black"/>
+
+            <Label 
+            Grid.Row="2" 
+            Text="Signup to continue!" 
+            HorizontalOptions="Center" 
+            FontSize="Subtitle"
+            TextColor="Black"/>
+
+            <StackLayout Grid.Row="3"
+                     Orientation="Vertical"
+                     HorizontalOptions="CenterAndExpand">
+
+                <!-- Email -->
+                <Border BackgroundColor="Transparent"
+                    Stroke="#1f0572"
+                    Padding="0"
+                    Margin="0,0,0,10"
+                    StrokeShape="RoundRectangle 30">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="220"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BackgroundColor="Transparent"
+                            WidthRequest="50"
+                            Stroke="Transparent">
+                            <Image Source="user.png" 
+                               Aspect="AspectFill"
+                               Grid.Column="0"
+                               Margin="8"/>
+                        </Border>
+
+                        <Entry x:Name="txtAdminEmail"
+                           Text="{Binding Email}" 
+                           TextColor="Black"
+                           Placeholder="Email"
+                           Keyboard="Email"
+                           Style="{StaticResource EntryStyle}"
+                           Grid.Column="1"
+                           Margin="0,0,45,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- password -->
+                <Border BackgroundColor="Transparent"
+                    Stroke="#1f0572"
+                    Padding="0"
+                    StrokeShape="RoundRectangle 30">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="165"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BackgroundColor="Transparent"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            StrokeShape="RoundRectangle 30" 
+                            Padding="0"
+                            Stroke="Transparent"
+                            Margin="5"
+                            Grid.Column="0">
+
+                            <Image Source="lock.png" 
+                               Aspect="AspectFill"
+                               Margin="5"/>
+                        </Border>
+
+                        <Entry x:Name="AdminPasswordEntry"
+                           Placeholder="Password"
+                           IsPassword="True"
+                           TextColor="Black"
+                           Style="{StaticResource EntryStyle}"
+                           Grid.Column="1"/>
+                        <ImageButton Source="close_eye.png"
+                                 Clicked="OntogglePasswordVisibility"
+                                 WidthRequest="5"
+                                 HeightRequest="5"
+                                 VerticalOptions="Center"
+                                 Margin="0,0,10,0"
+                                 Grid.Column="2"/>
+                    </Grid>
+                </Border>
+
+
+                <!-- Confirm Password -->
+                <Border BackgroundColor="Transparent"
+                    Stroke="#1f0572"
+                    Margin="0,10,0,0"
+                    Padding="0"
+                    StrokeShape="RoundRectangle 30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="165"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border 
+                        BackgroundColor="Transparent"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        StrokeShape="RoundRectangle 30" 
+                        Padding="0"
+                        Stroke="Transparent"
+                        Margin="5"
+                        Grid.Column="0">
+
+                            <Image 
+                            Source="lock.png" 
+                            Aspect="AspectFill"
+                            Margin="5"/>
+                        </Border>
+
+                        <Entry x:Name="ConfirmAdminPasswordEntry"
+                           Placeholder="Confirm Password"
+                           IsPassword="True"
+                           TextColor="Black"
+                           Style="{StaticResource EntryStyle}"
+                           Grid.Column="1"/>
+
+                        <ImageButton Source="close_eye.png"
+                                 Clicked="OntoggleConfirmPasswordVisibility"
+                                 WidthRequest="5"
+                                 HeightRequest="5"
+                                 Padding="0"
+                                 VerticalOptions="Center"
+                                 Margin="0,0,10,0"
+                                 Grid.Column="2"/>
+
+                    </Grid>
+                </Border>
+
+                <!-- Checkbox -->
+                <StackLayout 
+                Orientation="Horizontal" 
+                Margin="0,10,0,0" 
+                Padding="0"
+                HorizontalOptions="Center">
+
+                    <CheckBox
+                    IsChecked="False"
+                    Color="Black"/>
+                    <Label
+                    Text="Remember me"
+                    TextColor="Black"
+                    FontSize="Small"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Margin="0"/>
+                </StackLayout>
+
+                <!-- Signup Button -->
+                <Button 
+                Text="Sign up" 
+                TextColor="#ffffff"
+                WidthRequest="200"
+                Margin="0,15,0,0"
+                Clicked="AdminSignup_Clicked"
+                BackgroundColor="#e63c3f"
+                CornerRadius="30"
+                BorderColor="#1f0572"
+                BorderWidth="1"/>
+
+
+                <!-- Login Link -->
+                <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="CenterAndExpand" 
+                         Margin="0,60,0,0">
+                    <Label 
+                    Text="Already registered?"
+                    FontSize="Small"
+                    TextColor="Black"
+                    Margin="0,0,5,0"/>
+
+                    <Label
+                    Text="Login here."
+                    FontAttributes="Bold"
+                    FontSize="Small"
+                    TextColor="Blue">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="LinkToLogin"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+            </StackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>

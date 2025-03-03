@@ -9,7 +9,6 @@ public partial class AdminProfile : ContentPage
     {
         InitializeComponent();
         _authService = new AuthService();
-        //sample
     }
 
     private void LogOutButton_Clicked(object sender, EventArgs e)

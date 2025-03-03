@@ -4,11 +4,12 @@ namespace Barangay_Office.Views;
 
 public partial class AdminProfile : ContentPage
 {
-	private readonly AuthService _authService;
+    private readonly AuthService _authService;
     public AdminProfile()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _authService = new AuthService();
+        //sample
     }
 
     private void LogOutButton_Clicked(object sender, EventArgs e)

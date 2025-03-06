@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.AdminSignupPage"
              Title="AdminSignupPage"
              Shell.FlyoutBehavior="Disabled">
+
+    <ContentPage.BindingContext>
+        <vm:AdminSignupViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Resources>
         <Style x:Key="EntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Black"/>
@@ -87,6 +93,8 @@
                      Orientation="Vertical"
                      HorizontalOptions="CenterAndExpand">
 
+                <Label Text="{Binding Message}" TextColor="{Binding TextColor}" HorizontalOptions="Center"/>
+
                 <!-- Email -->
                 <Border BackgroundColor="Transparent"
                     Stroke="#1f0572"
@@ -149,6 +157,7 @@
                         <Entry x:Name="AdminPasswordEntry"
                            Placeholder="Password"
                            IsPassword="True"
+                           Text="{Binding Password}"
                            TextColor="Black"
                            Style="{StaticResource EntryStyle}"
                            Grid.Column="1"/>
@@ -193,11 +202,12 @@
                         </Border>
 
                         <Entry x:Name="ConfirmAdminPasswordEntry"
-                           Placeholder="Confirm Password"
-                           IsPassword="True"
-                           TextColor="Black"
-                           Style="{StaticResource EntryStyle}"
-                           Grid.Column="1"/>
+                               Placeholder="Confirm Password"
+                               Text="{Binding ConfirmPassword}"
+                               IsPassword="True"
+                               TextColor="Black"
+                               Style="{StaticResource EntryStyle}"
+                               Grid.Column="1"/>
 
                         <ImageButton Source="close_eye.png"
                                  Clicked="OntoggleConfirmPasswordVisibility"
@@ -232,37 +242,15 @@
 
                 <!-- Signup Button -->
                 <Button 
-                Text="Sign up" 
-                TextColor="#ffffff"
-                WidthRequest="200"
-                Margin="0,15,0,0"
-                Clicked="AdminSignup_Clicked"
-                BackgroundColor="#e63c3f"
-                CornerRadius="30"
-                BorderColor="#1f0572"
-                BorderWidth="1"/>
-
-
-                <!-- Login Link -->
-                <StackLayout Orientation="Horizontal" 
-                         HorizontalOptions="CenterAndExpand" 
-                         Margin="0,60,0,0">
-                    <Label 
-                    Text="Already registered?"
-                    FontSize="Small"
-                    TextColor="Black"
-                    Margin="0,0,5,0"/>
-
-                    <Label
-                    Text="Login here."
-                    FontAttributes="Bold"
-                    FontSize="Small"
-                    TextColor="Blue">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="LinkToLogin"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                </StackLayout>
+                    Text="Sign up" 
+                    TextColor="#ffffff"
+                    WidthRequest="200"
+                    Margin="0,15,0,0"
+                    Command="{Binding AdminRegisterCommand}"
+                    BackgroundColor="#e63c3f"
+                    CornerRadius="30"
+                    BorderColor="#1f0572"
+                    BorderWidth="1"/>
 
             </StackLayout>
         </Grid>

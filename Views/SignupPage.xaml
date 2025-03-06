@@ -2,11 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="Barangay_Office.Views.SignupPage"
+            xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
             Title="SignupPage"
             Shell.FlyoutBehavior="Disabled"
             Shell.NavBarIsVisible="False">
 
-
+    <ContentPage.BindingContext>
+        <vm:SignupPageViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Resources>
         <Style x:Key="EntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Black"/>
@@ -90,6 +94,8 @@
                          Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
 
+                <Label Text="{Binding Message}" TextColor="{Binding TextColor}" HorizontalOptions="Center"/>
+
                 <!-- Email -->
                 <Border BackgroundColor="Transparent"
                         Stroke="#1f0572"
@@ -152,6 +158,7 @@
                         <Entry x:Name="PasswordEntry"
                                Placeholder="Password"
                                IsPassword="True"
+                               Text="{Binding Password}"
                                TextColor="Black"
                                Style="{StaticResource EntryStyle}"
                                Grid.Column="1"/>
@@ -159,6 +166,7 @@
                                      Clicked="OntogglePasswordVisibility"
                                      WidthRequest="5"
                                      HeightRequest="5"
+                                     Aspect="AspectFit"
                                      VerticalOptions="Center"
                                      Margin="0,0,10,0"
                                      Grid.Column="2"/>
@@ -197,15 +205,21 @@
 
                         <Entry x:Name="ConfirmPasswordEntry"
                                Placeholder="Confirm Password"
+                               Text="{Binding ConfirmPassword}"
                                IsPassword="True"
                                TextColor="Black"
                                Style="{StaticResource EntryStyle}"
-                               Grid.Column="1"/>
+                               Grid.Column="1">
+                            <Entry.Triggers>
+                                <Trigger TargetType="Entry" Property="IsFocused" Value="True"></Trigger>
+                            </Entry.Triggers>
+                        </Entry>
 
-                        <ImageButton Source="close_eye.png"
+                            <ImageButton Source="close_eye.png"
                                      Clicked="OntoggleConfirmPasswordVisibility"
                                      WidthRequest="5"
                                      HeightRequest="5"
+                                     Aspect="AspectFit"
                                      Padding="0"
                                      VerticalOptions="Center"
                                      Margin="0,0,10,0"
@@ -239,7 +253,7 @@
                     TextColor="#ffffff"
                     WidthRequest="200"
                     Margin="0,15,0,0"
-                    Clicked="Signup_Clicked"
+                    Command="{Binding RegisterCommand}"
                     BackgroundColor="#e63c3f"
                     CornerRadius="30"
                     BorderColor="#1f0572"
@@ -261,6 +275,7 @@
                         FontAttributes="Bold"
                         FontSize="Small"
                         TextColor="Blue">
+
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="LinkToLogin"/>
                         </Label.GestureRecognizers>

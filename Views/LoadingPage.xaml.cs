@@ -16,19 +16,22 @@ public partial class LoadingPage : ContentPage
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
+        await NavigateAsync();
+        
 
+    }
+
+    private async Task NavigateAsync()
+    {
         try
         {
+
             if (await _authService.IsAuthenticatedAsync())
             {
                 string userRole = _authService.GetRole();
-                //redirect based on the user's role
-                if (userRole == "Admin")
-                {
-                    //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                if(userRole == "Admin"){
                     await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-                }
-                else if (userRole == "Customer")
+                }else if(userRole == "Customer")
                 {
                     await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
                 }
@@ -48,6 +51,5 @@ public partial class LoadingPage : ContentPage
             await DisplayAlert("Error", $"An error occurred:{ex.Message}", "OK");
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
-
     }
 }

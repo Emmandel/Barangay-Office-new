@@ -2,9 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.Views.LoginPage"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              Title="LoginPage"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel/>
+    </ContentPage.BindingContext>
 
     <ContentPage.Resources>
         <Style x:Key="EntryStyle" TargetType="Entry">
@@ -91,6 +96,8 @@
                          Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
 
+                <Label Text="{Binding Message}" TextColor="{Binding TextColor}" HorizontalOptions="Center" FontSize="Micro"/>
+
                 <!-- Email -->
                 <Border
                     BackgroundColor="Transparent"
@@ -167,6 +174,7 @@
                         <ImageButton Source="close_eye.png"
                                      Clicked="OntogglePasswordVisibility"
                                      WidthRequest="5"
+                                     Aspect="AspectFit"
                                      HeightRequest="5"
                                      VerticalOptions="Center"
                                      Margin="0,0,10,0"
@@ -198,9 +206,10 @@
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Center">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ResetPassword"/>
+                            <TapGestureRecognizer Tapped="LinkToForgotPassword"/>
                         </Label.GestureRecognizers>
                     </Label>
+
                 </StackLayout>
 
                 <!-- Login Button -->
@@ -209,7 +218,7 @@
                     TextColor="#ffffff"
                     WidthRequest="200"
                     Margin="0,15,0,0"
-                    Clicked="Login_Clicked"
+                    Command="{Binding LoginCommand}"
                     BackgroundColor="#e63c3f"
                     CornerRadius="30"
                     BorderColor="#1f0572"
@@ -230,9 +239,10 @@
                         FontSize="Small"
                         TextColor="Blue">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="LinkToSignUp"/>
+                            <TapGestureRecognizer Tapped="LinkToSignup"/>
                         </Label.GestureRecognizers>
                     </Label>
+
                 </StackLayout>
 
             </StackLayout>

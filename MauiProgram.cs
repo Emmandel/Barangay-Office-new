@@ -1,4 +1,5 @@
 ﻿using Barangay_Office.Services;
+using Barangay_Office.ViewModels;
 using Barangay_Office.Views;
 using Microsoft.Extensions.Logging;
 using SQLite;
@@ -29,6 +30,8 @@ namespace Barangay_Office
             });
 
             builder.Services.AddSingleton<AuthService>();
+
+            builder.Services.AddTransient<LoginViewModel>();
 
             builder.Services.AddTransient<LoadingPage>();
             builder.Services.AddTransient<LoginPage>();

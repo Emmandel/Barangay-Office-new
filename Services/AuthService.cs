@@ -28,6 +28,7 @@ namespace Barangay_Office.Services
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
                     Email = "Admin@gmail.com",
+                    //Password = BCrypt.Net.BCrypt.HashPassword("Test123"),
                     Password = "Test123",
                     Role = "Admin"
                 });
@@ -38,6 +39,7 @@ namespace Barangay_Office.Services
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
                     Email = "Customer@gmail.com",
+                    //Password = BCrypt.Net.BCrypt.HashPassword("Test123"),
                     Password = "Test123",
                     Role = "Customer"
                 });
@@ -46,22 +48,23 @@ namespace Barangay_Office.Services
 
 
         //authenticate user and password
-        public async Task<AdminUserInfo> GetAdminUserInfoAsync(string username, string password)
+        public async Task<AdminUserInfo> GetAdminUserInfoAsync(string email, string password)
         {
             return await _Connection.Table<AdminUserInfo>()
-                .FirstOrDefaultAsync(u => u.Email == username && u.Password == password);
+                .FirstOrDefaultAsync(e => e.Email == email && e.Password == password);
         }
 
 
         //check if user is authenticated from sqlite
-        public async Task<string> LoginAsync(string username, string password)
+        public async Task<string> LoginAsync(string email, string password)
         {
-            var user = await GetAdminUserInfoAsync(username, password);
-
+            var user = await GetAdminUserInfoAsync(email, password);
+            //BCrypt.Net.BCrypt.Verify(password,user.Password
             if (user != null && user.Password == password)
             {
-                Preferences.Default.Set(AuthStateKey, true); //store login state
-                Preferences.Default.Set("UserRole", user.Role); //store role for future reference
+                //"UserID"
+                Preferences.Set(AuthStateKey, true); //store login state
+                Preferences.Set("UserRole", user.Role); //store role for future reference
                 return user.Role; //return role
             }
             return null;
@@ -74,7 +77,10 @@ namespace Barangay_Office.Services
 
             var existingUser = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
             if (existingUser != null) return false; //user already exists
+            //BCrypt.Net.BCrypt.HashPassword(password)
+            string hashedPassword = password; //hash password   
 
+            //Password = hashedPassword
             await _Connection.InsertAsync(new AdminUserInfo { Email = email, Password = password, Role = role });
             return true;
         }
@@ -109,6 +115,7 @@ namespace Barangay_Office.Services
             var user = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
             if (user != null)
             {
+                //BCrypt.Net.BCrypt.HashPassword(newPassword)
                 user.Password = newPassword; // Ideally, hash this password
                 await _Connection.UpdateAsync(user);
                 return true;
@@ -129,6 +136,7 @@ namespace Barangay_Office.Services
         //logout and remove authentication state
         public void LogOut()
         {
+            //"UserID"
             Preferences.Default.Remove(AuthStateKey);
             Preferences.Default.Remove("UserRole");
         }

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            x:Class="Barangay_Office.Views.SignupPage"
-            xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
-            Title="SignupPage"
-            Shell.FlyoutBehavior="Disabled"
-            Shell.NavBarIsVisible="False">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Barangay_Office.Views.SignupPage"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             Title="SignupPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
 
     <ContentPage.BindingContext>
         <vm:SignupPageViewModel/>
     </ContentPage.BindingContext>
     
     <ContentPage.Resources>
+        <!--email-->
         <Style x:Key="EntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="FontAttributes" Value="Bold"/>
@@ -19,6 +20,28 @@
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
+        </Style>
+
+        <!--password-->
+        <Style x:Key="PasswordEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="MaxLength" Value="15"/>
+        </Style>
+
+        <!--confirm password-->
+        <Style x:Key="ConfirmPasswordEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="Margin" Value="0,0,20,0"/>
+            <Setter Property="MaxLength" Value="15"/>
         </Style>
     </ContentPage.Resources>
 
@@ -94,7 +117,7 @@
                          Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
 
-                <Label Text="{Binding Message}" TextColor="{Binding TextColor}" HorizontalOptions="Center"/>
+                <Label Text="{Binding Message}" TextColor="{Binding BorderColor}" HorizontalOptions="Center" FontSize="Micro" LineBreakMode="WordWrap" WidthRequest="250" Margin="0,0,0,-20" Padding="0" HeightRequest="50" HorizontalTextAlignment="Center"/>
 
                 <!-- Email -->
                 <Border BackgroundColor="Transparent"
@@ -131,7 +154,7 @@
 
                 <!-- password -->
                 <Border BackgroundColor="Transparent"
-                        Stroke="#1f0572"
+                        Stroke="{Binding PasswordColor}"
                         Padding="0"
                         StrokeShape="RoundRectangle 30">
 
@@ -160,8 +183,9 @@
                                IsPassword="True"
                                Text="{Binding Password}"
                                TextColor="Black"
-                               Style="{StaticResource EntryStyle}"
+                               Style="{StaticResource PasswordEntryStyle}"
                                Grid.Column="1"/>
+                        
                         <ImageButton Source="close_eye.png"
                                      Clicked="OntogglePasswordVisibility"
                                      WidthRequest="5"
@@ -176,7 +200,7 @@
 
                 <!-- Confirm Password -->
                 <Border BackgroundColor="Transparent"
-                        Stroke="#1f0572"
+                        Stroke="{Binding ConfirmPasswordColor}"
                         Margin="0,10,0,0"
                         Padding="0"
                         StrokeShape="RoundRectangle 30">
@@ -208,14 +232,10 @@
                                Text="{Binding ConfirmPassword}"
                                IsPassword="True"
                                TextColor="Black"
-                               Style="{StaticResource EntryStyle}"
-                               Grid.Column="1">
-                            <Entry.Triggers>
-                                <Trigger TargetType="Entry" Property="IsFocused" Value="True"></Trigger>
-                            </Entry.Triggers>
-                        </Entry>
+                               Style="{StaticResource ConfirmPasswordEntryStyle}"
+                               Grid.Column="1"/>
 
-                            <ImageButton Source="close_eye.png"
+                        <ImageButton Source="close_eye.png"
                                      Clicked="OntoggleConfirmPasswordVisibility"
                                      WidthRequest="5"
                                      HeightRequest="5"

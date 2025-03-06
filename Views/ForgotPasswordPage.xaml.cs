@@ -5,7 +5,6 @@ namespace Barangay_Office.Views;
 
 public partial class ForgotPasswordPage : ContentPage
 {
-	private readonly AuthService _authService;
 	public ForgotPasswordPage(AuthService authService)
 	{
 		InitializeComponent();

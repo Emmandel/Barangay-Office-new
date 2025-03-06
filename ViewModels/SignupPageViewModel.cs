@@ -14,9 +14,9 @@ namespace Barangay_Office.ViewModels
         private string _password;
         private string _confirmPasword;
         private string _message;
-        private Color _textColor;
-        private Color _passwordColor = Colors.Black;
-        private Color _confirmPasswordColor = Colors.Black;
+        private Color _BorderColor;
+        private Color _passwordColor = (Color)Application.Current.Resources["BlueishPurple"];
+        private Color _confirmPasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
 
 
         public string Email
@@ -35,7 +35,6 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _password = value;
-                ValidatePasswordMatch();
                 OnPropertyChanged();
             }
         }
@@ -61,12 +60,12 @@ namespace Barangay_Office.ViewModels
             }
         }
 
-        public Color TextColor
+        public Color BorderColor
         {
-            get => _textColor;
+            get => _BorderColor;
             set
             {
-                _textColor = value;
+                _BorderColor = value;
                 OnPropertyChanged();
             }
         }
@@ -105,11 +104,17 @@ namespace Barangay_Office.ViewModels
             {
                 if (Password == ConfirmPassword)
                 {
+                    Message = "Passwords matched! galing mo diyan.";
+                    BorderColor = Colors.Green;
+
                     PasswordColor = Colors.Green;
                     ConfirmPasswordColor = Colors.Green;
                 }
                 else
                 {
+                    Message = "Passwords do not match.";
+                    BorderColor = Colors.Red;
+
                     PasswordColor = Colors.Red;
                     ConfirmPasswordColor = Colors.Red;
                 }
@@ -121,14 +126,16 @@ namespace Barangay_Office.ViewModels
             }
         }
 
+        //validation accepts @gmail.com domain only
         private bool IsValidEmail(string email)
         {
             return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase);
         }
 
+        //validation accepts 10-15 characters, atleast 1 letter, 1 number and 1 special character
         private bool IsValidPassword(string password)
         {
-            return password.Length <= 15 && Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{15}$");
+            return password.Length >= 10 && password.Length <= 15 && Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,15}$");
         }
 
         public async Task RegisterAsync()
@@ -136,42 +143,42 @@ namespace Barangay_Office.ViewModels
             if (string.IsNullOrWhiteSpace(Email))
             {
                 Message = "Email required.";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
                 return;
             }
 
             if (!IsValidEmail(Email))
             {
                 Message = "Invalid Email format.";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(Password))
             {
                 Message = "Password required.";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
                 return;
             }
 
             if (!IsValidPassword(Password))
             {
-                Message = "Password must be at least 10-15 characters and contain a letter and a number.";
-                TextColor = Colors.Red;
+                Message = "Password must be at least 10-15 characters and contain atleast 1 letter and one number.";
+                BorderColor = Colors.Red;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(ConfirmPassword))
             {
                 Message = "Confirm Password required.";
-                TextColor = Colors.Orange;
+                BorderColor = Colors.Red;
                 return;
             }
 
             if (Password != ConfirmPassword)
             {
                 Message = "Passwords do not match.";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
                 return;
             }
 
@@ -181,7 +188,7 @@ namespace Barangay_Office.ViewModels
             {
                 Message = "Registration successful!";
                 await Shell.Current.GoToAsync("//LoginPage");
-                TextColor = Colors.Green;
+                BorderColor = Colors.Green;
             }
             else
             {

@@ -223,6 +223,20 @@
                     CornerRadius="30"
                     BorderColor="#1f0572"
                     BorderWidth="1"/>
+                
+                <!-- Biometric Button for customer -->
+                <Button 
+                    Text="Login with Biometric" 
+                    TextColor="#ffffff"
+                    WidthRequest="200"
+                    FontSize="12"
+                    Margin="0,15,0,0"
+                    Command="{Binding BiometricLoginCommand}"
+                    IsVisible="{Binding IsBiometricEnabled}"
+                    BackgroundColor="#38187c"
+                    CornerRadius="30"
+                    BorderColor="#1f0572"
+                    BorderWidth="1"/>
 
                 <StackLayout Orientation="Horizontal" 
                      HorizontalOptions="CenterAndExpand" 

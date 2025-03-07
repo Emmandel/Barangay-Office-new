@@ -85,6 +85,15 @@ namespace Barangay_Office.Services
             return true;
         }
 
+        //for biometrics, get userrole by email
+        public async Task<string> GetUserRoleByEmail(string email)
+        {
+            var user = await _Connection.Table<AdminUserInfo>()
+                .FirstOrDefaultAsync(u => u.Email == email);
+
+            return user?.Role; // Returns role if user exists, otherwise returns null
+        }
+
 
 
         //Check authentication state from preference
@@ -136,6 +145,10 @@ namespace Barangay_Office.Services
         //logout and remove authentication state
         public void LogOut()
         {
+            // Preserve last role for biometric login
+            string lastRole = Preferences.Get("UserRole", string.Empty);
+            Preferences.Set("LastUserRole", lastRole);
+
             //"UserID"
             Preferences.Default.Remove(AuthStateKey);
             Preferences.Default.Remove("UserRole");

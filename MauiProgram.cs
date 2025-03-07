@@ -2,6 +2,7 @@
 using Barangay_Office.ViewModels;
 using Barangay_Office.Views;
 using Microsoft.Extensions.Logging;
+using Plugin.Maui.Biometric;
 using SQLite;
 
 namespace Barangay_Office
@@ -19,8 +20,11 @@ namespace Barangay_Office
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            //use with dependency injection
+            builder.Services.AddSingleton<IBiometric>(BiometricAuthenticationService.Default);
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             //Register SQLite as singleton
             builder.Services.AddSingleton<SQLiteAsyncConnection>(_ =>

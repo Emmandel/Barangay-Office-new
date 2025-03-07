@@ -6,7 +6,6 @@ namespace Barangay_Office.Views;
 public partial class AdminProfile : ContentPage
 {
 	private readonly AuthService _authService;
-	private readonly SQLiteAsyncConnection _Connection;
     public AdminProfile(AuthService authService)
 	{
 		InitializeComponent();

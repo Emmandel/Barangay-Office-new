@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:grial="http://uxdivers.com/grial"
+    x:Class="Barangay_Office.IconText"
+    x:Name="root">
+    <Grid x:Name="containerGrid">
+        <!-- ICON BACKGROUND -->
+        <Grid
+            x:Name="iconBackground"
+            VerticalOptions="{ Binding IconVerticalOptions, Source={x:Reference root} }"
+            HorizontalOptions="{ Binding IconHorizontalOptions, Source={x:Reference root} }"
+            grial:Effects.DropShadow="{ Binding IconBackgroundDropShadow, Source={x:Reference root} }">
+
+            <Grid
+                x:Name="iconBackgroundIOs"
+                IsVisible="{ OnPlatform Android=false }"
+            />
+
+            <!-- ICON -->
+            <Label
+                x:Name="icon"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill"
+                HeightRequest="{ Binding HeightRequest, Source={x:Reference iconBackground} }"
+                WidthRequest="{ Binding WidthRequest, Source={x:Reference iconBackground} }"
+                FontSize="{ Binding IconFontSize, Source={x:Reference root} }"
+                FontFamily="{ Binding IconFontFamily, Source={x:Reference root} }"
+                Text="{ Binding Icon, Source={x:Reference root} }"
+                TextColor="{ Binding IconColor, Source={x:Reference root} }"
+                TranslationY="{ Binding IconTranslationY, Source={x:Reference root} }"
+                LineHeight="1"
+            />
+        </Grid>
+
+        <!-- LABEL -->
+        <Label
+            x:Name="label"
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            Text="{ Binding Text, Source={x:Reference root} }"
+            FontSize="{ Binding TextFontSize, Source={x:Reference root} }"
+            TextColor="{ Binding TextColor, Source={x:Reference root} }"
+            LineHeight="{ Binding TextLineHeight, Source={x:Reference root} }"
+            FontAttributes="{ Binding TextFontAttributes, Source={x:Reference root} }"
+            LineBreakMode="{ Binding LineBreakMode, Source={x:Reference root} }"
+        />
+    </Grid>
+</ContentView>

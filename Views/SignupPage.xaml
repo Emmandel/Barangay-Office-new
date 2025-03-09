@@ -117,11 +117,20 @@
                          Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
 
-                <Label Text="{Binding Message}" TextColor="{Binding BorderColor}" HorizontalOptions="Center" FontSize="Micro" LineBreakMode="WordWrap" WidthRequest="250" Margin="0,0,0,-20" Padding="0" HeightRequest="50" HorizontalTextAlignment="Center"/>
+                <Label Text="{Binding Message}" 
+                       TextColor="{Binding BorderColor}" 
+                       HorizontalOptions="Center" 
+                       FontSize="Micro" 
+                       LineBreakMode="WordWrap" 
+                       WidthRequest="250" 
+                       Margin="0,0,0,-20" 
+                       Padding="0" 
+                       HeightRequest="50" 
+                       HorizontalTextAlignment="Center"/>
 
                 <!-- Email -->
                 <Border BackgroundColor="Transparent"
-                        Stroke="#1f0572"
+                        Stroke="{Binding EmailColor}"
                         Padding="0"
                         Margin="0,0,0,10"
                         StrokeShape="RoundRectangle 30">

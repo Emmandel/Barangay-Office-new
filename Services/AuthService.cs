@@ -29,7 +29,7 @@ namespace Barangay_Office.Services
                 {
                     Email = "Admin@gmail.com",
                     //Password = BCrypt.Net.BCrypt.HashPassword("Test123"),
-                    Password = "Test123",
+                    Password = "Test@123",
                     Role = "Admin"
                 });
             }
@@ -40,7 +40,7 @@ namespace Barangay_Office.Services
                 {
                     Email = "Customer@gmail.com",
                     //Password = BCrypt.Net.BCrypt.HashPassword("Test123"),
-                    Password = "Test123",
+                    Password = "Test@123",
                     Role = "Customer"
                 });
             }

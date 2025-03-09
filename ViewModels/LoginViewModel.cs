@@ -19,7 +19,9 @@ namespace Barangay_Office.ViewModels
         private string _email;
         private string _password;
         private string _message;
-        private Color _textColor;
+        private Color _borderColor;
+        private Color _emailColor = (Color)Application.Current.Resources["BlueishPurple"];
+        private Color _passwordColor = (Color)Application.Current.Resources["BlueishPurple"];
         private bool _isBiometricEnabled;
 
         public string Email
@@ -28,6 +30,7 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _email = value;
+                ValidateAllFields();
                 OnPropertyChanged();
             }
         }
@@ -37,6 +40,7 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _password = value;
+                ValidateAllFields();
                 OnPropertyChanged();
             }
         }
@@ -51,15 +55,39 @@ namespace Barangay_Office.ViewModels
             }
         }
 
-        public Color TextColor
+        //colors
+        public Color EmailColor
         {
-            get => _textColor;
+            get => _passwordColor;
             set
             {
-                _textColor = value;
+                _passwordColor = value;
                 OnPropertyChanged();
             }
         }
+
+        public Color PasswordColor
+        {
+            get => _emailColor;
+            set
+            {
+                _emailColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Color BorderColor
+        {
+            get => _borderColor;
+            set
+            {
+                _borderColor = value;
+                OnPropertyChanged();
+            }
+        }
+        
+
+        //biometric
         public bool IsBiometricEnabled { 
             get => _isBiometricEnabled;
             set
@@ -100,6 +128,87 @@ namespace Barangay_Office.ViewModels
             return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase);
         }
 
+        //validate all fields
+        private void ValidateAllFields()
+        {
+            bool isEmailEmpty = string.IsNullOrWhiteSpace(Email);
+            bool isPasswordEmpty = string.IsNullOrWhiteSpace(Password);
+
+            //set Messages
+            Message = isEmailEmpty && isPasswordEmpty ? "Fill all the fields first."
+                : isEmailEmpty? "Enter your email first"
+                : isPasswordEmpty? "Enter your password next"
+                : string.Empty;
+
+            //set Colors
+            EmailColor = isEmailEmpty? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+
+            PasswordColor = isPasswordEmpty ? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+
+            //set BorderColor
+            BorderColor = isEmailEmpty || isPasswordEmpty ? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+
+            //set color to default if there's a value
+            if (!isEmailEmpty) EmailColor = (Color)Application.Current.Resources["BlueishPurple"];
+            if (!isPasswordEmpty) PasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
+        }
+
+        //manual logging in
+        private async Task LoginAsync()
+        {
+
+            ValidateAllFields();
+            // Check if email or password is empty
+            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            {
+                return;
+            }
+
+            if (!IsValid(Email))
+            {
+                Message = "Invalid Email Format.";
+                BorderColor = Colors.Red;
+                EmailColor = Colors.Red;
+                return;
+            }
+            else {
+                var role = await _authService.LoginAsync(Email, Password);
+                if (role != null)
+                {
+                    Preferences.Set("UserRole", role);
+
+                    //update Biometric Visibility
+                    CheckBiometricEligibility();
+
+                    //navigate base on role
+                    if (role == "Admin")
+                    {
+                        Message = "Admin Login Successful!";
+                        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                        BorderColor = Colors.Green;
+                    }
+                    else if (role == "Customer")
+                    {
+                        Message = "Customer Login Successful!";
+                        BorderColor = Colors.Green;
+                        await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
+                    }
+                    else
+                    {
+                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                    }
+                }
+                else
+                {
+                    Message = "Invalid, Email or Password does not exists.";
+                    BorderColor = Colors.Red;
+                    EmailColor = Colors.Red;
+                    PasswordColor = Colors.Red;
+                    return;
+                } 
+            }
+            
+        }
 
         //login using biometric for customer only
         private async Task BiometricLoginAsync()
@@ -123,62 +232,15 @@ namespace Barangay_Office.ViewModels
                 else
                 {
                     Message = "Biometric Authentication is available only for Customers!";
-                    TextColor = Colors.Red;
+                    BorderColor = Colors.Red;
                     return;
                 }
             }
             else
             {
                 Message = "Biometric Authentication Failed!";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
                 return;
-            }
-        }
-
-        //manual logging in
-        private async Task LoginAsync()
-        {
-
-            if (!IsValid(Email))
-            {
-                Message = "Invalid Email format";
-                TextColor = Colors.Red;
-                return;
-            }
-            else
-            {
-                var role = await _authService.LoginAsync(Email, Password);
-                if (role != null)
-                {
-                    Preferences.Set("UserRole", role);
-
-                    //update Biometric Visibility
-                    CheckBiometricEligibility();
-
-                    //navigate base on role
-                    if (role == "Admin")
-                    {
-                        Message = "Admin Login Successful!";
-                        TextColor = Colors.Green;
-                        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-                    }
-                    else if (role == "Customer")
-                    {
-                        Message = "Customer Login Successful!";
-                        TextColor = Colors.Green;
-                        await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
-                    }
-                    else
-                    {
-                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                    }
-                }
-                else
-                {
-                    Message = "Invalid Username or Password. Please try again!";
-                    TextColor = Colors.Red;
-                    return;
-                }
             }
         }
     }

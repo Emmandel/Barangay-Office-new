@@ -96,12 +96,12 @@
                          Orientation="Vertical"
                          HorizontalOptions="CenterAndExpand">
 
-                <Label Text="{Binding Message}" TextColor="{Binding TextColor}" HorizontalOptions="Center" FontSize="Micro"/>
+                <Label Text="{Binding Message}" TextColor="{Binding BorderColor}" HorizontalOptions="Center" FontSize="Micro"/>
 
                 <!-- Email -->
                 <Border
                     BackgroundColor="Transparent"
-                    Stroke="#1f0572"
+                    Stroke="{Binding EmailColor}"
                     Padding="0"
                     Margin="0,0,0,10"
                     HorizontalOptions="FillAndExpand"
@@ -138,7 +138,7 @@
                 <!-- password -->
                 <Border
                     BackgroundColor="Transparent"
-                    Stroke="#1f0572"
+                    Stroke="{Binding PasswordColor}"
                     Padding="0"
                     HorizontalOptions="FillAndExpand"
                     StrokeShape="RoundRectangle 30">

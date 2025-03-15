@@ -34,15 +34,25 @@ namespace Barangay_Office
             });
 
             builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddTransient<LoadingPage>();
 
             builder.Services.AddTransient<LoginViewModel>();
-
-            builder.Services.AddTransient<LoadingPage>();
             builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<ForgotPasswordPage>();
+
             builder.Services.AddTransient<ProfilePage>();
             builder.Services.AddTransient<SignupPage>();
             builder.Services.AddTransient<CustomerPage>();
-            builder.Services.AddTransient<ForgotPasswordPage>();
+            builder.Services.AddTransient<ContactInfoPage>();
+            builder.Services.AddTransient<PaymentInfoPage>();
+            builder.Services.AddTransient<AboutUsPage>();
+            builder.Services.AddTransient<ChatPage>();
+
+            builder.Services.AddTransient<AdminChatPage>();
+            builder.Services.AddTransient<AdminChatViewModel>();
+            builder.Services.AddSingleton<ChatService>();
+
+
             builder.Services.AddTransient<AdminProfile>();
 
             return builder.Build();

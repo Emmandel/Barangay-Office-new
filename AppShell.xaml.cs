@@ -1,4 +1,5 @@
 ﻿using Barangay_Office.Services;
+using Barangay_Office.ViewModels;
 using Barangay_Office.Views;
 
 namespace Barangay_Office
@@ -47,14 +48,21 @@ namespace Barangay_Office
 
         private void RegisteredRoutes()
         {
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));//for adminpage
             Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
-            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
+
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));//for adminpage
             Routing.RegisterRoute(nameof(AdminProfile), typeof(AdminProfile));//for adminProfile
+
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-            Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));//Default Signuo Page
-            //Routing.RegisterRoute(nameof(AdminSignupPage), typeof(AdminSignupPage));//Admin Signuo Page
+
             Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));//for customer page
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
+            Routing.RegisterRoute(nameof(SignupPage), typeof(SignupPage));//Default Signup Page
+            Routing.RegisterRoute(nameof(ContactInfoPage), typeof(ContactInfoPage));
+            Routing.RegisterRoute(nameof(PaymentInfoPage), typeof(PaymentInfoPage));
+            Routing.RegisterRoute(nameof(AboutUsPage), typeof(AboutUsPage));
+            Routing.RegisterRoute(nameof(ChatPage), typeof(ChatPage));
+            Routing.RegisterRoute(nameof(ServicesPage), typeof(ServicesPage));
         }
     }
 }

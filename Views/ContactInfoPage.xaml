@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Barangay_Office.Views.ContactInfoPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="LightGray"
+             xmlns:control="clr-namespace:Barangay_Office.Views.Controls">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="13" Spacing="10">
+            <!--header menu-->
+            <control:CustomerHeaderMenuControls/>
+            
+            <!-- Header -->
+            <Label Text="Contact Us"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    TextColor="#2C3E50"
+                    HorizontalOptions="Center" />
+
+            <!-- Divider -->
+            <BoxView HeightRequest="2" BackgroundColor="#2C3E50" HorizontalOptions="FillAndExpand" />
+
+            <!-- Contact Information -->
+            <Frame CornerRadius="10" Padding="15" BackgroundColor="#A7C7E7">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Phone Number: +63-***-***-****"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            Margin="0,10,0,0" />
+                    <Label Text="Email Address: Barangay@gmail.com"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            Margin="0,10,0,0" />
+
+                    <Label Text="Address: Barangay Taguig City"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            Margin="0,10,0,10" />
+
+
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Social Media Links -->
+            <Label Text="Follow Us on Social Media:"
+                    TextColor="#A7C7E7"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start"
+                    Margin="0,15,0,5" />
+
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                <Button Text="Facebook"
+                         BackgroundColor="#4267B2"
+                         TextColor="White"
+                         FontAttributes="Bold"
+                         CornerRadius="5"
+                         WidthRequest="100" />
+                <Button Text="Twitter"
+                         BackgroundColor="#1DA1F2"
+                         TextColor="White"
+                         FontAttributes="Bold"
+                         CornerRadius="5"
+                         WidthRequest="100" />
+                <Button Text="Instagram"
+                         BackgroundColor="#C13584"
+                         TextColor="White"
+                         FontAttributes="Bold"
+                         CornerRadius="5"
+                         WidthRequest="100" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

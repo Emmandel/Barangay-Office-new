@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Barangay_Office.Views.AboutUsPage"
+             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="LightGray"
+             Title="AboutUsPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="13" Spacing="10">
+            <!--header menu-->
+            <control:CustomerHeaderMenuControls/>
+            
+            <!-- Header -->
+            <Label Text="About Us"
+                FontSize="30"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                TextColor="Indigo" />
+
+            <!-- Description -->
+            <Label Text="The Barangay Office is dedicated to providing excellent service to our community. We aim to build a safe, connected, and progressive neighborhood for everyone."
+                FontSize="18"
+                TextColor="Black"
+                HorizontalTextAlignment="Center" />
+
+            <!-- Mission -->
+            <Label Text="Mission"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="Indigo" />
+            <Label Text="To serve with integrity, promote unity, and enhance the quality of life for all residents."
+                FontSize="16"
+                TextColor="Black" />
+
+            <!-- Vision -->
+            <Label Text="Vision"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="Indigo" />
+            <Label Text="A harmonious barangay where residents thrive in a safe and sustainable environment."
+                FontSize="16"
+                TextColor="Black" />
+
+
+            <!-- Customer Service -->
+            <Button Text="Customer Service"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                FontSize="18"
+                Padding="10"
+                CornerRadius="10"
+                HorizontalOptions="Center"
+                Clicked="OnCustomerServiceClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

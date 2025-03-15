@@ -2,13 +2,23 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.Views.CustomerPage"
-             Title="CustomerPage"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             BackgroundColor="LightGray"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout VerticalOptions="Center">
-        <Label 
-            Text="Welcome Customer!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    
+
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="13">
+            <!-- Header menu -->
+            <control:CustomerHeaderMenuControls/>
+
+            <!-- Devider -->
+            <BoxView HeightRequest="2" BackgroundColor="#2C3E50" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

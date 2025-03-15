@@ -5,6 +5,7 @@ namespace Barangay_Office.Services
 {
     public class AuthService
     {
+
         private const string AuthStateKey = "AuthState";
         private readonly SQLiteAsyncConnection _Connection;
 
@@ -28,8 +29,8 @@ namespace Barangay_Office.Services
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
                     Email = "Admin@gmail.com",
-                    //Password = BCrypt.Net.BCrypt.HashPassword("Test123"),
-                    Password = "Test@123",
+                    Password ="Test123",
+                    //Password = BCrypt.Net.BCrypt.HashPassword("Test@123"),
                     Role = "Admin"
                 });
             }
@@ -39,8 +40,8 @@ namespace Barangay_Office.Services
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
                     Email = "Customer@gmail.com",
-                    //Password = BCrypt.Net.BCrypt.HashPassword("Test123"),
-                    Password = "Test@123",
+                    Password ="Test123",
+                    //Password = BCrypt.Net.BCrypt.HashPassword("Test@123"),
                     Role = "Customer"
                 });
             }
@@ -56,10 +57,9 @@ namespace Barangay_Office.Services
 
 
         //check if user is authenticated from sqlite
-        public async Task<string> LoginAsync(string email, string password)
+        public async Task<string?> LoginAsync(string email, string password)
         {
             var user = await GetAdminUserInfoAsync(email, password);
-            //BCrypt.Net.BCrypt.Verify(password,user.Password
             if (user != null && user.Password == password)
             {
                 //"UserID"
@@ -77,8 +77,8 @@ namespace Barangay_Office.Services
 
             var existingUser = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
             if (existingUser != null) return false; //user already exists
-            //BCrypt.Net.BCrypt.HashPassword(password)
-            string hashedPassword = password; //hash password   
+
+            //string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password); 
 
             //Password = hashedPassword
             await _Connection.InsertAsync(new AdminUserInfo { Email = email, Password = password, Role = role });
@@ -86,7 +86,7 @@ namespace Barangay_Office.Services
         }
 
         //for biometrics, get userrole by email
-        public async Task<string> GetUserRoleByEmail(string email)
+        public async Task<string?> GetUserRoleByEmail(string email)
         {
             var user = await _Connection.Table<AdminUserInfo>()
                 .FirstOrDefaultAsync(u => u.Email == email);
@@ -99,7 +99,6 @@ namespace Barangay_Office.Services
         //Check authentication state from preference
         public async Task<bool> IsAuthenticatedAsync()
         {
-            await Task.Delay(500);
             string storedRole = Preferences.Get("UserRole", string.Empty);
             return !string.IsNullOrEmpty(storedRole); //ensure role exists
         }
@@ -124,7 +123,6 @@ namespace Barangay_Office.Services
             var user = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == email);
             if (user != null)
             {
-                //BCrypt.Net.BCrypt.HashPassword(newPassword)
                 user.Password = newPassword; // Ideally, hash this password
                 await _Connection.UpdateAsync(user);
                 return true;

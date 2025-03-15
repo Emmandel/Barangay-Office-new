@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.AdminProfile"
+             xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
              Title="Admin Profile">
-    <VerticalStackLayout
-        Padding="25"
-        Spacing="25">
-        <Label 
-            Text="Admin Profile Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"/>
-        <Button
-            Text="Admin Signup"
-            Clicked="AdminSignup_Clicked"/>
+    
+    <Grid BackgroundColor = "#d0d0d0">
 
-        <Button 
-            Text="logout"
-            Clicked="LogOutButton_Clicked"/>
-    </VerticalStackLayout>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- for banner layout -->
+        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z">
+            <Path.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0.1" />
+                    <GradientStop Color="Blue" Offset="1.0" />
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
+
+        <!-- for Logo -->
+        <StackLayout Margin="-85">
+            <Border BackgroundColor="Black" 
+            HeightRequest="60" 
+            WidthRequest="60" 
+            StrokeShape="RoundRectangle 30" 
+            Padding="0" 
+            Margin="0,100,0,0" 
+            HorizontalOptions="Center">
+                <Image Source="barangay_pembo.png" 
+               Aspect="AspectFill" 
+               Margin="0"/>
+            </Border>
+        </StackLayout>
+        
+        <!--header menu-->
+        <controls:AdminHeaderMenuControls />
+        
+        <Grid RowSpacing="5"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="190"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="0"/>
+            </Grid.RowDefinitions>
+        
+        
+            <ScrollView Grid.Row="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Empty" TextColor="Black"/>
+                    <Label Text="Empty" TextColor="Black"/>
+                    <Label Text="Empty" TextColor="Black"/>
+                    <Label Text="Empty" TextColor="Black"/>
+                    <Label Text="Empty" TextColor="Black"/>
+                    <Label Text="Empty" TextColor="Black"/>
+                </VerticalStackLayout>
+            </ScrollView>
+            
+            <VerticalStackLayout Padding="13"
+                                 Spacing="10"
+                                 Grid.Row="3"
+                                 VerticalOptions="Center">
+
+
+            
+                <Button
+                    Text="Admin Signup"
+                    Command="{Binding ToAdminSignup}"/>
+
+                <Button
+                    Text="To Customer Service"
+                    Command="{Binding ToCustomerService}"/>
+
+                <Button 
+                    Text="logout"
+                    Command="{Binding ToLogout}"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>

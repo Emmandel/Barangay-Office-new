@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Barangay_Office.Views.PaymentInfoPage"
+             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
+    
+    <VerticalStackLayout Padding="20" Spacing="15" VerticalOptions="Fill" BackgroundColor="Black">
+        
+        <!--header menu-->
+        <control:CustomerHeaderMenuControls/>
+
+        <!-- Header -->
+        <Label Text="Payment GCash"
+                FontSize="24"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                TextColor="#A7C7E7" />
+
+        <!-- Instructions -->
+        <Label Text="Scan the QR Code below using GCash to complete your payment:"
+                FontSize="18"
+                HorizontalOptions="Center"
+                TextColor="White"
+                HorizontalTextAlignment="Center" />
+
+        <!-- QR Code -->
+        <!--Add some picker for gcash mode of payment-->
+        <Frame BorderColor="Gray"
+                CornerRadius="10"
+                Padding="10"
+                HeightRequest="200"
+                WidthRequest="200"
+                HorizontalOptions="Center">
+            <Image Source="gcash_qr_code.png"
+                    Aspect="AspectFit"
+                    HeightRequest="180"
+                    WidthRequest="180" />
+        </Frame>
+
+        <!-- Note -->
+        <Label Text="Please ensure you use the correct payment details."
+                FontSize="14"
+                TextColor="Gray"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center" />
+
+        <!-- Back Button -->
+        <Button Text="Back"
+                 BackgroundColor="Indigo"
+                 TextColor="White"
+                 FontSize="18"
+                 CornerRadius="10"
+                 WidthRequest="150"
+                 HeightRequest="50"
+                 HorizontalOptions="Center"
+                 Clicked="OnBackButtonClicked" />
+    </VerticalStackLayout>
+</ContentPage>

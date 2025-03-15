@@ -39,46 +39,69 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
 
-    <!-- Customer TabBar -->
-    <TabBar>
-        <Tab Title="Customer Panel">
-            <!-- Customer Page-->
-            <ShellContent
-                Title="Customer"
-                ContentTemplate="{DataTemplate views:CustomerPage}"
-                Route="CustomerPage"/>
+    <!-- Customer Page-->
+    <ShellContent
+    Title="Customer"
+    ContentTemplate="{DataTemplate views:CustomerPage}"
+    Route="CustomerPage"/>
 
-            <!--Profile Page-->
-            <ShellContent
-                Title="Profile"
-                ContentTemplate="{DataTemplate views:ProfilePage}"
-                Route="ProfilePage"
-                Shell.NavBarIsVisible="False"
-                Shell.FlyoutBehavior="Disabled"/>
-        </Tab>
-    </TabBar>
+    <!--Profile Page-->
+    <ShellContent
+    Title="Profile"
+    ContentTemplate="{DataTemplate views:ProfilePage}"
+    Route="ProfilePage"
+    Shell.NavBarIsVisible="False"
+    Shell.FlyoutBehavior="Disabled"/>
 
-    <!-- Admin TabBar -->
-    <TabBar>
-        <Tab Title="Admin Panel" Icon="profile.png">
-            <!-- Admin Page-->
-            <ShellContent
-                Title="Admin"
-                ContentTemplate="{DataTemplate local:MainPage}"
-                Shell.NavBarIsVisible="False"
-                Route="MainPage"/>
+    <!--Contact Info-->
+    <ShellContent
+    Title="Contact Info"
+    ContentTemplate="{DataTemplate views:ContactInfoPage}"
+    Route="ContactInfoPage"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.FlyoutItemIsVisible="False"/>
+
+    <!--Payment Info-->
+    <ShellContent
+    Title="Payment Info"
+    ContentTemplate="{DataTemplate views:PaymentInfoPage}"
+    Route="PaymentInfoPage"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.FlyoutItemIsVisible="False"/>
+    
+    <!--Services-->
+    <ShellContent
+        Title="Services"
+        ContentTemplate="{DataTemplate views:ServicesPage}"
+        Route="ServicesPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
+    
+
+    <!--About Us-->
+    <ShellContent
+    Title="About Us"
+    ContentTemplate="{DataTemplate views:AboutUsPage}"
+    Route="AboutUsPage"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutItemIsVisible="False"/>
+
+    <!-- Admin Page-->
+    <ShellContent
+    Title="Admin"
+    ContentTemplate="{DataTemplate local:MainPage}"
+    Shell.NavBarIsVisible="False"
+    Route="MainPage"/>
 
 
 
-            <!-- Admin Profile Page-->
-            <ShellContent
-                Title="Profile"
-                ContentTemplate="{DataTemplate views:AdminProfile}"
-                Route="AdminProfile"
-                Shell.FlyoutBehavior="Disabled"
-                Shell.NavBarIsVisible="False"/>
-        </Tab>
-    </TabBar>
+    <!-- Admin Profile Page-->
+    <ShellContent
+    Title="Profile"
+    ContentTemplate="{DataTemplate views:AdminProfile}"
+    Route="AdminProfile"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"/>
 
 
     <!-- forgotten passwoord -->
@@ -86,6 +109,14 @@
         Title="Forgot Password" 
         ContentTemplate="{DataTemplate views:ForgotPasswordPage}" 
         Route="ForgotPasswordPage" 
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False"/>
+
+    <!--Customer Service-->
+    <ShellContent 
+        Title="Customer Service" 
+        ContentTemplate="{DataTemplate views:ChatPage}" 
+        Route="ChatPage" 
         Shell.FlyoutItemIsVisible="False"
         Shell.NavBarIsVisible="False"/>
 </Shell>

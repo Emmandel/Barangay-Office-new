@@ -1,4 +1,5 @@
 using Barangay_Office.Services;
+using Barangay_Office.ViewModels;
 using SQLite;
 
 namespace Barangay_Office.Views;
@@ -10,19 +11,6 @@ public partial class AdminProfile : ContentPage
 	{
 		InitializeComponent();
         _authService = authService;
+        BindingContext = new AdminProfileViewModel();
     }
-
-    private void LogOutButton_Clicked(object sender, EventArgs e)
-    {
-        //the user will be directed to the login page
-        _authService.LogOut();
-        Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-    }
-
-    private async void AdminSignup_Clicked(object sender, EventArgs e) {
-
-        _authService.LogOut();
-        await Navigation.PushAsync(new AdminSignupPage(_authService));
-    }
-    
 }

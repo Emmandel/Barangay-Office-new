@@ -2,22 +2,34 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.Views.ProfilePage"
-             Title="ProfilePage"
+             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
              Shell.NavBarIsVisible="False"
              Shell.FlyoutBehavior="Disabled">
-    <Grid
-        Padding="25"
-        ColumnSpacing="25"
-        VerticalOptions="Center"
-        Margin="0,0,0,50">
-        <Label 
-            Text="Customer Profile Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <ScrollView>
+        
 
-        <Button 
-            Grid.Row="1"
-            Text="logout"
-            Clicked="OutButton_Clicked"/>
-    </Grid>
+        <!-- add Customer name , exit button, move the customer service here -->
+        
+            <VerticalStackLayout Padding="13" Spacing="10">
+            <!--header menu-->
+            <control:CustomerHeaderMenuControls/>
+                
+                <Label 
+                    Text="Customer Profile Page"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+
+                <!-- Add Customer Service-->
+            
+                <Button Grid.Row="1"
+                        Text="Reset Password"
+                        Clicked="ToReset"/>
+            
+                <Button 
+                    Grid.Row="2"
+                    Text="logout"
+                    Clicked="OutButton_Clicked"/>
+            </VerticalStackLayout>
+        
+    </ScrollView>
 </ContentPage>

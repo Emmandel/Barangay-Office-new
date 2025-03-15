@@ -67,19 +67,49 @@
 		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Google.Apis.Admin.Directory.directory_v1" Version="1.68.0.3631" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="MongoDB.Driver" Version="3.2.0" />
+		<PackageReference Include="Npgsql" Version="9.0.3" />
 		<PackageReference Include="Plugin.Maui.Biometric" Version="0.0.2" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
+		<PackageReference Include="Supabase" Version="1.1.1" />
+		<PackageReference Include="Supabase.Postgrest" Version="4.1.0" />
+		<PackageReference Include="Supabase.Realtime" Version="7.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\AdminHeaderMenuStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\HeaderButtonStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AboutUsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AdminChatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AdminProfile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AdminSignupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ChatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ContactInfoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\AdminHeaderMenuControls.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Controls\CustomerHeaderMenuControls.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomerPage.xaml">
@@ -97,7 +127,13 @@
 	  <MauiXaml Update="Views\NewPage1.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PaymentInfoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ServicesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SignupPage.xaml">

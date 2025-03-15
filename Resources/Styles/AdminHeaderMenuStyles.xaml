@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Barangay_Office.Resources.Styles.AdminHeaderMenuStyles">
+
+    <Style x:Key="AdminHeaderMenu" TargetType="Button">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="Margin" Value="20,0,-5,0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="WidthRequest" Value="55"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+    </Style>
+</ResourceDictionary>

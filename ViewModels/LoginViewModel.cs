@@ -140,6 +140,8 @@ namespace Barangay_Office.ViewModels
                 : isPasswordEmpty? "Enter your password next"
                 : string.Empty;
 
+
+
             //set Colors
             EmailColor = isEmailEmpty? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
 
@@ -220,6 +222,8 @@ namespace Barangay_Office.ViewModels
             }, CancellationToken.None);
 
 
+
+            //prompt the user
             if (result.Status == BiometricResponseStatus.Success)
             {
                 //retrieve the stored role

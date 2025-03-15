@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Barangay_Office.Services;
 using Barangay_Office.ViewModels;
 
@@ -24,5 +25,10 @@ public partial class ProfilePage : ContentPage
         await Task.Delay(500);
         Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
 
+    }
+
+    private async void ToReset(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ForgotPasswordPage(new AuthService()));
     }
 }

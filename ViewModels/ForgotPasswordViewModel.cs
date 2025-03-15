@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Barangay_Office.Services;
@@ -14,7 +15,9 @@ namespace Barangay_Office.ViewModels
         private string _email;
         private string _newPassword;
         private string _message;
-        private Color _textColor;
+        private Color _borderColor;
+        private Color _emailColor = (Color)Application.Current.Resources["BlueishPurple"];
+        private Color _resetPasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
 
 
         public string Email
@@ -23,6 +26,7 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _email = value;
+                ValidateAllFields();
                 OnPropertyChanged();
             }
         }
@@ -33,6 +37,7 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _newPassword = value;
+                ValidateAllFields();
                 OnPropertyChanged();
             }
         }
@@ -47,15 +52,37 @@ namespace Barangay_Office.ViewModels
             }
         }
 
-        public Color TextColor
+        //colors
+        public Color BorderColor
         {
-            get => _textColor;
+            get => _borderColor;
             set
             {
-                _textColor = value;
+                _borderColor = value;
                 OnPropertyChanged();
             }
         }
+
+        public Color EmailColor
+        {
+            get => _emailColor;
+            set
+            {
+                _emailColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Color NewPassColor
+        {
+            get => _resetPasswordColor;
+            set
+            {
+                _resetPasswordColor = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand ResetPasswordCommand { get; }
         public ForgotPasswordViewModel() : this(new AuthService()) { }
 
@@ -65,13 +92,69 @@ namespace Barangay_Office.ViewModels
             ResetPasswordCommand = new Command(async () => await ResetPasswordAsync());
         }
 
+        //validate fields
+        private void ValidateAllFields()
+        {
+            bool isEmailEmpty = string.IsNullOrWhiteSpace(Email);
+            bool isNewPasswordEmpty = string.IsNullOrWhiteSpace(NewPassword);
+
+            //set messages
+            Message = isEmailEmpty && isNewPasswordEmpty ? "Fill all fields first."
+                : isEmailEmpty? "Email Required."
+                : isNewPasswordEmpty? "Enter your new password."
+                : string.Empty;
+
+            //set colors
+            EmailColor = isEmailEmpty? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+
+            NewPassColor = isNewPasswordEmpty? Colors.Red: (Color)Application.Current.Resources["BlueishPurple"];
+
+            //check if any of them have error
+            BorderColor = isEmailEmpty || isNewPasswordEmpty? Colors.Red: (Color)Application.Current.Resources["BlueishPurple"];
+
+            //set color to default
+            if(!isEmailEmpty) EmailColor = (Color)Application.Current.Resources["BlueishPurple"];
+            if(!isNewPasswordEmpty) NewPassColor = (Color)Application.Current.Resources["BlueishPurple"];
+            return;
+        }
+
+
+        private bool IsValidEmail(string email)
+        {
+            return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase);
+        }
+
+        private bool IsValidPassword(string newpassword)
+        {
+            return newpassword.Length >= 10 && newpassword.Length <= 15 && Regex.IsMatch(newpassword, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,15}$");
+        }
+
         //method for resetting the password
         public async Task ResetPasswordAsync()
         {
+            ValidateAllFields();
+
+            //validate format
+            if (!IsValidEmail(Email))
+            {
+                Message = "Invalid Email format.";
+                EmailColor = Colors.Red;
+                BorderColor = Colors.Red;
+                return;
+            }
+
+            if (!IsValidPassword(NewPassword))
+            {
+                Message = "Password must be at least 10-15 characters and contain atleast 1 letter and one number.";
+                BorderColor = Colors.Red;
+                NewPassColor = Colors.Red;
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(NewPassword))
             {
                 Message = "All fields are required!";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
                 return;
             }
 
@@ -80,7 +163,7 @@ namespace Barangay_Office.ViewModels
             if (!isEmailRegistered)
             {
                 Message = "Email is not registered!";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
                 return;
             }
 
@@ -89,14 +172,17 @@ namespace Barangay_Office.ViewModels
             if (isReset)
             {
                 Message = "Password has been reset successfully!";
-                //await Navigation.PopAsync(); // Navigate back to login
-                TextColor = Colors.Green;
+                BorderColor = Colors.Green;
+
+                await Task.Delay(500);
+                await Application.Current.MainPage.Navigation.PopAsync();  // Navigate back to login
+
                 return;
             }
             else
             {
                 Message = "Something went wrong!";
-                TextColor = Colors.Red;
+                BorderColor = Colors.Red;
             }
         }
 

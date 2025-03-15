@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             xmlns:converters="clr-namespace:Barangay_Office.Converters"
+             x:Class="Barangay_Office.Views.ChatPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="True"
+             Title="Customer Service">
+
+    <Grid RowDefinitions="*, Auto, Auto">
+        <Border Grid.Row="0" 
+                Stroke="LightGray"
+                StrokeThickness="1"
+                Margin="10">
+            <ScrollView>
+                <VerticalStackLayout Spacing="10" Padding="10">
+                    
+                    <CollectionView x:Name="MessageCollection"
+                                  ItemsSource="{Binding Messages}"
+                                  SelectionMode="None"
+                                  ItemsUpdatingScrollMode="KeepLastItemInView"
+                                  RemainingItemsThreshold="2">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border StrokeThickness="2"
+                                        Stroke="Transparent"
+                                        StrokeShape="RoundRectangle 15"
+                                        Margin="5"
+                                        Padding="12"
+                                        MaximumWidthRequest="300"
+                                        MaximumHeightRequest="300"
+                                        HorizontalOptions="{Binding SenderID, Converter={StaticResource BoolToAlignmentConverter}}"
+                                        BackgroundColor="{Binding SenderID, Converter={StaticResource BoolToColorConverter}}">
+                                    
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding Content}" 
+                                               TextColor="{Binding SenderID, Converter={StaticResource BoolToTextColorConverter}}"
+                                               FontSize="16"
+                                               LineBreakMode="WordWrap" />
+                                        <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}" 
+                                               FontSize="11" 
+                                               TextColor="DarkGray"
+                                               HorizontalOptions="End" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+
+        <Border Grid.Row="1" 
+                Stroke="LightGray"
+                StrokeThickness="1"
+                Margin="10,0,10,10"
+                Padding="10">
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry Grid.Column="0"
+                       Text="{Binding MessageEntry}"
+                       Placeholder="Type your message here..."
+                       ReturnCommand="{Binding SendCommand}"
+                       Margin="0,0,5,0"/>
+                <Button Grid.Column="1"
+                        Text="Send"
+                        Command="{Binding SendCommand}"
+                        WidthRequest="80"
+                        HeightRequest="40"/>
+            </Grid>
+        </Border>
+
+        <Button Grid.Row="2"
+                Text="Back"
+                BackgroundColor="#1f0572"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="10"
+                WidthRequest="150"
+                HeightRequest="50"
+                Margin="0,0,0,10"
+                HorizontalOptions="Center"
+                Command="{Binding BackButton}"/>
+    </Grid>
+</ContentPage>

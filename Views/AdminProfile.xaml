@@ -5,6 +5,10 @@
              x:Class="Barangay_Office.Views.AdminProfile"
              xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
              Title="Admin Profile">
+
+    <ContentPage.BindingContext>
+        <vm:AdminProfileViewModel/>
+    </ContentPage.BindingContext>
     
     <Grid BackgroundColor = "#d0d0d0">
 
@@ -42,45 +46,16 @@
         <!--header menu-->
         <controls:AdminHeaderMenuControls />
         
-        <Grid RowSpacing="5"
-              Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="190"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="0"/>
-            </Grid.RowDefinitions>
         
-        
-            <ScrollView Grid.Row="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
-                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label Text="Empty" TextColor="Black"/>
-                    <Label Text="Empty" TextColor="Black"/>
-                    <Label Text="Empty" TextColor="Black"/>
-                    <Label Text="Empty" TextColor="Black"/>
-                    <Label Text="Empty" TextColor="Black"/>
-                    <Label Text="Empty" TextColor="Black"/>
-                </VerticalStackLayout>
-            </ScrollView>
-            
-            <VerticalStackLayout Padding="13"
-                                 Spacing="10"
-                                 Grid.Row="3"
-                                 VerticalOptions="Center">
+        <Button
+            Text="Admin Signup"
+            Command="{Binding ToAdminSignup}"/>
+        <Button
+            Text="To Customer Service"
+            Command="{Binding ToCustomerService}"/>
 
-
-            
-                <Button
-                    Text="Admin Signup"
-                    Command="{Binding ToAdminSignup}"/>
-
-                <Button
-                    Text="To Customer Service"
-                    Command="{Binding ToCustomerService}"/>
-
-                <Button 
-                    Text="logout"
-                    Command="{Binding ToLogout}"/>
-            </VerticalStackLayout>
-        </Grid>
+        <Button 
+            Text="logout"
+            Command="{Binding ToLogout}"/>
     </Grid>
 </ContentPage>

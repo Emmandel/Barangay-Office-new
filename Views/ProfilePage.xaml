@@ -5,6 +5,7 @@
              xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
              Shell.NavBarIsVisible="False"
              Shell.FlyoutBehavior="Disabled">
+    
     <ScrollView>
         
 

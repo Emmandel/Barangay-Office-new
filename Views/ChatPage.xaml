@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              xmlns:converters="clr-namespace:Barangay_Office.Converters"
              x:Class="Barangay_Office.Views.ChatPage"
              Shell.FlyoutBehavior="Disabled"
@@ -15,35 +14,29 @@
                 Margin="10">
             <ScrollView>
                 <VerticalStackLayout Spacing="10" Padding="10">
-                    
                     <CollectionView x:Name="MessageCollection"
-                                  ItemsSource="{Binding Messages}"
-                                  SelectionMode="None"
-                                  ItemsUpdatingScrollMode="KeepLastItemInView"
-                                  RemainingItemsThreshold="2">
+                                  ItemsSource="{Binding Messages}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Border StrokeThickness="2"
-                                        Stroke="Transparent"
-                                        StrokeShape="RoundRectangle 15"
-                                        Margin="5"
-                                        Padding="12"
-                                        MaximumWidthRequest="300"
-                                        MaximumHeightRequest="300"
-                                        HorizontalOptions="{Binding SenderID, Converter={StaticResource BoolToAlignmentConverter}}"
-                                        BackgroundColor="{Binding SenderID, Converter={StaticResource BoolToColorConverter}}">
-                                    
-                                    <VerticalStackLayout Spacing="5">
-                                        <Label Text="{Binding Content}" 
-                                               TextColor="{Binding SenderID, Converter={StaticResource BoolToTextColorConverter}}"
-                                               FontSize="16"
-                                               LineBreakMode="WordWrap" />
-                                        <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm}'}" 
-                                               FontSize="11" 
-                                               TextColor="DarkGray"
-                                               HorizontalOptions="End" />
-                                    </VerticalStackLayout>
-                                </Border>
+                                <Grid>
+                                    <Frame BackgroundColor="{Binding SenderID, Converter={StaticResource SenderToColorConverter}}"
+                                           Padding="10"
+                                           CornerRadius="10"
+                                           HasShadow="True"
+                                           HorizontalOptions="{Binding SenderID, Converter={StaticResource SenderToAlignmentConverter}}">
+                                        
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding SenderID}" 
+                                                FontSize="12" 
+                                                   FontAttributes="Bold" />
+                                            <Label Text="{Binding Content}" 
+                                                   FontSize="16" />
+                                            <Label Text="{Binding Timestamp, StringFormat='{0:MM/dd/yyyy hh:mm tt}'}" 
+                                                   FontSize="10" 
+                                                   HorizontalOptions="End" />
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
@@ -51,26 +44,21 @@
             </ScrollView>
         </Border>
 
-        <Border Grid.Row="1" 
-                Stroke="LightGray"
-                StrokeThickness="1"
-                Margin="10,0,10,10"
-                Padding="10">
-            <Grid ColumnDefinitions="*, Auto">
+        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Margin="10">
                 <Entry Grid.Column="0"
-                       Text="{Binding MessageEntry}"
                        Placeholder="Type your message here..."
-                       ReturnCommand="{Binding SendCommand}"
-                       Margin="0,0,5,0"/>
+                       Text="{Binding MessageEntry}"
+                       ReturnCommand="{Binding SendCommand}"/>
                 <Button Grid.Column="1"
                         Text="Send"
                         Command="{Binding SendCommand}"
-                        WidthRequest="80"
-                        HeightRequest="40"/>
-            </Grid>
-        </Border>
+                        BackgroundColor="#3498DB"
+                        TextColor="White"
+                        CornerRadius="5"
+                        Margin="5,0,0,0"/>
+        </Grid>
 
-        <Button Grid.Row="2"
+        <Button Grid.Row="3"
                 Text="Back"
                 BackgroundColor="#1f0572"
                 TextColor="White"

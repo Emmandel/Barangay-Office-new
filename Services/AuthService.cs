@@ -22,6 +22,7 @@ namespace Barangay_Office.Services
         private async Task InitializeDefaultUsers()
         {
             var adminExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == "Admin@gmail.com");
+            var SuperadminExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == "SuperAdmin@gmail.com");
             var CustomerExists = await _Connection.Table<AdminUserInfo>().FirstOrDefaultAsync(u => u.Email == "Customer@gmail.com");
 
             if (adminExists == null) // Insert Admin if not exists
@@ -29,7 +30,7 @@ namespace Barangay_Office.Services
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
                     Email = "Admin@gmail.com",
-                    Password ="Test123",
+                    Password ="SampleTest@123",
                     //Password = BCrypt.Net.BCrypt.HashPassword("Test@123"),
                     Role = "Admin"
                 });
@@ -40,9 +41,20 @@ namespace Barangay_Office.Services
                 await _Connection.InsertAsync(new AdminUserInfo
                 {
                     Email = "Customer@gmail.com",
-                    Password ="Test123",
+                    Password ="SampleTest@123",
                     //Password = BCrypt.Net.BCrypt.HashPassword("Test@123"),
                     Role = "Customer"
+                });
+            }
+            
+            if (SuperadminExists == null) // Insert User if not exists
+            {
+                await _Connection.InsertAsync(new AdminUserInfo
+                {
+                    Email = "SuperAdmin@gmail.com",
+                    Password ="SampleTest@123",
+                    //Password = BCrypt.Net.BCrypt.HashPassword("Test@123"),
+                    Role = "SuperAdmin"
                 });
             }
         }

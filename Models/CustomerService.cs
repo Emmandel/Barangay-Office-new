@@ -1,27 +1,30 @@
-﻿using Supabase.Postgrest.Attributes;
-using Supabase.Postgrest.Models;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Barangay_Office.Models
 {
-    [Table("customer_service_messages")]
-    public class CustomerService : BaseModel
+    public class CustomerService
     {
-        [PrimaryKey("id")]
-        public int Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
-        [Column("sender_id")]
+        [BsonElement("sender_id")]
         public string SenderID { get; set; }
 
-        [Column("recipient_id")]
+        [BsonElement("recipient_id")]
         public string RecipientId { get; set; }
 
-        [Column("content")]
+        [BsonElement("sender_role")]
+        public string SenderRole { get; set; } // "Admin" or "Customer"
+
+        [BsonElement("content")]
         public string Content { get; set; }
 
-        [Column("timestamp")]
+        [BsonElement("timestamp")]
         public DateTime Timestamp { get; set; }
 
-        [Column("is_read")]
+        [BsonElement("is_read")]
         public bool IsRead { get; set; }
     }
 }

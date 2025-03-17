@@ -92,8 +92,13 @@
     ContentTemplate="{DataTemplate local:MainPage}"
     Shell.NavBarIsVisible="False"
     Route="MainPage"/>
-
-
+    
+    <!-- Super-Admin Page-->
+    <ShellContent
+    Title="Super Admin"
+    ContentTemplate="{DataTemplate views:SuperAdminPage}"
+    Shell.NavBarIsVisible="False"
+    Route="SuperAdminPage"/>
 
     <!-- Admin Profile Page-->
     <ShellContent
@@ -119,4 +124,5 @@
         Route="ChatPage" 
         Shell.FlyoutItemIsVisible="False"
         Shell.NavBarIsVisible="False"/>
+    
 </Shell>

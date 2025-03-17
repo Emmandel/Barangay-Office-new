@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="/Resources/Styles/HeaderButtonStyles.xaml"/>
                 <ResourceDictionary Source="/Resources/Styles/AdminHeaderMenuStyles.xaml"/>
+                <ResourceDictionary Source="/Resources/Styles/SuperAdminHeaderMenuStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

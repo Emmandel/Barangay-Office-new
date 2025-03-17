@@ -11,7 +11,6 @@ namespace Barangay_Office.ViewModels
 
         public ICommand ToAdminSignup { get; }
         public ICommand ToCustomerService { get; }
-
         public ICommand ToLogout { get; }
 
         public AdminProfileViewModel() : this(new AuthService()) { }

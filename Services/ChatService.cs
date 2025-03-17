@@ -1,90 +1,122 @@
-﻿
-using System.Text.Json;
-using Barangay_Office.Models;
-using Supabase.Realtime;
-using Supabase.Realtime.PostgresChanges;
+﻿using Barangay_Office.Models;
+using MongoDB.Driver;
 
 namespace Barangay_Office.Services
 {
     public class ChatService
     {
-        private readonly Supabase.Client _supabaseClient;
-        private RealtimeChannel? _channel;
-        private const string TableName = "customer_service_messages";
+        private readonly MongoDbService _mongoDbService;
+
+        public event Action<CustomerService>OnNewMessageReceived;
 
 
-        public ChatService(PostgreSqlService postgreSqlService)
+        public ChatService(MongoDbService mongoDbService)
         {
-            _supabaseClient = postgreSqlService.GetClient();
+            _mongoDbService = mongoDbService;
+            _mongoDbService.OnNewMessageReceived += (message) => OnNewMessageReceived?.Invoke(message);
         }
-
 
         // Get all messages sorted by timestamp
         public async Task<List<CustomerService>> GetCustomerServiceConversation()
         {
-            var response = await _supabaseClient
-                .From<CustomerService>()
-                .Order("timestamp", Supabase.Postgrest.Constants.Ordering.Ascending)
-                .Get();
-            return response.Models;
-        }
-
-        // Send a message (Admin/Customer)
-        public async Task<bool> SendMessage(string content, string senderId)
-        {
-            var message = new CustomerService
+            try
             {
-                Content = content,
-                Timestamp = DateTime.UtcNow,
-                SenderID = senderId  // Change this based on actual user ID
-            };
+                var messages = await _mongoDbService.CustomerMessages
+                    .Find(Builders<CustomerService>.Filter.Empty)
+                    .SortBy(m => m.Timestamp)
+                    .ToListAsync();
 
-            var response = await _supabaseClient
-                .From<CustomerService>()
-                .Insert(message);
-
-            return response.Models.Count > 0;
+                Console.WriteLine($"Retrieved {messages.Count} messages");
+                return messages;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving messages: {ex.Message}");
+                return new List<CustomerService>();
+            }
         }
 
+        public async Task<CustomerService> SendMessageToCustomerService(string messageContent)
+        {
+            try{
+                string senderId = "Admin";
+                string userEmail = Preferences.Get("UserEmail", string.Empty);
 
+                if (!string.IsNullOrEmpty(userEmail) && userEmail != "Admin@gmail.com")
+                {
+                    senderId = userEmail;
+                }
+                Console.WriteLine($"Sending message as: {senderId}");
 
-        // Real-time subscription to new messages
+                var message = new CustomerService
+                {
+                    Content = messageContent,
+                    SenderID = senderId,
+                    SenderRole = senderId == "Admin" ? "Admin" : "Customer",
+                    Timestamp = DateTime.UtcNow,
+                    IsRead = false
+                };
+
+                await _mongoDbService.SendMessageAsync(message);
+                Console.WriteLine($"Message sent: {message.Content}");
+                return message;
+            }catch(Exception ex){
+                Console.WriteLine($"Error sending message: {ex.Message}");
+                return null;
+            }
+        }
+
+        // subscribe to real-time updates
         public void SubscribeToCustomerServiceUpdates(Action<CustomerService> onNewMessage)
         {
-            // Ensure only one subscription is active
-            if (_channel != null)
+            try
             {
-                _supabaseClient.Realtime.Remove(_channel);
+                Console.WriteLine("Setting up real-time subscription for customer service messages");
+                OnNewMessageReceived += onNewMessage;
             }
-
-            _channel = _supabaseClient.Realtime.Channel(TableName);
-            void value(Supabase.Realtime.Interfaces.IRealtimeChannel sender, Supabase.Realtime.PostgresChanges.PostgresChangesResponse payload)
+            catch (Exception ex)
             {
-                try
-                {
-                    Console.WriteLine($"New Message: {payload.ToString()}");
-
-                    var message = payload.Model<CustomerService>();
-
-                    if (message != null)
-                    {
-                        onNewMessage(message);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[Supabase Realtime] Error: {ex.Message}");
-                }
+                Console.WriteLine($"Error setting up subscription: {ex.Message}");
             }
-            _channel
-                .AddPostgresChangeHandler(PostgresChangesOptions.ListenType.All, value);
-
-            _channel.Subscribe();
         }
 
-        internal async Task<CustomerService> SendMessageToCustomerService(string messageContent)
+        public async Task SendMessageAsync(CustomerService message)
         {
-            throw new NotImplementedException();
+            try{
+                Console.WriteLine($"Sending message as {message.SenderID}: {message.Content}");
+                await _mongoDbService.SendMessageAsync(message);
+                Console.WriteLine("Message sent successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending message: {ex.Message}");
+                throw;
+            }
+        }
+
+        // Send a message base on role
+        public async Task<bool> SendMessage(string content, string senderId)
+        {
+            try
+            {
+                Console.WriteLine($"Sending message as {senderId}: {content}");
+                var message = new CustomerService
+                {
+                    Content = content,
+                    Timestamp = DateTime.UtcNow,
+                    SenderID = senderId,
+                    SenderRole = senderId == "Admin" ? "Admin" : "Customer",
+                    IsRead = false
+                };
+
+                await _mongoDbService.SendMessageAsync(message);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending message: {ex.Message}");
+                return false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Barangay_Office.Services;
 using Barangay_Office.ViewModels;
 using Microsoft.Maui.Controls;
 
@@ -9,5 +10,5 @@ public partial class CustomerPage : ContentPage
 	public CustomerPage()
 	{
 		InitializeComponent();
-	}
+    }
 }

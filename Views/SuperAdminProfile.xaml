@@ -5,6 +5,7 @@
              xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
              x:Class="Barangay_Office.Views.SuperAdminProfile"
              Title="SuperAdminProfile">
+    
     <ContentPage.BindingContext>
         <vm:SuperAdminProfileViewModel/>
     </ContentPage.BindingContext>
@@ -47,15 +48,11 @@
 
         <VerticalStackLayout VerticalOptions="End" Grid.Row="1">
             <Button
-        Text="Admin Signup"
-        Command="{Binding ToAdminSignup}"/>
-            <Button
-        Text="To Customer Service"
-        Command="{Binding ToCustomerService}"/>
-
+                Text="Admin Signup"
+                Command="{Binding ToSuperAdminSignup}"/>
             <Button 
-        Text="logout"
-        Command="{Binding ToLogout}"/>
+                Text="logout"
+                Command="{Binding ToLogout}"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

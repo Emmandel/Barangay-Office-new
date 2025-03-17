@@ -62,7 +62,10 @@ namespace Barangay_Office
             Routing.RegisterRoute(nameof(PaymentInfoPage), typeof(PaymentInfoPage));
             Routing.RegisterRoute(nameof(AboutUsPage), typeof(AboutUsPage));
             Routing.RegisterRoute(nameof(ChatPage), typeof(ChatPage));
+
             Routing.RegisterRoute(nameof(ServicesPage), typeof(ServicesPage));
+
+            Routing.RegisterRoute(nameof(SuperAdminPage), typeof(SuperAdminPage));
         }
     }
 }

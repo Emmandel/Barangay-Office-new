@@ -1,8 +1,8 @@
 namespace Barangay_Office.Views;
 
-public partial class NewPage1 : ContentPage
+public partial class SuperAdminPage : ContentPage
 {
-	public NewPage1()
+	public SuperAdminPage()
 	{
 		InitializeComponent();
 	}

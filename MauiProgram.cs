@@ -53,9 +53,10 @@ namespace Barangay_Office
 
             builder.Services.AddTransient<AdminChatPage>();
             builder.Services.AddTransient<AdminChatViewModel>();
-
-
             builder.Services.AddTransient<AdminProfile>();
+            
+
+            builder.Services.AddTransient<SuperAdminProfile>();
 
             return builder.Build();
         }

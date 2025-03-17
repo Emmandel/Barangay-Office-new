@@ -156,9 +156,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\SuperAdminPage.xaml.cs">
-	    <DependentUpon>SuperAdminPage.xaml</DependentUpon>
-	  </Compile>
+	  <None Update="Views\SuperAdminPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	</ItemGroup>
 
 </Project>

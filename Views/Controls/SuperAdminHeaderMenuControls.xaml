@@ -9,8 +9,8 @@
     </ContentView.BindingContext>
     
     <HorizontalStackLayout BackgroundColor="#1f0572" Padding="10" WidthRequest="400" HorizontalOptions="Center" VerticalOptions="Center">
-        <Button Text="Home" Style="{StaticResource SuperAdminHeaderMenu}" Command="{Binding SuperAdminNavigate}" CommandParameter="MainPage"/>
+        <Button Text="Home" Style="{StaticResource SuperAdminHeaderMenu}" Command="{Binding SuperAdminNavigate}" CommandParameter="SuperAdminPage"/>
 
-        <Button Text="Profile" Style="{StaticResource SuperAdminHeaderMenu}" Command="{Binding SuperAdminNavigate}" CommandParameter="AdminProfile"/>
+        <Button Text="Profile" Style="{StaticResource SuperAdminHeaderMenu}" Command="{Binding SuperAdminNavigate}" CommandParameter="SuperAdminProfile"/>
     </HorizontalStackLayout>
 </ContentView>

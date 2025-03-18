@@ -26,16 +26,16 @@ namespace Barangay_Office
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            //Register SQLite as singleton
+            //Databases sqlite for offline operations while mongodb for online operations
             builder.Services.AddSingleton<SQLiteAsyncConnection>(_ =>
             {
                 var dbPath = Path.Combine(FileSystem.AppDataDirectory, "barangay_office.db");
                 return new SQLiteAsyncConnection(dbPath);
             });
+            builder.Services.AddSingleton<MongoDbService>();
 
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<ChatService>();
-            builder.Services.AddSingleton<MongoDbService>();
 
             builder.Services.AddTransient<ForgotPasswordPage>();
             builder.Services.AddTransient<LoadingPage>();

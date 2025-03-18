@@ -124,7 +124,7 @@ namespace Barangay_Office.ViewModels
             {
                 Message = "User created successfully!";
                 TextColor = Colors.Green;
-                await Application.Current.MainPage.Navigation.PopAsync();
+                await Shell.Current.Navigation.PopAsync();
             }
             else
             {

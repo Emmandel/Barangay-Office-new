@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
-             x:Class="Barangay_Office.Views.AdminProfile"
              xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
-             Title="Admin Profile">
+             x:Class="Barangay_Office.Views.SuperAdminPage"
+             Title="SuperAdminPage"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled">
 
-    <ContentPage.BindingContext>
-        <vm:AdminProfileViewModel/>
-    </ContentPage.BindingContext>
-    
-    <Grid BackgroundColor = "#d0d0d0">
 
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="220"/>
             <RowDefinition Height="*"/>
@@ -31,28 +28,24 @@
         <!-- for Logo -->
         <StackLayout Margin="-85">
             <Border BackgroundColor="Black" 
-            HeightRequest="60" 
-            WidthRequest="60" 
-            StrokeShape="RoundRectangle 30" 
-            Padding="0" 
-            Margin="0,100,0,0" 
-            HorizontalOptions="Center">
-                <Image Source="barangay_pembo.png" 
-               Aspect="AspectFill" 
-               Margin="0"/>
+                    HeightRequest="60" 
+                    WidthRequest="60" 
+                    StrokeShape="RoundRectangle 30" 
+                    Padding="0" 
+                    Margin="0,100,0,0" 
+                    HorizontalOptions="Center">
+
+                    <Image Source="barangay_pembo.png" 
+                           Aspect="AspectFill" 
+                           Margin="0"/>
             </Border>
         </StackLayout>
-        
-        <!--header menu-->
-        <controls:AdminHeaderMenuControls />
 
-        <VerticalStackLayout VerticalOptions="End" Grid.Row="1">
-            <Button
-                Text="To Customer Service"
-                Command="{Binding ToCustomerService}"/>
-            <Button 
-                Text="logout"
-                Command="{Binding ToLogout}"/>
+        <!--header menu-->
+        <controls:SuperAdminHeaderMenuControls/>
+
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1">
+            <Label Text="Welcome to Super Admin Page!"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

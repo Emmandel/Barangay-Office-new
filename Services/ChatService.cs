@@ -97,6 +97,7 @@ namespace Barangay_Office.Services
         // Send a message base on role
         public async Task<bool> SendMessage(string content, string senderId)
         {
+
             try
             {
                 Console.WriteLine($"Sending message as {senderId}: {content}");

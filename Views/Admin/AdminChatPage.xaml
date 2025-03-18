@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              xmlns:converters="clr-namespace:Barangay_Office.Converters"
              x:Class="Barangay_Office.Views.AdminChatPage"
-             Title="Customer Service Admin">
+             BackgroundColor="LightGray"
+             Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -13,9 +14,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto, *, Auto">
+    <Grid RowDefinitions="Auto, *, Auto, 100">
         <!-- Header -->
-        <StackLayout Grid.Row="0" BackgroundColor="#2C3E50" Padding="10">
+        <StackLayout Grid.Row="0" BackgroundColor="#1f0572" Padding="10">
             <Label Text="Customer Service Management" 
                    TextColor="White" 
                    FontSize="20" 
@@ -25,7 +26,7 @@
         
         <!--message area-->
         <Border Grid.Row="1" 
-                Stroke="LightGray"
+                Stroke="#1f0572"
                 StrokeThickness="1"
                 Margin="10">
             <ScrollView>
@@ -63,15 +64,30 @@
         <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Margin="10">
             <Entry Grid.Column="0" 
                    Placeholder="Type your response here..." 
+                   WidthRequest="250"
                    Text="{Binding NewMessage}" 
+                   TextColor="Black"
                    ReturnCommand="{Binding SendMessageCommand}"/>
+            
             <Button Grid.Column="1" 
                     Text="Send" 
+                    WidthRequest="90"
                     Command="{Binding SendMessageCommand}" 
-                    BackgroundColor="#2C3E50"
+                    BackgroundColor="#1f0572"
                     TextColor="White"
                     CornerRadius="5"
                     Margin="5,0,0,0"/>
         </Grid>
+        <StackLayout Grid.Row="3" WidthRequest="200">
+            <Border StrokeShape="RoundRectangle 20">
+                
+                <Button Text="Back"
+                        BackgroundColor="#1f0572"
+                        Command="{Binding BackButtonCommand}"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HeightRequest="30"/>
+            </Border>
+        </StackLayout>
     </Grid>
 </ContentPage>

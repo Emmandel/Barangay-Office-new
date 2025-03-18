@@ -18,7 +18,6 @@ public partial class LoadingPage : ContentPage
         base.OnNavigatedTo(args);
         await NavigateAsync();
         
-
     }
 
     private async Task NavigateAsync()
@@ -29,16 +28,15 @@ public partial class LoadingPage : ContentPage
             if (await _authService.IsAuthenticatedAsync())
             {
                 string userRole = _authService.GetRole();
-                if(userRole == "Admin"){
+                if (userRole == "SuperAdmin")
+                    await Shell.Current.GoToAsync($"//{nameof(SuperAdminPage)}");
+                else if (userRole == "Admin")
                     await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-                }else if(userRole == "Customer")
-                {
+                
+                else if (userRole == "Customer")
                     await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
-                }
                 else
-                {
                     await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                }
             }
             else
             {

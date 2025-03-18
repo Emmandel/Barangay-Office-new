@@ -2,12 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Barangay_Office.Converters"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.ChatPage"
              Shell.FlyoutBehavior="Disabled"
-             Shell.NavBarIsVisible="True"
+             Shell.NavBarIsVisible="False"
              Title="Customer Service">
 
-    <Grid RowDefinitions="*, Auto, Auto">
+    <ContentPage.BindingContext>
+        <vm:CustomerServiceViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*, 200, auto">
         <Border Grid.Row="0" 
                 Stroke="LightGray"
                 StrokeThickness="1"
@@ -44,13 +49,15 @@
             </ScrollView>
         </Border>
 
-        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Margin="10">
+        <Grid Grid.Row="1" ColumnDefinitions="*, auto" Margin="15,0,15,10" >
                 <Entry Grid.Column="0"
+                       HeightRequest="0"
                        Placeholder="Type your message here..."
                        Text="{Binding MessageEntry}"
                        ReturnCommand="{Binding SendCommand}"/>
                 <Button Grid.Column="1"
                         Text="Send"
+                        HeightRequest="0"
                         Command="{Binding SendCommand}"
                         BackgroundColor="#3498DB"
                         TextColor="White"
@@ -58,7 +65,7 @@
                         Margin="5,0,0,0"/>
         </Grid>
 
-        <Button Grid.Row="3"
+        <Button Grid.Row="2"
                 Text="Back"
                 BackgroundColor="#1f0572"
                 TextColor="White"
@@ -66,7 +73,8 @@
                 CornerRadius="10"
                 WidthRequest="150"
                 HeightRequest="50"
-                Margin="0,0,0,10"
+                Padding="0,0,0,0"
+                Margin="0,0,0,50"
                 HorizontalOptions="Center"
                 Command="{Binding BackButton}"/>
     </Grid>

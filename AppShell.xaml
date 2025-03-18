@@ -7,35 +7,61 @@
     xmlns:views="clr-namespace:Barangay_Office.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <!--Loading Page-->
-    <ShellContent
-        Title="Loading"
-        ContentTemplate="{DataTemplate views:LoadingPage}"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"
-        Route="LoadingPage"/>
 
-    <!--Login Page-->
+    <!-- Super-Admin Page-->
     <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="LoginPage" 
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"/>
-
-    <!-- Signup Page -->
+    Title="Super Admin"
+    ContentTemplate="{DataTemplate views:SuperAdminPage}"
+    Shell.NavBarIsVisible="False"
+    Route="SuperAdminPage"/>
+    
+    <!-- Super-Admin Profile-->
     <ShellContent
-        Title="Signup"
-        ContentTemplate="{DataTemplate views:SignupPage}"
-        Route="SignupPage"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"/>
+    Title="Super Admin Profile"
+    ContentTemplate="{DataTemplate views:SuperAdminProfile}"
+    Shell.NavBarIsVisible="False"
+    Route="SuperAdminProfile"/>
+    
+    
+    <!-- Admin Page-->
+    <ShellContent
+    Title="Admin"
+    ContentTemplate="{DataTemplate local:MainPage}"
+    Shell.NavBarIsVisible="False"
+    Route="MainPage"/>
+   
+    <!-- Admin Profile Page-->
+    <ShellContent
+    Title="Profile"
+    ContentTemplate="{DataTemplate views:AdminProfile}"
+    Route="AdminProfile"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"/>
     
     <!-- Admin Signup Page-->
     <ShellContent
         Title="Admin Signup"
         ContentTemplate="{DataTemplate views:AdminSignupPage}"
         Route="AdminSignupPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
+    
+    <!-- Admin Service-->
+    <ShellContent
+        Title="Admin Service"
+        ContentTemplate="{DataTemplate views:AdminChatPage}"
+        Route="AdminChatPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
+        
+    
+    
+    
+    <!-- Signup Page -->
+    <ShellContent
+        Title="Signup"
+        ContentTemplate="{DataTemplate views:SignupPage}"
+        Route="SignupPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
 
@@ -77,45 +103,13 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
     
-
     <!--About Us-->
     <ShellContent
-    Title="About Us"
-    ContentTemplate="{DataTemplate views:AboutUsPage}"
-    Route="AboutUsPage"
-    Shell.FlyoutBehavior="Flyout"
-    Shell.FlyoutItemIsVisible="False"/>
-
-    <!-- Admin Page-->
-    <ShellContent
-    Title="Admin"
-    ContentTemplate="{DataTemplate local:MainPage}"
-    Shell.NavBarIsVisible="False"
-    Route="MainPage"/>
-    
-    <!-- Super-Admin Page-->
-    <ShellContent
-    Title="Super Admin"
-    ContentTemplate="{DataTemplate views:SuperAdminPage}"
-    Shell.NavBarIsVisible="False"
-    Route="SuperAdminPage"/>
-
-    <!-- Admin Profile Page-->
-    <ShellContent
-    Title="Profile"
-    ContentTemplate="{DataTemplate views:AdminProfile}"
-    Route="AdminProfile"
-    Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False"/>
-
-
-    <!-- forgotten passwoord -->
-    <ShellContent 
-        Title="Forgot Password" 
-        ContentTemplate="{DataTemplate views:ForgotPasswordPage}" 
-        Route="ForgotPasswordPage" 
-        Shell.FlyoutItemIsVisible="False"
-        Shell.NavBarIsVisible="False"/>
+        Title="About Us"
+        ContentTemplate="{DataTemplate views:AboutUsPage}"
+        Route="AboutUsPage"
+        Shell.FlyoutBehavior="Flyout"
+        Shell.FlyoutItemIsVisible="False"/>
 
     <!--Customer Service-->
     <ShellContent 
@@ -124,5 +118,30 @@
         Route="ChatPage" 
         Shell.FlyoutItemIsVisible="False"
         Shell.NavBarIsVisible="False"/>
+
     
+    
+    <!-- forgotten passwoord -->
+    <ShellContent 
+        Title="Forgot Password" 
+        ContentTemplate="{DataTemplate views:ForgotPasswordPage}" 
+        Route="ForgotPasswordPage" 
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False"/>
+    
+    <!--Loading Page-->
+    <ShellContent
+        Title="Loading"
+        ContentTemplate="{DataTemplate views:LoadingPage}"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Route="LoadingPage"/>
+
+    <!--Login Page-->
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage" 
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
 </Shell>

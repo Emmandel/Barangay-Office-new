@@ -92,22 +92,22 @@
 	  <MauiXaml Update="Resources\Styles\SuperAdminHeaderMenuStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AboutUsPage.xaml">
+	  <MauiXaml Update="Views\Customer\AboutUsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AdminChatPage.xaml">
+	  <MauiXaml Update="Views\Admin\AdminChatPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AdminProfile.xaml">
+	  <MauiXaml Update="Views\Admin\AdminProfile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AdminSignupPage.xaml">
+	  <MauiXaml Update="Views\Admin\AdminSignupPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ChatPage.xaml">
+	  <MauiXaml Update="Views\Customer\ChatPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ContactInfoPage.xaml">
+	  <MauiXaml Update="Views\Customer\ContactInfoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Controls\AdminHeaderMenuControls.xaml">
@@ -119,7 +119,7 @@
 	  <MauiXaml Update="Views\Controls\SuperAdminHeaderMenuControls.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CustomerPage.xaml">
+	  <MauiXaml Update="Views\Customer\CustomerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ForgotPasswordPage.xaml">
@@ -131,34 +131,28 @@
 	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\SuperAdminPage.xaml">
+	  <MauiXaml Update="Views\Customer\PaymentInfoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PaymentInfoPage.xaml">
+	  <MauiXaml Update="Views\Customer\ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ProfilePage.xaml">
+	  <MauiXaml Update="Views\Customer\ServicesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ServicesPage.xaml">
+	  <MauiXaml Update="Views\Customer\SignupPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\SignupPage.xaml">
+	  <MauiXaml Update="Views\SuperAdmin\SuperAdminPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\SuperAdminProfile.xaml">
+	  <MauiXaml Update="Views\SuperAdmin\SuperAdminProfile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Resources\Images\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Views\SuperAdminPage.xaml.cs">
-	    <DependentUpon>SuperAdminPage.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 </Project>

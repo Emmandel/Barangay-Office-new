@@ -4,9 +4,10 @@ namespace Barangay_Office.Views;
 
 public partial class AdminChatPage : ContentPage
 {
-	public AdminChatPage()
+	public AdminChatPage(AdminChatViewModel viewModel)
 	{
 		InitializeComponent();
+        BindingContext = viewModel;
 	}
 
     protected override void OnAppearing()

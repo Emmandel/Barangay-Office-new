@@ -3,10 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
              x:Class="Barangay_Office.Views.SuperAdminPage"
-             Title="SuperAdminPage"
-             Shell.NavBarIsVisible="False"
-             Shell.FlyoutBehavior="Disabled">
-
+             Title="SuperAdminPage">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -35,7 +32,7 @@
                     Margin="0,100,0,0" 
                     HorizontalOptions="Center">
 
-                    <Image Source="barangay_pembo.png" 
+                <Image Source="barangay_pembo.png" 
                            Aspect="AspectFill" 
                            Margin="0"/>
             </Border>

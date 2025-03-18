@@ -50,7 +50,7 @@ namespace Barangay_Office.ViewModels
             _chatService = chatService;
 
             SendCommand = new Command(async () => await SendMessageAsync());
-            BackButton = new Command(async () => await Application.Current.MainPage.Navigation.PopAsync());
+            BackButton = new Command(async () => await Shell.Current.GoToAsync($"//{nameof(AboutUsPage)}"));
 
             //Load for existing message first
             LoadInitialMessages();

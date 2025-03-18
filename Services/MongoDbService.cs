@@ -77,27 +77,10 @@ namespace Barangay_Office.Services
             {
                 var pipeline = new EmptyPipelineDefinition<ChangeStreamDocument<CustomerService>>().Match(change => change.OperationType == ChangeStreamOperationType.Insert);
 
-                _changeStreamCursor = _CustomerServiceCollection.Watch(pipeline);
-
-                await Task.Run(async () => {
-                    while(true){
-                        foreach(var change in _changeStreamCursor.ToEnumerable()){
-                            if (change.FullDocument != null)
-                            {
-                                Console.WriteLine($"New message received: {change.FullDocument.Content}");
-                                MainThread.BeginInvokeOnMainThread(() =>
-                                {
-                                    OnNewMessageReceived?.Invoke(change.FullDocument);
-                                });
-                            }
-                        }
-                    }
-                });
-
                 var options = new ChangeStreamOptions { FullDocument = ChangeStreamFullDocumentOption.UpdateLookup };
 
-            
-                using var cursor = await _CustomerServiceCollection.WatchAsync(pipeline, options);
+                using var cursorTask = _CustomerServiceCollection.WatchAsync(pipeline, options);
+                using var cursor = await cursorTask;
 
                 while (await cursor.MoveNextAsync())
                 {
@@ -106,7 +89,10 @@ namespace Barangay_Office.Services
                         if (change.FullDocument != null)
                         {
                             Console.WriteLine($"New message detected: {change.FullDocument.Content}");
-                            OnNewMessageReceived?.Invoke(change.FullDocument);
+                            MainThread.BeginInvokeOnMainThread(() =>
+                            {
+                                OnNewMessageReceived?.Invoke(change.FullDocument);
+                            });
                         }
                     }
                 }

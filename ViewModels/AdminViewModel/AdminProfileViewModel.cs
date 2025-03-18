@@ -20,7 +20,7 @@ namespace Barangay_Office.ViewModels
             //go to customer service
             ToCustomerService = new RelayCommand(async () =>
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new AdminChatPage());
+                await Shell.Current.GoToAsync($"//{nameof(AdminChatPage)}");
             });
 
             //go to logout

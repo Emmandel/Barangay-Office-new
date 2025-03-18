@@ -25,11 +25,17 @@ namespace Barangay_Office.ViewModels
         
         //commands
         public ICommand SendMessageCommand { get; }
+        public ICommand BackButtonCommand { get; }
 
         public AdminChatViewModel(ChatService chatService)
         {
             _chatService = chatService;
             Messages = new ObservableCollection<CustomerService>();
+            BackButtonCommand = new RelayCommand(async () =>
+            {
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            });
+
             SendMessageCommand = new AsyncRelayCommand(SendMessage);
 
             //loading new messages and subscribe to real-time messages
@@ -108,15 +114,32 @@ namespace Barangay_Office.ViewModels
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                if (Application.Current.MainPage is NavigationPage navPage &&
-                    navPage.CurrentPage is AdminChatPage chatPage)
+                if (Application.Current?.MainPage is NavigationPage navPage)
                 {
-                    var lastMessage = Messages.LastOrDefault();
-                    if (lastMessage != null)
+                    if (navPage.CurrentPage is AdminChatPage chatPage)
                     {
-                        chatPage.FindByName<CollectionView>("MessageCollection")
-                            ?.ScrollTo(lastMessage, position: ScrollToPosition.End, animate: true);
+                        var messageCollection = chatPage.FindByName<CollectionView>("MessageCollection");
+                        if (messageCollection != null)
+                        {
+                            var lastMessage = Messages.LastOrDefault();
+                            if (lastMessage != null)
+                            {
+                                messageCollection.ScrollTo(lastMessage, position: ScrollToPosition.End, animate: true);
+                            }
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Error: CollectionView 'MessageCollection' not found in AdminChatPage.");
+                        }
                     }
+                    else
+                    {
+                        Debug.WriteLine("Error: Current page is not AdminChatPage.");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("Error: MainPage is not a NavigationPage.");
                 }
             });
         }

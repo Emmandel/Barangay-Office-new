@@ -46,13 +46,30 @@
         <!--header menu-->
         <controls:SuperAdminHeaderMenuControls/>
 
-        <VerticalStackLayout VerticalOptions="End" Grid.Row="1">
-            <Button
-                Text="Admin Signup"
-                Command="{Binding ToSuperAdminSignup}"/>
-            <Button 
-                Text="logout"
-                Command="{Binding ToLogout}"/>
+        <VerticalStackLayout VerticalOptions="End" Grid.Row="1" Margin="20" Spacing="10">
+            <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
+                <Button BackgroundColor="#1f0572"
+                        Text="Admin Signup"
+                        TextColor="White"
+                        FontSize="12"
+                        Command="{Binding ToAdminSignup}"/>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
+                <Button TextColor="White"
+                        BackgroundColor="#e63c3f"
+                        Text="To Reset"
+                        FontSize="12"
+                        Command="{Binding ToReset}"/>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
+                <Button TextColor="White"
+                        FontSize="12"
+                        BackgroundColor="#1f0572"
+                        Text="Logout"
+                        Command="{Binding ToLogout}"/>
+            </Border>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

@@ -120,6 +120,8 @@ namespace Barangay_Office.ViewModels
             //Retrieve the last logged-in user's role
             string userRole = Preferences.Get("UserRole", Preferences.Get("LastUserRole", string.Empty));
             IsBiometricEnabled = userRole == "Customer";
+            IsBiometricEnabled = userRole == "Admin";
+            IsBiometricEnabled = userRole == "SuperAdmin";
         }
 
         //validation for email
@@ -183,7 +185,13 @@ namespace Barangay_Office.ViewModels
                     CheckBiometricEligibility();
 
                     //navigate base on role
-                    if (role == "Admin")
+                    if (role == "SuperAdmin")
+                    {
+                        Message = "Super Admin Login Successful!";
+                        await Shell.Current.GoToAsync($"//{nameof(SuperAdminPage)}");
+                        BorderColor = Colors.Green;
+                    }
+                    else if (role == "Admin")
                     {
                         Message = "Admin Login Successful!";
                         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
@@ -238,6 +246,14 @@ namespace Barangay_Office.ViewModels
                 if(userRole == "Customer")
                 {
                     await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
+                }
+                else if(userRole == "Admin")
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
+                else if (userRole == "SuperAdmin")
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(SuperAdminPage)}");
                 }
                 else
                 {

@@ -53,7 +53,6 @@ namespace Barangay_Office.Services
                 {
                     Email = "SuperAdmin@gmail.com",
                     Password ="SampleTest@123",
-                    //Password = BCrypt.Net.BCrypt.HashPassword("Test@123"),
                     Role = "SuperAdmin"
                 });
             }

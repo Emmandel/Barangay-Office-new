@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             x:Class="Barangay_Office.Views.AdminProfile"
+             xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
+             Title="Admin Profile">
+
+    <ContentPage.BindingContext>
+        <vm:AdminProfileViewModel/>
+    </ContentPage.BindingContext>
+    
+    <Grid BackgroundColor = "#d0d0d0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- for banner layout -->
+        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z">
+            <Path.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0.1" />
+                    <GradientStop Color="Blue" Offset="1.0" />
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
+
+        <!-- for Logo -->
+        <StackLayout Margin="-85">
+            <Border BackgroundColor="Black" 
+            HeightRequest="60" 
+            WidthRequest="60" 
+            StrokeShape="RoundRectangle 30" 
+            Padding="0" 
+            Margin="0,100,0,0" 
+            HorizontalOptions="Center">
+                <Image Source="barangay_pembo.png" 
+               Aspect="AspectFill" 
+               Margin="0"/>
+            </Border>
+        </StackLayout>
+
+        <!--header menu-->
+        <controls:AdminHeaderMenuControls />
+
+        <VerticalStackLayout VerticalOptions="End" Grid.Row="1" Margin="20" Spacing="10">
+            <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
+                <Button TextColor="White"
+                        FontSize="12"
+                        Text="To Customer Service"
+                        BackgroundColor="#e63c3f"
+                        Command="{Binding ToCustomerService}"/>
+            </Border>
+
+            <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
+                <Button TextColor="White"
+                        FontSize="12"
+                        BackgroundColor="#1f0572"
+                        Text="logout"
+                        Command="{Binding ToLogout}"/>
+            </Border>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

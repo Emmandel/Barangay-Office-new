@@ -15,7 +15,7 @@ namespace Barangay_Office.ViewModels
         private string _email;
         private string _newPassword;
         private string _message;
-        private Color _borderColor;
+        private Color _borderColor = (Color)Application.Current.Resources["BlueishPurple"];
         private Color _emailColor = (Color)Application.Current.Resources["BlueishPurple"];
         private Color _resetPasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
 
@@ -134,6 +134,13 @@ namespace Barangay_Office.ViewModels
         {
             ValidateAllFields();
 
+            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(NewPassword))
+            {
+                Message = "All fields are required!";
+                BorderColor = Colors.Red;
+                return;
+            }
+
             //validate format
             if (!IsValidEmail(Email))
             {
@@ -145,18 +152,12 @@ namespace Barangay_Office.ViewModels
 
             if (!IsValidPassword(NewPassword))
             {
-                Message = "Password must be at least 10-15 characters and contain atleast 1 letter and one number.";
+                Message = "Password have least 10-15 alphanumeric";
                 BorderColor = Colors.Red;
                 NewPassColor = Colors.Red;
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(NewPassword))
-            {
-                Message = "All fields are required!";
-                BorderColor = Colors.Red;
-                return;
-            }
 
             bool isEmailRegistered = await _authService.IsEmailRegisteredAsync(Email);
 
@@ -175,7 +176,7 @@ namespace Barangay_Office.ViewModels
                 BorderColor = Colors.Green;
 
                 await Task.Delay(500);
-                await Application.Current.MainPage.Navigation.PopAsync();  // Navigate back to login
+                await Shell.Current.Navigation.PopAsync();  // Navigate back to login
 
                 return;
             }

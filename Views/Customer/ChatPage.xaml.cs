@@ -8,7 +8,6 @@ public partial class ChatPage : ContentPage
     public ChatPage()
 	{
 		InitializeComponent();
-        BindingContext = new CustomerServiceViewModel();
     }
 
     //protected override void OnAppearing()

@@ -17,14 +17,6 @@ namespace Barangay_Office.ViewModels
 
         public AdminProfileViewModel(AuthService authService)
         {
-            _authService = authService;
-            //go to admin signup
-            ToAdminSignup = new Command(async () =>
-            {
-                _authService.LogOut();
-                await Application.Current.MainPage.Navigation.PushAsync(new AdminSignupPage(_authService));
-            });
-
             //go to customer service
             ToCustomerService = new RelayCommand(async () =>
             {

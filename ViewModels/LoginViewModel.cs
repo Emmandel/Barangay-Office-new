@@ -197,6 +197,12 @@ namespace Barangay_Office.ViewModels
                         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
                         BorderColor = Colors.Green;
                     }
+                    else if (role == "SuperAdmin")
+                    {
+                        Message = "Admin Login Successful!";
+                        await Shell.Current.GoToAsync($"//{nameof(SuperAdminPage)}");
+                        BorderColor = Colors.Green;
+                    }
                     else if (role == "Customer")
                     {
                         Message = "Customer Login Successful!";

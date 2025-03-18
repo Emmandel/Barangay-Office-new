@@ -5,6 +5,7 @@
              xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
              x:Class="Barangay_Office.Views.SuperAdminProfile"
              Title="SuperAdminProfile">
+    
     <ContentPage.BindingContext>
         <vm:SuperAdminProfileViewModel/>
     </ContentPage.BindingContext>

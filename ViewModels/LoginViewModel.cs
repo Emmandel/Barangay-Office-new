@@ -117,11 +117,25 @@ namespace Barangay_Office.ViewModels
         //check if it's a customer
         public void CheckBiometricEligibility()
         {
-            //Retrieve the last logged-in user's role
-            string userRole = Preferences.Get("UserRole", Preferences.Get("LastUserRole", string.Empty));
-            IsBiometricEnabled = userRole == "Customer";
-            IsBiometricEnabled = userRole == "Admin";
-            IsBiometricEnabled = userRole == "SuperAdmin";
+            ////Retrieve the last logged-in user's role
+            //string userRole = Preferences.Get("UserRole", Preferences.Get("LastUserRole", string.Empty));
+            //IsBiometricEnabled = userRole == "Customer";
+            //IsBiometricEnabled = userRole == "Admin";
+
+            // Retrieve the current user role
+            string currentUserRole = Preferences.Get("UserRole", string.Empty);
+
+            if (string.IsNullOrEmpty(currentUserRole))
+            {
+                // If no user is logged in, check the last user role for biometric eligibility
+                string lastUserRole = Preferences.Get("LastUserRole", string.Empty);
+                IsBiometricEnabled = lastUserRole == "Customer" || lastUserRole == "Admin";
+            }
+            else
+            {
+                // If a user is logged in, enable biometrics based on their current role
+                IsBiometricEnabled = currentUserRole == "Customer" || currentUserRole == "Admin";
+            }
         }
 
         //validation for email
@@ -197,12 +211,6 @@ namespace Barangay_Office.ViewModels
                         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
                         BorderColor = Colors.Green;
                     }
-                    else if (role == "SuperAdmin")
-                    {
-                        Message = "Admin Login Successful!";
-                        await Shell.Current.GoToAsync($"//{nameof(SuperAdminPage)}");
-                        BorderColor = Colors.Green;
-                    }
                     else if (role == "Customer")
                     {
                         Message = "Customer Login Successful!";
@@ -257,7 +265,7 @@ namespace Barangay_Office.ViewModels
                 }
                 else
                 {
-                    Message = "Biometric Authentication is available only for Customers!";
+                    Message = "Biometric Authentication is not available!";
                     BorderColor = Colors.Red;
                     return;
                 }

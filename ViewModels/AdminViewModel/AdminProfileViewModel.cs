@@ -26,7 +26,7 @@ namespace Barangay_Office.ViewModels
             //go to logout
             ToLogout = new Command(() =>
             {
-                _authService.LogOut();
+                authService.LogOut();
                 Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
             });
         }

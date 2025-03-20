@@ -120,6 +120,8 @@ namespace Barangay_Office.Services
             return Preferences.Get("UserRole", string.Empty);
         }
 
+
+        //get the authenticated roles
         public async Task<(bool IsAuthenticated, string role)> GetAuthenticatedUserRoleAsync()
         {
             bool isAuthenticated = Preferences.Get(AuthStateKey, false);

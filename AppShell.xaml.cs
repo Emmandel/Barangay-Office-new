@@ -13,16 +13,21 @@ namespace Barangay_Office
             _authService = new AuthService();
             RegisteredRoutes();
             CheckAuthentication();
+            InitializeStartupNavigation();
 
+        }
+
+        private async void InitializeStartupNavigation()
+        {
+            await GoToAsync($"//{nameof(LoadingPage)}");
         }
 
         private async void CheckAuthentication()
         {
             try
             {
-
                 // Check if user is authenticated
-                var (isAuthenticated, role) = await _authService.GetAuthenticatedUserRoleAsync();
+                var (isAuthenticated, Role) = await _authService.GetAuthenticatedUserRoleAsync();
 
                 if (!isAuthenticated)
                 {
@@ -31,11 +36,11 @@ namespace Barangay_Office
                 else
                 {
                     //Redirect based on role
-                    if (role == "SuperAdmin")
+                    if (Role == "SuperAdmin")
                         await Shell.Current.GoToAsync("//SuperAdminPage");
-                    else if (role == "Admin")
+                    else if (Role == "Admin")
                         await Shell.Current.GoToAsync("//MainPage"); //Admin goes to MainPage
-                    else if (role == "Customer")
+                    else if (Role == "Customer")
                         await Shell.Current.GoToAsync("//CustomerPage"); //Customer goes to CustomerPage
                     else
                         await Shell.Current.GoToAsync("//LoginPage"); //Default to login if role is invalid

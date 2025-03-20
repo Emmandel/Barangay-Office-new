@@ -93,11 +93,20 @@
                      Orientation="Vertical"
                      HorizontalOptions="CenterAndExpand">
 
-                <Label Text="{Binding Message}" TextColor="{Binding TextColor}" HorizontalOptions="Center"/>
+                <Label Text="{Binding Message}" 
+                       TextColor="{Binding BorderColor}"
+                       HorizontalOptions="Center" 
+                       LineBreakMode="WordWrap"
+                       WidthRequest="250"
+                       Margin="0,0,0,-20"
+                       Padding="0"
+                       HeightRequest="50"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Micro"/>
 
                 <!-- Email -->
                 <Border BackgroundColor="Transparent"
-                    Stroke="#1f0572"
+                    Stroke="{Binding EmailColor}"
                     Padding="0"
                     Margin="0,0,0,10"
                     StrokeShape="RoundRectangle 30">
@@ -130,7 +139,7 @@
 
                 <!-- password -->
                 <Border BackgroundColor="Transparent"
-                    Stroke="#1f0572"
+                    Stroke="{Binding PasswordColor}"
                     Padding="0"
                     StrokeShape="RoundRectangle 30">
 
@@ -174,7 +183,7 @@
 
                 <!-- Confirm Password -->
                 <Border BackgroundColor="Transparent"
-                    Stroke="#1f0572"
+                    Stroke="{Binding ConfirmPasswordColor}"
                     Margin="0,10,0,0"
                     Padding="0"
                     StrokeShape="RoundRectangle 30">

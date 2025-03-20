@@ -1,5 +1,4 @@
 using Barangay_Office.Services;
-using Google.Apis.Admin.Directory.directory_v1.Data;
 
 namespace Barangay_Office.Views;
 
@@ -25,18 +24,32 @@ public partial class LoadingPage : ContentPage
         try
         {
 
+            await Task.Delay(2000);
+
             if (await _authService.IsAuthenticatedAsync())
             {
                 string userRole = _authService.GetRole();
                 if (userRole == "SuperAdmin")
+                {
+
                     await Shell.Current.GoToAsync($"//{nameof(SuperAdminPage)}");
+                }
                 else if (userRole == "Admin")
+                {
+
                     await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
                 
                 else if (userRole == "Customer")
+                {
+
                     await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
+                }
                 else
+                {
+
                     await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                }
             }
             else
             {

@@ -15,7 +15,16 @@ public partial class LoadingPage : ContentPage
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        await NavigateAsync();
+        try 
+        {
+            await NavigateAsync();
+        }
+        catch (Exception ex)
+        {
+            // Ensure app doesn't crash
+            await DisplayAlert("Error", $"Application error: {ex.Message}", "OK");
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+        }
         
     }
 
@@ -23,44 +32,37 @@ public partial class LoadingPage : ContentPage
     {
         try
         {
-
             await Task.Delay(2000);
-
-            if (await _authService.IsAuthenticatedAsync())
+            
+            var authState = await _authService.IsAuthenticatedAsync();
+            if (!authState)
             {
-                string userRole = _authService.GetRole();
-                if (userRole == "SuperAdmin")
-                {
-
-                    await Shell.Current.GoToAsync($"//{nameof(SuperAdminPage)}");
-                }
-                else if (userRole == "Admin")
-                {
-
-                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-                }
-                
-                else if (userRole == "Customer")
-                {
-
-                    await Shell.Current.GoToAsync($"//{nameof(CustomerPage)}");
-                }
-                else
-                {
-
-                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-                }
-            }
-            else
-            {
-                //user has not logged in
                 await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                return;
             }
+            string userRole = AuthService.GetRole();
+            string targetPage = userRole switch
+            {
+                "SuperAdmin" => nameof(SuperAdminPage),
+                "Admin" => nameof(MainPage),
+                "Customer" => nameof(CustomerPage),
+                _ => nameof(LoginPage)
+            };
+            await Shell.Current.GoToAsync($"//{targetPage}");
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", $"An error occurred:{ex.Message}", "OK");
+            await DisplayAlert("Error", $"Navigation error: {ex.Message}", "OK");
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }
+
+    //add memory management
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+    }
+
 }

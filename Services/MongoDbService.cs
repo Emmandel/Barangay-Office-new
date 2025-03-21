@@ -18,9 +18,16 @@ namespace Barangay_Office.Services
         {
             try
             {
-                const string connectionUrl = "mongodb+srv://Taisho:qrf1MinWjnwlGnIP@barangayoffice.kkfy4.mongodb.net/?retryWrites=true&w=majority&appName=BarangayOffice";
+                // Retrieve connection string from secure storage
+                var connectionString = Task.Run(async () =>
+                    await SecureStorage.GetAsync("mongo_connection")).Result;
 
-                var settings = MongoClientSettings.FromConnectionString(connectionUrl);
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    throw new Exception("MongoDB connection string not found in secure storage");
+                }
+
+                var settings = MongoClientSettings.FromConnectionString(connectionString);
 
                 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
 

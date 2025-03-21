@@ -113,6 +113,7 @@
                         </Grid.ColumnDefinitions>
                         <Border 
                             BackgroundColor="Transparent"
+                            HeightRequest="40"
                             WidthRequest="40"
                             StrokeShape="RoundRectangle 30" 
                             Padding="0"

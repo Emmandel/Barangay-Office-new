@@ -174,8 +174,6 @@ namespace Barangay_Office.ViewModels
             {
                 Message = "Password has been reset successfully!";
                 BorderColor = Colors.Green;
-
-                await Task.Delay(500);
                 await Shell.Current.Navigation.PopAsync();  // Navigate back to login
 
                 return;

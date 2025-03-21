@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Barangay_Office.Services;
 using Barangay_Office.Views;
-using MongoDB.Driver.Core.Misc;
 using Plugin.Maui.Biometric;
 
 namespace Barangay_Office.ViewModels
@@ -24,6 +17,7 @@ namespace Barangay_Office.ViewModels
         private Color _passwordColor = (Color)Application.Current.Resources["BlueishPurple"];
         private bool _isBiometricEnabled;
 
+        //entry accessors
         public string Email
         {
             get => _email;
@@ -55,23 +49,23 @@ namespace Barangay_Office.ViewModels
             }
         }
 
-        //colors
+        //color accessors
         public Color EmailColor
         {
-            get => _passwordColor;
+            get => _emailColor;
             set
             {
-                _passwordColor = value;
+                _emailColor = value;
                 OnPropertyChanged();
             }
         }
 
         public Color PasswordColor
         {
-            get => _emailColor;
+            get => _passwordColor;
             set
             {
-                _emailColor = value;
+                _passwordColor = value;
                 OnPropertyChanged();
             }
         }
@@ -117,10 +111,6 @@ namespace Barangay_Office.ViewModels
         //check if it's a customer
         public void CheckBiometricEligibility()
         {
-            ////Retrieve the last logged-in user's role
-            //string userRole = Preferences.Get("UserRole", Preferences.Get("LastUserRole", string.Empty));
-            //IsBiometricEnabled = userRole == "Customer";
-            //IsBiometricEnabled = userRole == "Admin";
 
             // Retrieve the current user role
             string currentUserRole = Preferences.Get("UserRole", string.Empty);
@@ -219,7 +209,9 @@ namespace Barangay_Office.ViewModels
                     }
                     else
                     {
-                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                        //await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                        Message = "Unexpected role!";
+                        BorderColor = Colors.Red;
                     }
                 }
                 else

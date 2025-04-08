@@ -11,36 +11,55 @@ namespace Barangay_Office.ViewModels
     public partial class AdminChatViewModel : BaseViewModel
     {
         private readonly ChatService _chatService;
-        public ObservableCollection<CustomerService> Messages { get; } = [];
+        public ObservableCollection<CustomerServiceMessage> Messages { get; } = new ObservableCollection<CustomerServiceMessage>();
 
-        private string _newMessage;
+        private string _newMessage = string.Empty;
         public string NewMessage
         {
             get => _newMessage;
-            set { 
-                _newMessage = value; 
+            set
+            {
+                _newMessage = value;
                 OnPropertyChanged();
             }
         }
-        
+
         //commands
         public ICommand SendMessageCommand { get; }
         public ICommand BackButtonCommand { get; }
 
-        public AdminChatViewModel(ChatService chatService)
+        public AdminChatViewModel()
         {
-            _chatService = chatService;
-            Messages = new ObservableCollection<CustomerService>();
+            _chatService = new ChatService(new MongoDbService());
             BackButtonCommand = new RelayCommand(async () =>
             {
-                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                Console.WriteLine("Back Button works");
+                await Shell.Current.GoToAsync($"//{nameof(AdminProfile)}");
             });
 
             SendMessageCommand = new AsyncRelayCommand(SendMessage);
 
+            // Set admin as online when view appears
+            _chatService.SetAdminStatus(true);
+
             //loading new messages and subscribe to real-time messages
+            
             LoadMessages();
             SubscribeToMessages();
+        }
+
+        public void OnAppearing()
+        {
+            // Set admin as online when view appears
+            _chatService.SetAdminStatus(true);
+            LoadMessages();
+            SubscribeToMessages();
+        }
+
+        public void OnDisappearing()
+        {
+            // Set admin as offline when view disappears
+            _chatService.SetAdminStatus(false);
         }
 
         private async void LoadMessages()
@@ -93,7 +112,7 @@ namespace Barangay_Office.ViewModels
                 string messageContent = NewMessage.Trim();
                 NewMessage = string.Empty; // Clear input immediately
 
-                var message = new CustomerService
+                var message = new CustomerServiceMessage
                 {
                     Content = messageContent,
                     SenderID = "Admin",
@@ -102,19 +121,59 @@ namespace Barangay_Office.ViewModels
                     IsRead = false
                 };
 
-                await _chatService.SendMessageAsync(message);
+                // Add detailed logging before the call
+                Debug.WriteLine($"About to send message: {message.Content}");
+                Debug.WriteLine($"Message properties - SenderID: {message.SenderID}, SenderRole: {message.SenderRole}");
+
+                // Try direct send first
+                try
+                {
+                    await _chatService.SendMessageAsync(message);
+                    Debug.WriteLine("Message sent successfully!");
+                }
+                catch (NullReferenceException)
+                {
+                    // If MongoDB service or collection is null, try alternative approach
+                    Debug.WriteLine("Attempting to send message using alternative method...");
+                    bool result = await _chatService.SendMessage(message.Content, "Admin");
+
+                    if (result)
+                    {
+                        Debug.WriteLine("Message sent successfully using alternative method!");
+                    }
+                    else
+                    {
+                        throw new Exception("Failed to send message using alternative method");
+                    }
+                }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", $"Failed to send message: {ex.Message}", "OK");
+                // Log detailed error information
+                Debug.WriteLine($"Exception type: {ex.GetType().Name}");
+                Debug.WriteLine($"Error sending message: {ex.Message}");
+                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+
+                // If there's an inner exception, log that too
+                if (ex.InnerException != null)
+                {
+                    Debug.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                    Debug.WriteLine($"Inner exception stack trace: {ex.InnerException.StackTrace}");
+                }
+
+                Console.WriteLine($"Ayaw mag send ng message: {ex.Message}");
             }
         }
 
         private void ScrollToBottom()
         {
+            try
+            {
+
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                if (Application.Current?.MainPage is NavigationPage navPage)
+                var mainPage = Application.Current?.Windows.FirstOrDefault()?.Page;
+                if (mainPage is NavigationPage navPage)
                 {
                     if (navPage.CurrentPage is AdminChatPage chatPage)
                     {
@@ -142,6 +201,12 @@ namespace Barangay_Office.ViewModels
                     Debug.WriteLine("Error: MainPage is not a NavigationPage.");
                 }
             });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error invoking MainThread in ScrollToBottom: {ex.Message}");
+                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+            }
         }
     }
 }

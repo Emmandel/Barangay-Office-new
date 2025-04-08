@@ -7,6 +7,10 @@
              BackgroundColor="LightGray"
              Shell.NavBarIsVisible="False">
 
+    <ContentPage.BindingContext>
+        <vm:AdminChatViewModel/>
+    </ContentPage.BindingContext>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SenderToAlignmentConverter x:Key="SenderToAlignmentConverter"/>
@@ -32,14 +36,13 @@
             <ScrollView>
                 <VerticalStackLayout Spacing="10" Padding="10">
                     <CollectionView x:Name="MessageCollection"
-                                  ItemsSource="{Binding Messages}">
+                                    ItemsSource="{Binding Messages}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Padding="5">
-                                    <Frame BackgroundColor="{Binding SenderID, Converter={StaticResource SenderToColorConverter}}"
+                                    <Border BackgroundColor="{Binding SenderID, Converter={StaticResource SenderToColorConverter}}"
                                            Padding="10"
-                                           CornerRadius="10"
-                                           HasShadow="True"
+                                           StrokeShape="RoundRectangle 10"
                                            HorizontalOptions="{Binding SenderID, Converter={StaticResource SenderToAlignmentConverter}}">
                                         <VerticalStackLayout>
                                             <Label Text="{Binding SenderID}" 
@@ -51,7 +54,7 @@
                                                    FontSize="10" 
                                                    HorizontalOptions="End" />
                                         </VerticalStackLayout>
-                                    </Frame>
+                                    </Border>
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

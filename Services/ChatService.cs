@@ -7,22 +7,22 @@ namespace Barangay_Office.Services
     {
         private readonly MongoDbService _mongoDbService;
 
-        public event Action<CustomerService>OnNewMessageReceived;
+        public event Action<CustomerServiceMessage>? OnNewMessageReceived;
 
 
         public ChatService(MongoDbService mongoDbService)
         {
-            _mongoDbService = mongoDbService;
+            _mongoDbService = mongoDbService ?? throw new ArgumentNullException(nameof(mongoDbService));
             _mongoDbService.OnNewMessageReceived += (message) => OnNewMessageReceived?.Invoke(message);
         }
 
         // Get all messages sorted by timestamp
-        public async Task<List<CustomerService>> GetCustomerServiceConversation()
+        public async Task<List<CustomerServiceMessage>> GetCustomerServiceConversation()
         {
             try
             {
-                var messages = await _mongoDbService.CustomerMessages
-                    .Find(Builders<CustomerService>.Filter.Empty)
+                var messages = await _mongoDbService.CustomerServiceMessages
+                    .Find(Builders<CustomerServiceMessage>.Filter.Empty)
                     .SortBy(m => m.Timestamp)
                     .ToListAsync();
 
@@ -32,13 +32,17 @@ namespace Barangay_Office.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving messages: {ex.Message}");
-                return new List<CustomerService>();
+                return new List<CustomerServiceMessage>();
             }
         }
 
-        public async Task<CustomerService> SendMessageToCustomerService(string messageContent)
+        private bool _isAdminOnline = false;
+        private Timer? _botResponseTimer;
+
+        public async Task<CustomerServiceMessage?> SendMessageToCustomerService(string messageContent)
         {
-            try{
+            try
+            {
                 string senderId = "Admin";
                 string userEmail = Preferences.Get("UserEmail", string.Empty);
 
@@ -46,9 +50,8 @@ namespace Barangay_Office.Services
                 {
                     senderId = userEmail;
                 }
-                Console.WriteLine($"Sending message as: {senderId}");
 
-                var message = new CustomerService
+                var message = new CustomerServiceMessage
                 {
                     Content = messageContent,
                     SenderID = senderId,
@@ -58,16 +61,51 @@ namespace Barangay_Office.Services
                 };
 
                 await _mongoDbService.SendMessageAsync(message);
-                Console.WriteLine($"Message sent: {message.Content}");
+
+                // If customer sends message and admin is offline
+                if (senderId != "Admin" && !_isAdminOnline)
+                {
+                    _botResponseTimer = new Timer(async _ => {
+                        await SendBotResponse(message);
+                    }, null, TimeSpan.FromMinutes(1), Timeout.InfiniteTimeSpan);
+                }
+
                 return message;
-            }catch(Exception ex){
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine($"Error sending message: {ex.Message}");
                 return null;
             }
         }
 
+        private async Task SendBotResponse(CustomerServiceMessage originalMessage)
+        {
+            var botMessage = new CustomerServiceMessage
+            {
+                Content = "Thank you for your message. Our admin is currently unavailable. " +
+                         "We will respond as soon as possible.",
+                SenderID = "System",
+                SenderRole = "System",
+                Timestamp = DateTime.UtcNow,
+                IsRead = false
+            };
+
+            await _mongoDbService.SendMessageAsync(botMessage);
+            OnNewMessageReceived?.Invoke(botMessage);
+        }
+
+        public void SetAdminStatus(bool isOnline)
+        {
+            _isAdminOnline = isOnline;
+            if (_isAdminOnline && _botResponseTimer != null)
+            {
+                _botResponseTimer.Dispose();
+            }
+        }
+
         // subscribe to real-time updates
-        public void SubscribeToCustomerServiceUpdates(Action<CustomerService> onNewMessage)
+        public void SubscribeToCustomerServiceUpdates(Action<CustomerServiceMessage> onNewMessage)
         {
             try
             {
@@ -80,9 +118,10 @@ namespace Barangay_Office.Services
             }
         }
 
-        public async Task SendMessageAsync(CustomerService message)
+        public async Task SendMessageAsync(CustomerServiceMessage message)
         {
-            try{
+            try
+            {
                 Console.WriteLine($"Sending message as {message.SenderID}: {message.Content}");
                 await _mongoDbService.SendMessageAsync(message);
                 Console.WriteLine("Message sent successfully!");
@@ -90,7 +129,6 @@ namespace Barangay_Office.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error sending message: {ex.Message}");
-                throw;
             }
         }
 
@@ -101,7 +139,7 @@ namespace Barangay_Office.Services
             try
             {
                 Console.WriteLine($"Sending message as {senderId}: {content}");
-                var message = new CustomerService
+                var message = new CustomerServiceMessage
                 {
                     Content = content,
                     Timestamp = DateTime.UtcNow,

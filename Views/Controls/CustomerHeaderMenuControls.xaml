@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:Barangay_Office.Converters"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.Controls.CustomerHeaderMenuControls">
 
@@ -8,16 +9,147 @@
         <vm:CustomerPageViewModel/>
     </ContentView.BindingContext>
 
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:NavigationWidthConverter x:Key ="NavigationWidthConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
 
-    <HorizontalStackLayout BackgroundColor="#1f0572" Padding="10" WidthRequest="400" HorizontalOptions="Center" VerticalOptions="Center">
-        <Button Text="Home" Style="{StaticResource HeaderButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="CustomerPage"/>
+
+    <Grid BackgroundColor="#1f0572" 
+          Padding="30,5,30,5" 
+          WidthRequest="400" 
+          HeightRequest="50"
+          Margin="0,30,0,0"
+          HorizontalOptions="Center" 
+          VerticalOptions="Center"
+          ColumnSpacing="15">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
-        <Button Text="Profile" Style="{StaticResource HeaderButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="ProfilePage"/>
+        <!--Profile-->
+        <VerticalStackLayout Grid.Column="0"
+                             Margin="0,2,0,0"
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
 
-        <Button Text="Services" Style="{StaticResource HeaderButtonStyle}"  Command="{Binding NavigateCommand}" CommandParameter="ServicesPage"/>
+            <Button Command="{Binding NavigateCommand}" 
+                    ImageSource="profile_icon.png"
+                    Style="{StaticResource HeaderButtonStyle}"
+                    CommandParameter="ProfilePage"
+                    TextColor="White"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
 
-        <Button Text="Contacts" Style="{StaticResource HeaderButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="ContactInfoPage"/>
+            <Label Text="Profile"
+                   HorizontalOptions="Center"
+                   Margin="-10"
+                   VerticalOptions="Center"
+                   FontSize="10"/>
+            <BoxView Margin="0,10,0,0"
+                     HeightRequest="2"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ProfilePage'}"
+                     BackgroundColor="White"/>
+        </VerticalStackLayout>
 
-        <Button Text="About Us" Style="{StaticResource HeaderButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="AboutUsPage"/>
-    </HorizontalStackLayout>
+        <!--Home-->
+        <VerticalStackLayout Grid.Column="1"
+                             Margin="0,2,0,0"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center">
+            <Button Command="{Binding NavigateCommand}" 
+                    ImageSource="home_icon.png"
+                    Style="{StaticResource HeaderButtonStyle}" 
+                    CommandParameter="CustomerPage"
+                    WidthRequest="20"
+                    HeightRequest="20"
+                    FontSize="10"
+                    HorizontalOptions="Center"/>
+            <Label Text="Home"
+                   VerticalOptions="Center"
+                   Margin="-10"
+                   HorizontalOptions="Center"
+                   FontSize="10"/>
+            <BoxView Margin="0,10,0,0"
+                     HeightRequest="2"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='CustomerPage'}"
+                     BackgroundColor="White"/>
+        </VerticalStackLayout>
+
+        <!--Services-->
+        <VerticalStackLayout HorizontalOptions="Center"
+                             Margin="0,3,0,0"
+                             VerticalOptions="Center"
+                             Grid.Column="2">
+            <Button Style="{StaticResource HeaderButtonStyle}"
+                    Command="{Binding NavigateCommand}"
+                    WidthRequest="20"
+                    HeightRequest="20"
+                    CommandParameter="ServicesPage"
+                    ImageSource="services_icon.png"
+                    HorizontalOptions="Center"/>
+            <Label Text="Services"
+                   VerticalOptions="Center"
+                   Margin="-10"
+                   HorizontalOptions="Center"
+                   FontSize="10"/>
+            <BoxView Margin="0,10,0,0"
+                     HeightRequest="2"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ServicesPage'}"
+                     BackgroundColor="White"/>  
+        </VerticalStackLayout>
+
+        <!--Contacts-->
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Margin="0,3,0,0"
+                             Grid.Column="3">
+
+            <Button Style="{StaticResource HeaderButtonStyle}" 
+                    Command="{Binding NavigateCommand}" 
+                    WidthRequest="20"
+                    HeightRequest="20"
+                    ImageSource="contacts_icon.png"
+                    CommandParameter="ContactInfoPage"
+                    HorizontalOptions="Center"/>
+            <Label Text="Contacts"
+                   VerticalOptions="Center"
+                   Margin="-10"
+                   HorizontalOptions="Center"
+                   FontSize="10"/>
+            <BoxView Margin="0,10,0,0"
+                     HeightRequest="2"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ContactInfoPage'}"
+                     BackgroundColor="White"/>
+        </VerticalStackLayout>
+
+        <!--About Us-->
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Margin="0,3,0,0"
+                             Grid.Column="4">
+            <Button Style="{StaticResource HeaderButtonStyle}" 
+                    Command="{Binding NavigateCommand}" 
+                    WidthRequest="20"
+                    HeightRequest="20"
+                    ImageSource="about_us_icon.png"
+                    CommandParameter="AboutUsPage"
+                    HorizontalOptions="Center"/>
+            <Label Text="Contacts"
+                   VerticalOptions="Center"
+                   Margin="-10"
+                   HorizontalOptions="Center"
+                   FontSize="10"/>
+            <BoxView Margin="0,10,0,0"
+                     HeightRequest="2"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='AboutUsPage'}"
+                     BackgroundColor="White"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentView>

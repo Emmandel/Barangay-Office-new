@@ -1,30 +1,16 @@
+using Barangay_Office.Services;
 using Barangay_Office.ViewModels;
 
 namespace Barangay_Office.Views;
 
 public partial class ChatPage : ContentPage
 {
-    
-    public ChatPage()
+    private readonly ChatService _chatService;
+    public ChatPage(ChatService chatService)
 	{
 		InitializeComponent();
+        _chatService = chatService;
+        BindingContext = new CustomerServiceViewModel(_chatService);
     }
 
-    //protected override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-
-    //    // Scroll to the bottom when the page appears
-    //    if (BindingContext is CustomerServiceViewModel viewModel)
-    //    {
-    //        MainThread.BeginInvokeOnMainThread(() =>
-    //        {
-    //            var lastMessage = viewModel.Messages.LastOrDefault();
-    //            if (lastMessage != null)
-    //            {
-    //                MessageCollection?.ScrollTo(lastMessage, position: ScrollToPosition.End, animate: false);
-    //            }
-    //        });
-    //    }
-    //}
 }

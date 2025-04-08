@@ -1,5 +1,7 @@
-﻿using Barangay_Office.Models;
+﻿using System.Diagnostics;
+using Barangay_Office.Models;
 using MongoDB.Bson;
+using Microsoft.Maui.Storage;
 using MongoDB.Driver;
 
 namespace Barangay_Office.Services
@@ -7,91 +9,97 @@ namespace Barangay_Office.Services
     public class MongoDbService
     {
         private readonly IMongoDatabase _database;
-        private readonly IMongoCollection<CustomerService> _CustomerServiceCollection;
-        private IChangeStreamCursor<ChangeStreamDocument<CustomerService>> _changeStreamCursor;
+        private readonly IMongoCollection<CustomerServiceMessage> _CustomerServiceCollection;
+        private IChangeStreamCursor<ChangeStreamDocument<CustomerServiceMessage>>? _changeStreamCursor;
+        private readonly MongoClient _client;
 
         // Event triggered when a new message is received
-        public event Action<CustomerService> OnNewMessageReceived;
+        public event Action<CustomerServiceMessage> OnNewMessageReceived = delegate { };
 
 
         public MongoDbService()
         {
             try
             {
-                // Retrieve connection string from secure storage
-                var connectionString = Task.Run(async () =>
-                    await SecureStorage.GetAsync("mongo_connection")).Result;
-
-                if (string.IsNullOrEmpty(connectionString))
-                {
-                    throw new Exception("MongoDB connection string not found in secure storage");
-                }
+                // Retrieve connection string from SecureStorage
+                var connectionString = "mongodb+srv://Taisho:AdminPassword1234568@barangayoffice.kkfy4.mongodb.net/?retryWrites=true&w=majority&appName=BarangayOffice";
 
                 var settings = MongoClientSettings.FromConnectionString(connectionString);
-
                 settings.ServerApi = new ServerApi(ServerApiVersion.V1);
 
-                // Create a new client and connect to the server
-                var client = new MongoClient(settings);
+                //create client and connect to servver
+                _client = new MongoClient(settings);
 
                 // Verify connection by listing databases
-                var dbList = client.ListDatabaseNames().ToList();
+                var dbList = _client.ListDatabaseNames().ToList();
                 Console.WriteLine("Databases: " + string.Join(", ", dbList));
 
-                _database = client.GetDatabase("ThisSQL");
-                // Check if the database is null
-                if (_database == null)
+                _database = _client.GetDatabase("ThisSQL");
+
+                //check if the database is null
+                if(_database == null)
                 {
                     throw new Exception("MongoDB database instance is null. Please check your database name.");
                 }
 
-                _CustomerServiceCollection = _database.GetCollection<CustomerService>("customer_service_database");
-                // Check if the collection is null
-                if (_CustomerServiceCollection == null)
+                _CustomerServiceCollection = _database.GetCollection<CustomerServiceMessage>("customer_service_database");
+                //check if the collection is null
+                if(_CustomerServiceCollection == null)
                 {
                     throw new Exception("CustomerService collection is null. Please check your collection name.");
                 }
-
 
                 // Test connection
                 var result = _database.RunCommand<BsonDocument>(new BsonDocument("ping", 1));
                 Console.WriteLine("Pinged your deployment. Successfully connected to MongoDB!");
 
-                InitializeChangeStream();
+                InitializeChangeStream().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex.Message);
+                _client = null!;
+                _database = null!;
+                _CustomerServiceCollection = null!;
             }
         }
 
-        public IMongoCollection<CustomerService> CustomerMessages => _CustomerServiceCollection;
+        public IMongoCollection<CustomerServiceMessage> CustomerServiceMessages => _CustomerServiceCollection;
 
         public async Task CreateIndexes()
         {
-            var indexKeysDefinition = Builders<CustomerService>.IndexKeys.Ascending(x => x.Timestamp);
-            await _CustomerServiceCollection.Indexes.CreateOneAsync(new CreateIndexModel<CustomerService>(indexKeysDefinition));
+            if(_CustomerServiceCollection == null)
+            {
+                throw new InvalidOperationException("MongoDB Customer Service Collection is not initialized. Check your connection settings.");
+            }
+            var indexKeysDefinition = Builders<CustomerServiceMessage>.IndexKeys.Ascending(x => x.Timestamp);
+            await _CustomerServiceCollection.Indexes.CreateOneAsync(new CreateIndexModel<CustomerServiceMessage>(indexKeysDefinition));
         }
 
-        public async Task SendMessageAsync(CustomerService message)
+
+        public async Task SendMessageAsync(CustomerServiceMessage message)
         {
+            if (_CustomerServiceCollection == null)
+            {
+                throw new InvalidOperationException("MongoDB Customer Service Collection is not initialized. Check your connection settings.");
+            }
             await _CustomerServiceCollection.InsertOneAsync(message);
         }
 
-        private async void InitializeChangeStream()
+        private async Task InitializeChangeStream()
         {
             try
             {
-                var pipeline = new EmptyPipelineDefinition<ChangeStreamDocument<CustomerService>>().Match(change => change.OperationType == ChangeStreamOperationType.Insert);
+                var pipeline = new EmptyPipelineDefinition<ChangeStreamDocument<CustomerServiceMessage>>()
+                    .Match(change => change.OperationType == ChangeStreamOperationType.Insert);
 
                 var options = new ChangeStreamOptions { FullDocument = ChangeStreamFullDocumentOption.UpdateLookup };
 
-                using var cursorTask = _CustomerServiceCollection.WatchAsync(pipeline, options);
-                using var cursor = await cursorTask;
+                _changeStreamCursor = await _CustomerServiceCollection.WatchAsync(pipeline, options).ConfigureAwait(false);
 
-                while (await cursor.MoveNextAsync())
+                while (await _changeStreamCursor.MoveNextAsync().ConfigureAwait(false))
                 {
-                    foreach (var change in cursor.Current)
+                    foreach (var change in _changeStreamCursor.Current)
                     {
                         if (change.FullDocument != null)
                         {
@@ -110,8 +118,14 @@ namespace Barangay_Office.Services
             }
         }
 
-        public async Task<List<CustomerService>> GetAllMessages()
+        public async Task<List<CustomerServiceMessage>> GetAllMessages()
         {
+
+            if (_CustomerServiceCollection == null)
+            {
+                throw new InvalidOperationException("MongoDB Customer Service Collection is not initialized. Check your connection settings.");
+            }
+
             try
             {
                 return await _CustomerServiceCollection
@@ -122,7 +136,7 @@ namespace Barangay_Office.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving messages: {ex.Message}");
-                return new List<CustomerService>();
+                return new List<CustomerServiceMessage>();
             }
         }
 
@@ -130,5 +144,11 @@ namespace Barangay_Office.Services
         {
             _changeStreamCursor?.Dispose();
         }
+
+        // Method to store connection string securely (call this once when setting up)
+        //public static async Task StoreConnectionString(string connectionString)
+        //{
+        //    await SecureStorage.SetAsync("mongo_connection_string", connectionString);
+        //}
     }
 }

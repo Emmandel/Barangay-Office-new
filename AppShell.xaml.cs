@@ -12,14 +12,17 @@ namespace Barangay_Office
             InitializeComponent();
             _authService = new AuthService();
             RegisteredRoutes();
-            CheckAuthentication();
             InitializeStartupNavigation();
 
         }
 
         private async void InitializeStartupNavigation()
         {
+            //navigate to loading page first then
             await GoToAsync($"//{nameof(LoadingPage)}");
+
+            //check authentication after nagivating to loading page
+            CheckAuthentication();
         }
 
         private async void CheckAuthentication()
@@ -55,18 +58,20 @@ namespace Barangay_Office
 
         private void RegisteredRoutes()
         {
+            Routing.RegisterRoute(nameof(ForgotPasswordPage), typeof(ForgotPasswordPage));//forgotpassword page for all
             Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));//authenticator
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));//for all roles(remove if using push&pop)
             Routing.RegisterRoute(nameof(ServicesPage), typeof(ServicesPage));//services page of customer's side
-            Routing.RegisterRoute(nameof(ForgotPasswordPage), typeof(ForgotPasswordPage));//forgotpassword page for all
 
             Routing.RegisterRoute(nameof(SuperAdminPage), typeof(SuperAdminPage));//for SuperAdminPage
             Routing.RegisterRoute(nameof(SuperAdminProfile), typeof(SuperAdminProfile));//for SuperAdminPage
 
-            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));//for adminpage
-            Routing.RegisterRoute(nameof(AdminProfile), typeof(AdminProfile));//for adminProfile
             Routing.RegisterRoute(nameof(AdminChatPage), typeof(AdminChatPage));//for AdminChatPage
+            Routing.RegisterRoute(nameof(AdminNotificationPage), typeof(AdminNotificationPage));// for AdminNotoficationPage
+            Routing.RegisterRoute(nameof(AdminProfile), typeof(AdminProfile));//for adminProfile
             //Routing.RegisterRoute(nameof(AdminSignupPage), typeof(AdminSignupPage));//for AdminSignupPage(remove if using push&pop)
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));//for adminpage
+
 
 
             Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));//for customer page

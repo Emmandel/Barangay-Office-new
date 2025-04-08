@@ -47,6 +47,8 @@
         <controls:AdminHeaderMenuControls />
 
         <VerticalStackLayout VerticalOptions="End" Grid.Row="1" Margin="20" Spacing="10">
+            
+            <!--customer service-->
             <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
                 <Button TextColor="White"
                         FontSize="12"
@@ -54,7 +56,15 @@
                         BackgroundColor="#e63c3f"
                         Command="{Binding ToCustomerService}"/>
             </Border>
-
+            <!--reset password-->
+            <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
+                <Button TextColor="White"
+                        FontSize="12"
+                        Text="To Reset Password"
+                        BackgroundColor="#e63c3f"
+                        Command="{Binding ToResetPassword}"/>
+            </Border>
+            <!--Log out-->
             <Border StrokeShape="RoundRectangle 30" StrokeThickness="0" WidthRequest="150" HeightRequest="40">
                 <Button TextColor="White"
                         FontSize="12"

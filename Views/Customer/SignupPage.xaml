@@ -142,6 +142,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Border BackgroundColor="Transparent"
+                                HeightRequest="50"
                                 WidthRequest="50"
                                 Stroke="Transparent">
                             <Image Source="user.png" 

@@ -6,73 +6,203 @@
              Shell.NavBarIsVisible="False"
              BackgroundColor="LightGray"
              xmlns:control="clr-namespace:Barangay_Office.Views.Controls">
-    
-    <ScrollView>
-        <VerticalStackLayout Padding="13" Spacing="10">
-            <!--header menu-->
-            <control:CustomerHeaderMenuControls/>
-            
-            <!-- Header -->
-            <Label Text="Contact Us"
-                    FontSize="24"
-                    FontAttributes="Bold"
-                    TextColor="#2C3E50"
-                    HorizontalOptions="Center" />
 
-            <!-- Divider -->
-            <BoxView HeightRequest="2" BackgroundColor="#2C3E50" HorizontalOptions="FillAndExpand" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
+        <!-- for banner layout -->
+        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z">
+            <Path.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0.1" />
+                    <GradientStop Color="Blue" Offset="1.0" />
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
+
+        <!-- for Logo -->
+        <StackLayout Margin="-85">
+            <Border BackgroundColor="Black" 
+                    HeightRequest="60" 
+                    WidthRequest="60" 
+                    StrokeShape="RoundRectangle 30" 
+                    Padding="0" 
+                    Margin="0,100,0,0" 
+                    HorizontalOptions="Center">
+                <Image Source="barangay_pembo.png" 
+                       Aspect="AspectFill" 
+                       Margin="0"/>
+            </Border>
+        </StackLayout>
+        
+        <!--header menu-->
+        <control:CustomerHeaderMenuControls/>
+
+        <!-- Devider -->
+        <BoxView HeightRequest="2" 
+                 BackgroundColor="#2C3E50" 
+                 Margin="0,85,0,0" 
+                 VerticalOptions="Center"/>
+
+
+        <VerticalStackLayout Spacing="40" 
+                             Background="Transparent" 
+                             VerticalOptions="Center" 
+                             Grid.Row="1"
+                             HorizontalOptions="Center" 
+                             HeightRequest="560">
             <!-- Contact Information -->
-            <Frame CornerRadius="10" Padding="15" BackgroundColor="#A7C7E7">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Phone Number: +63-***-***-****"
-                            FontSize="15"
-                            FontAttributes="Bold"
-                            Margin="0,10,0,0" />
-                    <Label Text="Email Address: Barangay@gmail.com"
-                            FontSize="15"
-                            FontAttributes="Bold"
-                            Margin="0,10,0,0" />
+            <Label Text="Contact Us"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   TextColor="#2C3E50"
+                   Margin="0,10,0,0"
+                   HorizontalOptions="Center" />
+            <Border Stroke="Black" 
+                    StrokeShape="RoundRectangle 10" 
+                    Padding="15"
+                    Margin="-25"
+                    WidthRequest="340"
+                    HeightRequest="300"
+                    BackgroundColor="Transparent">
 
-                    <Label Text="Address: Barangay Taguig City"
-                            FontSize="15"
-                            FontAttributes="Bold"
-                            Margin="0,10,0,10" />
+                <ScrollView BackgroundColor="Transparent" 
+                            WidthRequest="340" 
+                            HeightRequest="295"
+                            Padding="20"
+                            Margin="0" 
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Phone Number: +63-***-***-****"
+                               TextColor="Black" 
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               Margin="0,10,0,0" />
+                        <Label Text="Email Address: Barangay@gmail.com"
+                               TextColor="Black" 
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               Margin="0,10,0,0" />
 
+                        <Label Text="Address: Barangay Taguig City"
+                               TextColor="Black" 
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               Margin="0,10,0,10" />
 
-
-                </VerticalStackLayout>
-            </Frame>
-
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        
             <!-- Social Media Links -->
             <Label Text="Follow Us on Social Media:"
-                    TextColor="#A7C7E7"
+                    TextColor="Black"
                     FontSize="18"
                     FontAttributes="Bold"
-                    HorizontalOptions="Start"
-                    Margin="0,15,0,5" />
-
-            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
-                <Button Text="Facebook"
-                         BackgroundColor="#4267B2"
-                         TextColor="White"
-                         FontAttributes="Bold"
-                         CornerRadius="5"
-                         WidthRequest="100" />
-                <Button Text="Twitter"
-                         BackgroundColor="#1DA1F2"
-                         TextColor="White"
-                         FontAttributes="Bold"
-                         CornerRadius="5"
-                         WidthRequest="100" />
-                <Button Text="Instagram"
-                         BackgroundColor="#C13584"
-                         TextColor="White"
-                         FontAttributes="Bold"
-                         CornerRadius="5"
-                         WidthRequest="100" />
-            </HorizontalStackLayout>
-
+                    HorizontalOptions="Center"
+                    Margin="0,10,0,5" />
         </VerticalStackLayout>
-    </ScrollView>
+        
+        <HorizontalStackLayout Spacing="5" 
+                               Grid.Row="2"
+                               Margin="0,0,0,150"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center">
+            <!--Facebook-->
+            <Border Stroke="#375998" 
+                    StrokeThickness="1" 
+                    StrokeShape="RoundRectangle 8" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    WidthRequest="100"
+                    HeightRequest="45">
+                <Grid BackgroundColor="#375998">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="facebook.png"
+                           Margin="0.2"
+                           Grid.Column="0"
+                           Aspect="AspectFit"/>
+                    <Button Text="Facebook"
+                            Grid.Column="1"
+                            BackgroundColor="#375998"
+                            FontSize="10"
+                            WidthRequest="75"
+                            TextColor="White"
+                            FontAttributes="Bold"/>
+                </Grid>
+            </Border>
+                    
+            <!--X-->
+            <Border Stroke="Black" 
+                    StrokeThickness="1" 
+                    StrokeShape="RoundRectangle 8" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center"
+                    WidthRequest="100"
+                    HeightRequest="45">
+                <Grid>
+                    <Button BackgroundColor="#000000"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            WidthRequest="100" 
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"/>
+                    
+                    <Image Source="x.png"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Margin="0"/>
+                </Grid>
+            </Border>
+                    
+            <!--Instagram-->
+            <Border StrokeThickness="1" 
+                    StrokeShape="RoundRectangle 8" 
+                    HorizontalOptions="Center" 
+                    WidthRequest="100"
+                    HeightRequest="45"
+                    VerticalOptions="Center">
+                <Border.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0.60,1">
+                        <GradientStop Color="Blue" Offset="0.0"/>
+                        <GradientStop Color="Red" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Border.Stroke>
+                <Grid>
+                    <Button Text="Instagram"
+                            TextColor="White"
+                            HeightRequest="45"
+                            FontSize="10"
+                            Padding="30,0,0,0"
+                            FontAttributes="Bold"
+                            WidthRequest="160">
+                        <Button.Background>
+                            <LinearGradientBrush>
+                                <GradientStop Color="Blue" Offset="0.14"/>
+                                <GradientStop Color="#ff135e" Offset="0.7"/>
+                                <GradientStop Color="#febc09" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    
+                    <Image Source="instagram.png"
+                           Aspect="AspectFit"
+                           Scale="0.7"
+                           HorizontalOptions="Start"
+                           Margin="0"/>
+
+
+                </Grid>
+            </Border>
+        </HorizontalStackLayout>
+    </Grid>
 </ContentPage>

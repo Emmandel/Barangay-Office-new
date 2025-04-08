@@ -6,4 +6,5 @@ public partial class ServicesPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
 }

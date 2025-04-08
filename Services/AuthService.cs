@@ -166,10 +166,13 @@ namespace Barangay_Office.Services
         //get the authenticated roles
         public async Task<(bool IsAuthenticated, string role)> GetAuthenticatedUserRoleAsync()
         {
-            bool isAuthenticated = Preferences.Get(AuthStateKey, false);
-            string role = Preferences.Get("UserRole", string.Empty);
+            return await Task.Run(() =>
+            {
+                bool isAuthenticated = Preferences.Get(AuthStateKey, false);
+                string role = Preferences.Get("UserRole", string.Empty);
 
-            return isAuthenticated && !string.IsNullOrEmpty(role) ? (true, role) : (false, string.Empty);
+                return isAuthenticated && !string.IsNullOrEmpty(role) ? (true, role) : (false, string.Empty);
+            });
         }
 
         //method for resetting the password

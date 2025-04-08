@@ -27,4 +27,13 @@ public partial class AdminChatPage : ContentPage
             });
         }
     }
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        if (BindingContext is AdminChatViewModel viewModel)
+        {
+            viewModel.OnDisappearing();
+        }
+    }
 }

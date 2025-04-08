@@ -1,58 +1,128 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels.CustomerViewModel"
              x:Class="Barangay_Office.Views.AboutUsPage"
              xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
              Shell.NavBarIsVisible="False"
              BackgroundColor="LightGray"
              Title="AboutUsPage">
-    <ScrollView>
-        <VerticalStackLayout Padding="13" Spacing="10">
-            <!--header menu-->
-            <control:CustomerHeaderMenuControls/>
-            
-            <!-- Header -->
-            <Label Text="About Us"
-                FontSize="30"
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                TextColor="Indigo" />
 
-            <!-- Description -->
-            <Label Text="The Barangay Office is dedicated to providing excellent service to our community. We aim to build a safe, connected, and progressive neighborhood for everyone."
-                FontSize="18"
-                TextColor="Black"
-                HorizontalTextAlignment="Center" />
+    <ContentPage.BindingContext>
+        <vm:C_AboutUsPageViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
-            <!-- Mission -->
-            <Label Text="Mission"
-                FontSize="22"
-                FontAttributes="Bold"
-                TextColor="Indigo" />
-            <Label Text="To serve with integrity, promote unity, and enhance the quality of life for all residents."
-                FontSize="16"
-                TextColor="Black" />
+        <!-- for banner layout -->
+        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z">
+            <Path.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0.1" />
+                    <GradientStop Color="Blue" Offset="1.0" />
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
 
-            <!-- Vision -->
-            <Label Text="Vision"
-                FontSize="22"
-                FontAttributes="Bold"
-                TextColor="Indigo" />
-            <Label Text="A harmonious barangay where residents thrive in a safe and sustainable environment."
-                FontSize="16"
-                TextColor="Black" />
+        <!-- for Logo -->
+        <StackLayout Margin="-85">
+            <Border BackgroundColor="Black" 
+                    HeightRequest="60" 
+                    WidthRequest="60" 
+                    StrokeShape="RoundRectangle 30" 
+                    Padding="0" 
+                    Margin="0,100,0,0" 
+                    HorizontalOptions="Center">
+                <Image Source="barangay_pembo.png" 
+                       Aspect="AspectFill" 
+                       Margin="0"/>
+            </Border>
+        </StackLayout>
+
+        <!--header menu-->
+        <control:CustomerHeaderMenuControls/>
+
+        <!-- Devider -->
+        <BoxView HeightRequest="2" BackgroundColor="#2C3E50" Margin="0,85,0,0" VerticalOptions="Center"/>
+
+        <ScrollView Grid.Row="1" HeightRequest="575" Margin="0,0,0,15"
+                    BackgroundColor="Transparent" HorizontalOptions="Center" VerticalOptions="Center">
+
+            <VerticalStackLayout BackgroundColor="Transparent" Spacing="-2" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="575">
+                <!-- Header -->
+                <Label Text="About Us"
+                       Margin="0,20"
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    TextColor="#2C3E50" />
+
+                <!-- Description -->
+                <Label Text="The Barangay Office is dedicated to providing excellent service to our community. We aim to build a safe, connected, and progressive neighborhood for everyone."
+                    FontSize="Subtitle"
+                    TextColor="Black"
+                       WidthRequest="350"
+                    HorizontalTextAlignment="Center" />
+
+                <Border BackgroundColor="Transparent"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Stroke="Black"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="0" 
+                        Margin="0,30">
+                    <VerticalStackLayout VerticalOptions="Center" 
+                                         HeightRequest="270"
+                                         WidthRequest="300"
+                                         Padding="10"
+                                         Spacing="5"
+                                         HorizontalOptions="Center">
+                        <!-- Mission -->
+                        <Label Text="Mission"
+                               HorizontalTextAlignment="Center"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="Indigo" />
+                        <Label Text="To serve with integrity, promote unity, and enhance the quality of life for all residents."
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextColor="Black" />
+
+                        <!-- Vision -->
+                        <Label Text="Vision"
+                               Margin="0,30,0,0"
+                               HorizontalTextAlignment="Center"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="Indigo" />
+                        <Label Text="A harmonious barangay where residents thrive in a safe and sustainable environment."
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextColor="Black" />
+                    </VerticalStackLayout>
+                </Border>
 
 
-            <!-- Customer Service -->
-            <Button Text="Customer Service"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                FontSize="18"
-                Padding="10"
-                CornerRadius="10"
-                HorizontalOptions="Center"
-                Clicked="OnCustomerServiceClicked"/>
-
-        </VerticalStackLayout>
-    </ScrollView>
+                
+                <!-- Customer Service -->
+                <Border Stroke="Black" 
+                        StrokeShape="RoundRectangle 30" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        Margin="0,0,0,0">
+                    
+                    <Button Text="Customer Service"
+                            BackgroundColor="#1f0572"
+                            TextColor="White"
+                            FontSize="12"
+                            HorizontalOptions="Center"
+                            Command="{Binding OnCustomerServiceClicked}"/>        
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

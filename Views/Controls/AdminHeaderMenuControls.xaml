@@ -9,9 +9,11 @@
     </ContentView.BindingContext>
 
     <HorizontalStackLayout BackgroundColor="#1f0572" Padding="10" WidthRequest="400" HorizontalOptions="Center" VerticalOptions="Center">
-        <Button Text="Home" Style="{StaticResource AdminHeaderMenu}" Command="{Binding AdminNavigate}" CommandParameter="MainPage"/>
-
         <Button Text="Profile" Style="{StaticResource AdminHeaderMenu}" Command="{Binding AdminNavigate}" CommandParameter="AdminProfile"/>
+        
+        <Button Text="Home" Style="{StaticResource AdminHeaderMenu}" Command="{Binding AdminNavigate}" CommandParameter="MainPage"/>
+        
+        <Button Text="Notifications" Style="{StaticResource AdminHeaderMenu}" Command="{Binding AdminNavigate}" CommandParameter="AdminNotificationPage"/>
     </HorizontalStackLayout>
     
 </ContentView>

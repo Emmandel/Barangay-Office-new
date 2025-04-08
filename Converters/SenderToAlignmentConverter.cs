@@ -10,7 +10,7 @@ namespace Barangay_Office.Converters
 {
     public class SenderToAlignmentConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is string sender)
             {
@@ -20,7 +20,7 @@ namespace Barangay_Office.Converters
             return LayoutOptions.Start;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace Barangay_Office.Converters
 
     public class SenderToColorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is string sender)
             {
@@ -38,7 +38,7 @@ namespace Barangay_Office.Converters
             return Colors.LightGray;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

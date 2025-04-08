@@ -7,6 +7,21 @@
     xmlns:views="clr-namespace:Barangay_Office.Views"
     Shell.FlyoutBehavior="Disabled">
 
+    <!--Loading Page-->
+    <ShellContent
+        Title="Loading"
+        ContentTemplate="{DataTemplate views:LoadingPage}"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Route="LoadingPage"/>
+
+    <!--Login Page-->
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage" 
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
 
     <!-- Super-Admin Page-->
     <ShellContent
@@ -53,10 +68,16 @@
         Route="AdminChatPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
+    
+    <!-- Admin Notification Page-->
+    <ShellContent
+        Title="Admin Notifications"
+        ContentTemplate="{DataTemplate views:AdminNotificationPage}"
+        Route="AdminNotificationPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False"/>
         
-    
-    
-    
     <!-- Signup Page -->
     <ShellContent
         Title="Signup"
@@ -67,33 +88,33 @@
 
     <!-- Customer Page-->
     <ShellContent
-    Title="Customer"
-    ContentTemplate="{DataTemplate views:CustomerPage}"
-    Route="CustomerPage"/>
+        Title="Customer"
+        ContentTemplate="{DataTemplate views:CustomerPage}"
+        Route="CustomerPage"/>
 
     <!--Profile Page-->
     <ShellContent
-    Title="Profile"
-    ContentTemplate="{DataTemplate views:ProfilePage}"
-    Route="ProfilePage"
-    Shell.NavBarIsVisible="False"
-    Shell.FlyoutBehavior="Disabled"/>
+        Title="Profile"
+        ContentTemplate="{DataTemplate views:ProfilePage}"
+        Route="ProfilePage"
+        Shell.NavBarIsVisible="False"
+        Shell.FlyoutBehavior="Disabled"/>
 
     <!--Contact Info-->
     <ShellContent
-    Title="Contact Info"
-    ContentTemplate="{DataTemplate views:ContactInfoPage}"
-    Route="ContactInfoPage"
-    Shell.FlyoutBehavior="Disabled"
-    Shell.FlyoutItemIsVisible="False"/>
+        Title="Contact Info"
+        ContentTemplate="{DataTemplate views:ContactInfoPage}"
+        Route="ContactInfoPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
 
     <!--Payment Info-->
     <ShellContent
-    Title="Payment Info"
-    ContentTemplate="{DataTemplate views:PaymentInfoPage}"
-    Route="PaymentInfoPage"
-    Shell.FlyoutBehavior="Disabled"
-    Shell.FlyoutItemIsVisible="False"/>
+        Title="Payment Info"
+        ContentTemplate="{DataTemplate views:PaymentInfoPage}"
+        Route="PaymentInfoPage"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
     
     <!--Services-->
     <ShellContent
@@ -129,19 +150,4 @@
         Shell.FlyoutItemIsVisible="False"
         Shell.NavBarIsVisible="False"/>
     
-    <!--Loading Page-->
-    <ShellContent
-        Title="Loading"
-        ContentTemplate="{DataTemplate views:LoadingPage}"
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"
-        Route="LoadingPage"/>
-
-    <!--Login Page-->
-    <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="LoginPage" 
-        Shell.FlyoutBehavior="Disabled"
-        Shell.FlyoutItemIsVisible="False"/>
 </Shell>

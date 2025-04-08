@@ -8,9 +8,4 @@ public partial class AboutUsPage : ContentPage
 	{
 		InitializeComponent();
 	}
-
-    private async void OnCustomerServiceClicked(object sender, EventArgs e)
-    {
-		await Navigation.PushAsync(new ChatPage());
-    }
 }

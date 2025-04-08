@@ -9,7 +9,7 @@ namespace Barangay_Office.ViewModels
     {
         private readonly AuthService _authService;
 
-        public ICommand ToAdminSignup { get; }
+        public ICommand ToResetPassword { get; }
         public ICommand ToCustomerService { get; }
         public ICommand ToLogout { get; }
 
@@ -18,6 +18,12 @@ namespace Barangay_Office.ViewModels
         public AdminProfileViewModel(AuthService authService)
         {
             _authService = authService;
+
+            //go to forgot password page
+            ToResetPassword = new RelayCommand( async() =>
+            {
+                await Shell.Current.Navigation.PushAsync(new ForgotPasswordPage(new AuthService()));
+            });
 
             //go to customer service
             ToCustomerService = new RelayCommand(async () =>

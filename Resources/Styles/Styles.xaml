@@ -159,6 +159,19 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+
+        <Style.Triggers>
+            <Trigger TargetType="ImageButton"
+             Property="IsPressed"
+             Value="False">
+                <Setter Property="Scale" Value=".8" />
+            </Trigger>
+            <Trigger TargetType="ImageButton"
+             Property="IsPressed"
+             Value="True">
+                <Setter Property="Background" Value="Red" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="Label">
@@ -214,7 +227,12 @@
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="Black"/>
+                            <Setter Property="TitleColor" Value="Black"/>
+                        </VisualState.Setters>
+                    </VisualState>
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />

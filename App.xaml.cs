@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-
+﻿using Microsoft.Maui.Controls;
+using Application = Microsoft.Maui.Controls.Application;
 namespace Barangay_Office
 {
     public partial class App : Application
@@ -8,17 +8,13 @@ namespace Barangay_Office
         {
             InitializeComponent();
 
-            Task.Run(async () =>
-            {
-                var config = new ConfigurationBuilder()
-                    .AddUserSecrets<App>()
-                    .Build();
+            //MainPage = new AppShell();
+        }
 
-                await SecureStorage.SetAsync("mongo_connection",
-                    config["DatabaseSettings:ConnectionString"]);
-            });
-
-            MainPage = new AppShell();
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            var window = new Window(new AppShell());
+            return window;
         }
     }
 }

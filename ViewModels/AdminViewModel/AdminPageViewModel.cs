@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Barangay_Office.Services;
 using Barangay_Office.Utilities;
+using Barangay_Office.Views;
 
 namespace Barangay_Office.ViewModels
 {
     public class AdminPageViewModel : BaseViewModel
     {
         public ICommand AdminNavigate { get; }
-        public ICommand ToReset { get; }
 
         public AdminPageViewModel()
         {
-
 
             AdminNavigate = new RelayCommand(async swe =>
             {

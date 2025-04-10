@@ -15,9 +15,9 @@ namespace Barangay_Office.ViewModels
         private string _email;
         private string _newPassword;
         private string _message;
-        private Color _borderColor = (Color)Application.Current.Resources["BlueishPurple"];
-        private Color _emailColor = (Color)Application.Current.Resources["BlueishPurple"];
-        private Color _resetPasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
+        private Color _borderColor = Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent;
+        private Color _emailColor = Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent;
+        private Color _resetPasswordColor = Application.Current?.Resources["BlueishPurple"] as Color?? Colors.Transparent;
 
 
         public string Email
@@ -88,6 +88,9 @@ namespace Barangay_Office.ViewModels
 
         public ForgotPasswordViewModel(AuthService authService)
         {
+            _email = string.Empty;
+            _newPassword =string.Empty;
+            _message = string.Empty;
             _authService = authService;
             ResetPasswordCommand = new Command(async () => await ResetPasswordAsync());
         }
@@ -105,16 +108,16 @@ namespace Barangay_Office.ViewModels
                 : string.Empty;
 
             //set colors
-            EmailColor = isEmailEmpty? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+            EmailColor = isEmailEmpty ? Colors.Red : (Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent);
 
-            NewPassColor = isNewPasswordEmpty? Colors.Red: (Color)Application.Current.Resources["BlueishPurple"];
+            NewPassColor = isNewPasswordEmpty ? Colors.Red : (Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent);
 
             //check if any of them have error
-            BorderColor = isEmailEmpty || isNewPasswordEmpty? Colors.Red: (Color)Application.Current.Resources["BlueishPurple"];
+            BorderColor = isEmailEmpty || isNewPasswordEmpty ? Colors.Red : (Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent);
 
             //set color to default
-            if(!isEmailEmpty) EmailColor = (Color)Application.Current.Resources["BlueishPurple"];
-            if(!isNewPasswordEmpty) NewPassColor = (Color)Application.Current.Resources["BlueishPurple"];
+            if(!isEmailEmpty) EmailColor = Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent;
+            if(!isNewPasswordEmpty) NewPassColor = Application.Current?.Resources["BlueishPurple"] as Color?? Colors.Transparent;
             return;
         }
 

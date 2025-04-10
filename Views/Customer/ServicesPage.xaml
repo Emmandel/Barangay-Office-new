@@ -4,13 +4,10 @@
              xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.ServicesPage"
+             x:DataType="vm:ServicesPageViewModel"
              BackgroundColor="White"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
-    
-    <ContentPage.BindingContext>
-        <vm:ServicesPageViewModel/>
-    </ContentPage.BindingContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -56,7 +53,8 @@
         <ScrollView Grid.Row="1" 
                     BackgroundColor="Transparent"
                     HeightRequest="500" 
-                    Margin="0,0,0,65">
+                    Margin="0,0,0,65"
+                    x:DataType="vm:ServicesPageViewModel">
             <VerticalStackLayout Spacing="10" 
                                  Padding="13">
 
@@ -122,10 +120,13 @@
                                FontSize="12" />
                         
                         <!--Gender-->
-                        <RadioButton>
+                        <RadioButton GroupName="Gender"
+                                     Content="Male"
+                                     IsChecked="{Binding IsMale}"/>
+                        <RadioButton GroupName="Gender"
+                                     Content="Female"
+                                     IsChecked="{Binding IsFemale}"/>
 
-                        </RadioButton>
-                        
                         <!--Citizenship-->
                         <Entry Placeholder="Citizenship" 
                                x:Name="CitizenshipEntry" 
@@ -135,16 +136,14 @@
                         <!--ICR No.-->
                         <Entry Placeholder="ICR No.(If an alien)" 
                                x:Name="ICREntry" 
-                               IsVisible="{Binding IsIcrVisible}"
                                TextColor="Black"
-                               FontSize="12" />
+                               IsVisible="{Binding IsIcrVisible}"
+                               FontSize="12"/>
                         
                         <!--Place of Birth-->
                         <Picker Title="Place of Birth"
                                 TitleColor="Black"
-                                TextColor="Black">
-                            <Picker.Items/>
-                        </Picker>
+                                TextColor="Black"/>
 
                         <!--Birthdate-->
                         <Label Text=" BirthDate:" 
@@ -218,8 +217,6 @@
                              VerticalOptions="Center"
                              Padding="8"
                              BackgroundColor="#b7b7b7b7">
-            <Button Text="Theme"
-                    Command="{Binding ToggleTheme}"/>
 
             <Border StrokeShape="RoundRectangle 30" 
                     WidthRequest="150"

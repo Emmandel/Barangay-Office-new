@@ -1,5 +1,6 @@
 ﻿using Barangay_Office.Services;
 using Barangay_Office.ViewModels;
+using Barangay_Office.ViewModels.CustomerViewModel;
 using Barangay_Office.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

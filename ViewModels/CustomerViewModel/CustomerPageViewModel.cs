@@ -2,22 +2,20 @@
 using System.Windows.Input;
 using Barangay_Office.Utilities;
 using Barangay_Office.Views;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Barangay_Office.ViewModels
 {
     public class CustomerPageViewModel: BaseViewModel
     {
-        
+        private string _selectedButton = string.Empty;
+        private bool _isNavigating;
         public string SelectedButton
         {
-            get => NavigationState.SelectedButton;
-            set
-            {
-                if(NavigationState.SelectedButton != value)
-                {
-                    NavigationState.SelectedButton = value;
-                    OnPropertyChanged();
-                }
+            get => _selectedButton;
+            set {
+                _selectedButton = value;
+                OnPropertyChanged();
             }
         }
 
@@ -32,14 +30,40 @@ namespace Barangay_Office.ViewModels
         public CustomerPageViewModel()
         {
 
-            NavigateCommand = new RelayCommand(async param =>
+            NavigateCommand = new Command<string>(async (page) => await NavigateToPageAsync(page));
+            Shell.Current.Navigated += OnShellNavigated;
+        }
+
+        private async Task NavigateToPageAsync(string page)
+        {
+            if (_isNavigating) return;
+            _isNavigating = true;
+
+            try
             {
-                if (param is string page && !string.IsNullOrWhiteSpace(page))
-                {
-                    SelectedButton = page;
-                    await Shell.Current.GoToAsync($"///{page}");
-                }
-            });
+
+                // Simulate navigation delay (replace with actual navigation logic)
+                await Shell.Current.GoToAsync($"//{page}");
+
+                // Update the SelectedButton after navigation is complete
+                SelectedButton = page;
+            }
+            finally
+            {
+                _isNavigating = false;
+            }
+        }
+
+        private void OnShellNavigated(object? sender, ShellNavigatedEventArgs e)
+        {
+            // Update SelectedButton based on the current location
+            var currentPage = e.Current.Location.OriginalString;
+
+            // Extract the page name from the URI (e.g., "CustomerPage" from "//CustomerPage")
+            var pageName = currentPage.TrimStart('/');
+
+            // Update the SelectedButton to match the current page
+            SelectedButton = pageName;
         }
 
     }

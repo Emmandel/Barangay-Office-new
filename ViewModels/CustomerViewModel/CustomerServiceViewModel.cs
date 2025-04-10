@@ -14,7 +14,7 @@ namespace Barangay_Office.ViewModels
 
         public ObservableCollection<CustomerServiceMessage> Messages { get; set; }
 
-        private string _messageEntry;
+        private string _messageEntry = string.Empty;
 
         //accessors
         public string MessageEntry
@@ -45,9 +45,38 @@ namespace Barangay_Office.ViewModels
             });
         }
 
-        private void SendMessage(object parameter)
+        private async Task SendMessage(object? parameter)
         {
-            //implement the send message
+            if (!string.IsNullOrWhiteSpace(MessageEntry))
+            {
+                // Add the message to the local collection
+                var newMessage = new CustomerServiceMessage
+                {
+                    Content = MessageEntry,
+                    IsUserMessage = true
+                };
+                Messages.Add(newMessage);
+
+                // Clear the input field
+                MessageEntry = string.Empty;
+
+                // Simulate sending the message via the ChatService
+                await _chatService.SendMessageAsync(newMessage);
+
+                // Optionally, simulate receiving a response
+                _chatService.SubscribeToCustomerServiceUpdates(response =>
+                {
+                    if(response != null)
+                    {
+
+                        Messages.Add(new CustomerServiceMessage
+                        {
+                            Content = response.Content,
+                            IsUserMessage = false
+                        });
+                    }
+                });
+            }
         }
     }
 }

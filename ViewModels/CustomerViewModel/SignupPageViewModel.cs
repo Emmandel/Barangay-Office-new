@@ -14,9 +14,9 @@ namespace Barangay_Office.ViewModels
         private string _confirmPasword;
         private string _message;
         private Color _BorderColor;
-        private Color _emailColor = (Color)Application.Current.Resources["BlueishPurple"];
-        private Color _passwordColor = (Color)Application.Current.Resources["BlueishPurple"];
-        private Color _confirmPasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
+        private Color _emailColor = Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent;
+        private Color _passwordColor = Application.Current?.Resources["BlueishPurple"] as Color?? Colors.Transparent;
+        private Color _confirmPasswordColor = Application.Current?.Resources["BlueishPurple"] as Color?? Colors.Transparent;
 
 
         public string Email
@@ -113,6 +113,11 @@ namespace Barangay_Office.ViewModels
 
         public SignupPageViewModel()
         {
+            _email = string.Empty;
+            _password = string.Empty;
+            _confirmPasword = string.Empty;
+            _message = string.Empty;
+            _BorderColor = Colors.Transparent;
             _authService = new AuthService();
             RegisterCommand = new Command(async () => await RegisterAsync());
         }
@@ -162,20 +167,20 @@ namespace Barangay_Office.ViewModels
                 : string.Empty;
 
             //set Colors
-            EmailColor = isEmailEmpty? Colors.Red :(Color)Application.Current.Resources["BlueishPurple"]; 
+            EmailColor = isEmailEmpty ? Colors.Red : (Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent);
             
 
-            PasswordColor = isPasswordEmpty? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+            PasswordColor = isPasswordEmpty ? Colors.Red : (Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent);
 
-            ConfirmPasswordColor = isConfirmPasswordEmpty ? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+            ConfirmPasswordColor = isConfirmPasswordEmpty ? Colors.Red : (Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent);
 
             //set BorderColor
-            BorderColor = isEmailEmpty || isPasswordEmpty || isConfirmPasswordEmpty ? Colors.Red: (Color)Application.Current.Resources["BlueishPurple"];
+            BorderColor = isEmailEmpty || isPasswordEmpty || isConfirmPasswordEmpty ? Colors.Red : (Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent);
 
             //set color to default if there's a value
-            if (!isEmailEmpty) EmailColor = (Color)Application.Current.Resources["BlueishPurple"];
-            if (!isPasswordEmpty) PasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
-            if (!isConfirmPasswordEmpty) ConfirmPasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
+            if (!isEmailEmpty && Application.Current?.Resources["BlueishPurple"] is Color color) EmailColor = color;
+            if (!isPasswordEmpty && Application.Current?.Resources["BlueishPurple"] is Color color2) PasswordColor = color2;
+            if (!isConfirmPasswordEmpty && Application.Current?.Resources["BlueishPurple"] is Color color3) ConfirmPasswordColor = color3;
 
             return;
         }

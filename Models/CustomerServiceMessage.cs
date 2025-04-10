@@ -35,6 +35,9 @@ namespace Barangay_Office.Models
 
         [BsonElement("admin_response_time")]
         public DateTime? AdminResponseTime { get; set; }
+
+        [BsonIgnore]
+        public bool IsUserMessage { get; set; }
     }
 
 }

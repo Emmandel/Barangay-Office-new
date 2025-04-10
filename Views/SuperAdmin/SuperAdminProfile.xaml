@@ -4,11 +4,7 @@
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
              x:Class="Barangay_Office.Views.SuperAdminProfile"
-             Title="SuperAdminProfile">
-    
-    <ContentPage.BindingContext>
-        <vm:SuperAdminProfileViewModel/>
-    </ContentPage.BindingContext>
+             x:DataType="vm:SuperAdminProfileViewModel">
 
     <Grid>
         <Grid.RowDefinitions>

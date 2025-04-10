@@ -132,13 +132,6 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Frame">
-        <Setter Property="HasShadow" Value="False" />
-        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
-        <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
-    </Style>
-
     <Style TargetType="ImageButton">
         <Setter Property="Opacity" Value="1" />
         <Setter Property="BorderColor" Value="Transparent"/>
@@ -160,18 +153,6 @@
             </VisualStateGroupList>
         </Setter>
 
-        <Style.Triggers>
-            <Trigger TargetType="ImageButton"
-             Property="IsPressed"
-             Value="False">
-                <Setter Property="Scale" Value=".8" />
-            </Trigger>
-            <Trigger TargetType="ImageButton"
-             Property="IsPressed"
-             Value="True">
-                <Setter Property="Background" Value="Red" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <Style TargetType="Label">

@@ -13,8 +13,8 @@ namespace Barangay_Office.ViewModels
         private string _password;
         private string _message;
         private Color _borderColor;
-        private Color _emailColor = (Color)Application.Current.Resources["BlueishPurple"];
-        private Color _passwordColor = (Color)Application.Current.Resources["BlueishPurple"];
+        private Color _emailColor = Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent;
+        private Color _passwordColor = Application.Current?.Resources["BlueishPurple"] as Color ?? Colors.Transparent;
         private bool _isBiometricEnabled;
 
         //entry accessors
@@ -100,6 +100,10 @@ namespace Barangay_Office.ViewModels
         public LoginViewModel() : this(new AuthService()) { }
         public LoginViewModel(AuthService authService)
         {
+            _email = string.Empty;
+            _password = string.Empty;
+            _message = string.Empty;
+            _borderColor = Colors.Transparent;
             _authService = authService?? throw new ArgumentNullException(nameof(authService));
             LoginCommand = new Command(async () => await LoginAsync());
             BiometricLoginCommand = new Command(async () => await BiometricLoginAsync());
@@ -129,7 +133,7 @@ namespace Barangay_Office.ViewModels
         }
 
         //validation for email
-        private bool IsValid(string email)
+        private static bool IsValid(string email)
         {
             return Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@gmail\.com$", RegexOptions.IgnoreCase);
         }
@@ -149,16 +153,16 @@ namespace Barangay_Office.ViewModels
 
 
             //set Colors
-            EmailColor = isEmailEmpty? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+            EmailColor = isEmailEmpty? Colors.Red : Application.Current?.Resources["BlueishPurple"] as Color?? Colors.Transparent;
 
-            PasswordColor = isPasswordEmpty ? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+            PasswordColor = isPasswordEmpty ? Colors.Red : Application.Current?.Resources["BlueishPurple"] as Color?? Colors.Transparent;
 
             //set BorderColor
-            BorderColor = isEmailEmpty || isPasswordEmpty ? Colors.Red : (Color)Application.Current.Resources["BlueishPurple"];
+            BorderColor = isEmailEmpty || isPasswordEmpty ? Colors.Red : Application.Current?.Resources["BlueishPurple"] as Color?? Colors.Transparent;
 
             //set color to default if there's a value
-            if (!isEmailEmpty) EmailColor = (Color)Application.Current.Resources["BlueishPurple"];
-            if (!isPasswordEmpty) PasswordColor = (Color)Application.Current.Resources["BlueishPurple"];
+            if (!isEmailEmpty && Application.Current?.Resources["BlueishPurple"] is Color color) EmailColor = color;
+            if (!isPasswordEmpty && Application.Current?.Resources["BlueishPurple"] is Color color2) PasswordColor = color2;
         }
 
         //manual logging in

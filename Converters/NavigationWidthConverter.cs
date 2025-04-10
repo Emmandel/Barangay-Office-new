@@ -13,7 +13,7 @@ namespace Barangay_Office.Converters
         {
             if (value is string selectedButton && parameter is string buttonName)
             {
-                return selectedButton == buttonName ? 30 : 0; // Return 30 if selected, otherwise 0
+                return selectedButton == buttonName ? 30 : 0;
             }
             return 0; // Default case
         }

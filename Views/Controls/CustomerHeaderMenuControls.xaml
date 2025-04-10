@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converter="clr-namespace:Barangay_Office.Converters"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
-             x:Class="Barangay_Office.Views.Controls.CustomerHeaderMenuControls">
+             x:Class="Barangay_Office.Views.Controls.CustomerHeaderMenuControls"
+             x:DataType="vm:CustomerPageViewModel">
 
     <ContentView.BindingContext>
         <vm:CustomerPageViewModel/>
@@ -54,7 +55,7 @@
                    FontSize="10"/>
             <BoxView Margin="0,10,0,0"
                      HeightRequest="2"
-                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ProfilePage'}"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ProfilePage', Mode=OneWay}"
                      BackgroundColor="White"/>
         </VerticalStackLayout>
 
@@ -78,7 +79,7 @@
                    FontSize="10"/>
             <BoxView Margin="0,10,0,0"
                      HeightRequest="2"
-                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='CustomerPage'}"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='CustomerPage', Mode=OneWay}"
                      BackgroundColor="White"/>
         </VerticalStackLayout>
 
@@ -101,7 +102,7 @@
                    FontSize="10"/>
             <BoxView Margin="0,10,0,0"
                      HeightRequest="2"
-                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ServicesPage'}"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ServicesPage', Mode=OneWay}"
                      BackgroundColor="White"/>  
         </VerticalStackLayout>
 
@@ -125,7 +126,7 @@
                    FontSize="10"/>
             <BoxView Margin="0,10,0,0"
                      HeightRequest="2"
-                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ContactInfoPage'}"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='ContactInfoPage', Mode=OneWay}"
                      BackgroundColor="White"/>
         </VerticalStackLayout>
 
@@ -141,14 +142,14 @@
                     ImageSource="about_us_icon.png"
                     CommandParameter="AboutUsPage"
                     HorizontalOptions="Center"/>
-            <Label Text="Contacts"
+            <Label Text="About Us"
                    VerticalOptions="Center"
                    Margin="-10"
                    HorizontalOptions="Center"
                    FontSize="10"/>
             <BoxView Margin="0,10,0,0"
                      HeightRequest="2"
-                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='AboutUsPage'}"
+                     WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='AboutUsPage', Mode=OneWay}"
                      BackgroundColor="White"/>
         </VerticalStackLayout>
     </Grid>

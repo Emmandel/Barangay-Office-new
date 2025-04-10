@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Barangay_Office.Converters"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             xmlns:models="clr-namespace:Barangay_Office.Models"
              x:Class="Barangay_Office.Views.ChatPage"
+             x:DataType="vm:CustomerServiceViewModel"
              BackgroundColor="LightGray"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
@@ -66,7 +68,7 @@
                     <CollectionView x:Name="MessageCollection"
                                     ItemsSource="{Binding Messages}">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="models:CustomerServiceMessage">
                                 <Grid>
                                     <Border BackgroundColor="{Binding SenderID, Converter={StaticResource SenderToColorConverter}}"
                                             Padding="10"

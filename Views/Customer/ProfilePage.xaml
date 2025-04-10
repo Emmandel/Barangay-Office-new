@@ -4,9 +4,15 @@
              xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.ProfilePage"
+             x:DataType="vm:CustomerProfileViewModel"
              BackgroundColor="LightGray"
              Shell.NavBarIsVisible="False"
              Shell.FlyoutBehavior="Disabled">
+    
+    <!--do not remove this for it's a connection to the viewmodel-->
+    <ContentPage.BindingContext>
+        <vm:CustomerProfileViewModel/>
+    </ContentPage.BindingContext>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -46,7 +52,7 @@
         <!-- Devider -->
         <BoxView HeightRequest="2" BackgroundColor="#2C3E50" Margin="0,85,0,0" VerticalOptions="Center"/>
 
-        <ScrollView Grid.Row="1" BackgroundColor="Transparent" HeightRequest="575" Margin="0,0,0,15" VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+        <ScrollView Grid.Row="1" BackgroundColor="Transparent" HeightRequest="575" Margin="0,0,0,15" VerticalOptions="Center" HorizontalOptions="Center">
 
             <VerticalStackLayout BackgroundColor="Transparent" Spacing="-2">
 
@@ -79,11 +85,24 @@
                     </Border>
                 
                     <!--logout-->
-                    <Border VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" StrokeShape="RoundRectangle 30">
+                    <Border VerticalOptions="Center" 
+                            HorizontalOptions="Center" 
+                            WidthRequest="150" 
+                            StrokeShape="RoundRectangle 30">
                         <Button Text="logout"
                                 Command="{Binding ToLogout}"
                                 HeightRequest="20"
                                 BackgroundColor="#1f0572"
+                                TextColor="White"/>
+                    </Border>
+                    <Border HorizontalOptions="Center"
+                            StrokeShape="RoundRectangle 30"
+                            VerticalOptions="Center"
+                            WidthRequest="150">
+                        <Button Text="Theme"
+                                Command="{Binding ToggleTheme}"
+                                HeightRequest="20"
+                                BackgroundColor="Gray"
                                 TextColor="White"/>
                     </Border>
                 </VerticalStackLayout>

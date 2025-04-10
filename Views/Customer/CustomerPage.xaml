@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.Views.CustomerPage"
+             x:DataType="vm:CustomerPageViewModel"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
              BackgroundColor="LightGray"

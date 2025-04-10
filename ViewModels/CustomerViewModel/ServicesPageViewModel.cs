@@ -13,6 +13,8 @@ namespace Barangay_Office.ViewModels
     public class ServicesPageViewModel : BaseViewModel
     {
         private string _selectedFormTypes = "Select Form Type";
+        private bool _isMale;
+        private bool _isFemale;
         private readonly Dictionary<string, bool> _entryVisibility = new();
 
         public ObservableCollection<string> FormTypes { get; } = new()
@@ -39,33 +41,38 @@ namespace Barangay_Office.ViewModels
             return _entryVisibility.TryGetValue(entryName, out var isVisible) && isVisible;
         }
 
+        public bool IsMale
+        {
+            get => _isMale;
+            set
+            {
+                _isMale = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsFemale
+        {
+            get => _isFemale;
+            set
+            {
+                _isFemale = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand GotoPaymentCommand { get; }
 
-        public ICommand ToggleTheme { get; }
 
         public ServicesPageViewModel()
         {
+            if (Application.Current == null)
+            {
+                throw new InvalidOperationException("Application.Current is null. Ensure the application is properly initialized.");
+            }
+
             GotoPaymentCommand = new RelayCommand(_ => Shell.Current.GoToAsync(nameof(PaymentInfoPage)));
             InitializeEntryVisibility();
-
-            ToggleTheme = new RelayCommand(Ttheme =>
-            {
-                if (Application.Current.UserAppTheme == AppTheme.Light)
-                {
-                    SetTheme(AppTheme.Dark);
-                }
-                else
-                {
-                    SetTheme(AppTheme.Light);
-                }
-            });
-        }
-
-
-        //toggle theme
-        private void SetTheme(AppTheme theme)
-        {
-            Application.Current.UserAppTheme = theme;
         }
 
 

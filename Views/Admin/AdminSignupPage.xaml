@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.AdminSignupPage"
+             x:DataType="vm:AdminSignupViewModel"
              Title="AdminSignupPage"
              Shell.FlyoutBehavior="Disabled">
 
-    <ContentPage.BindingContext>
-        <vm:AdminSignupViewModel/>
-    </ContentPage.BindingContext>
+
     
     <ContentPage.Resources>
         <Style x:Key="EntryStyle" TargetType="Entry">
@@ -16,7 +15,7 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
         </Style>
     </ContentPage.Resources>
@@ -91,7 +90,7 @@
 
             <StackLayout Grid.Row="3"
                      Orientation="Vertical"
-                     HorizontalOptions="CenterAndExpand">
+                     HorizontalOptions="Center">
 
                 <Label Text="{Binding Message}" 
                        TextColor="{Binding BorderColor}"

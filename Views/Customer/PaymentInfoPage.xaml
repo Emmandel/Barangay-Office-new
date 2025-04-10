@@ -4,12 +4,10 @@
              xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.PaymentInfoPage"
+             x:DataType="vm:PaymentInfoPageViewModel"
              BackgroundColor="{StaticResource Gray200}"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
-    <ContentPage.BindingContext>
-        <vm:PaymentInfoPageViewModel/>
-    </ContentPage.BindingContext>
 
     <Grid>
         <Grid.RowDefinitions>

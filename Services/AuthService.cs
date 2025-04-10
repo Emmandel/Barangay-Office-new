@@ -84,7 +84,7 @@ namespace Barangay_Office.Services
 
                 if (user != null)
                 {
-                    string decryptedPasssword = PasswordEncryptionManager.Decrypt(user.Password);
+                    string decryptedPasssword = PasswordEncryptionManager.Decrypt(user.Password ?? string.Empty);
 
                     if (decryptedPasssword != password)
                     {

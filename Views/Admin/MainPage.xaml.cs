@@ -1,12 +1,10 @@
-﻿namespace Barangay_Office
+﻿namespace Barangay_Office;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+
+    public MainPage()
     {
-
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
-
 }

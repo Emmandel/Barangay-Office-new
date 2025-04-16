@@ -32,6 +32,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!--Profile-->
@@ -106,11 +107,35 @@
                  BackgroundColor="White"/>
         </VerticalStackLayout>
 
+        <!--Notification-->
+        <VerticalStackLayout HorizontalOptions="Center"
+                  Margin="0,3,0,0"
+                  VerticalOptions="Center"
+                  Grid.Column="3">
+            <Button Style="{StaticResource HeaderButtonStyle}"
+                     Command="{Binding NavigateCommand}"
+                     WidthRequest="20"
+                     HeightRequest="20"
+                     CommandParameter="NotificationPage"
+                     ImageSource="notification.png"
+                     HorizontalOptions="Center"/>
+            <Label Text="Notification"
+                    VerticalOptions="Center"
+                    Margin="-10"
+                    HorizontalOptions="Center"
+                    FontSize="10"/>
+            <BoxView Margin="0,10,0,0"
+                      HeightRequest="2"
+                      WidthRequest="{Binding SelectedButton, Converter={StaticResource NavigationWidthConverter}, ConverterParameter='NotificationPage', Mode=OneWay}"
+                      BackgroundColor="White"/>
+        </VerticalStackLayout>
+
+
         <!--Contacts-->
         <VerticalStackLayout HorizontalOptions="Center"
                          VerticalOptions="Center"
                          Margin="0,3,0,0"
-                         Grid.Column="3">
+                         Grid.Column="4">
 
             <Button Style="{StaticResource HeaderButtonStyle}" 
                 Command="{Binding NavigateCommand}" 
@@ -134,7 +159,7 @@
         <VerticalStackLayout HorizontalOptions="Center"
                          VerticalOptions="Center"
                          Margin="0,3,0,0"
-                         Grid.Column="4">
+                         Grid.Column="5">
             <Button Style="{StaticResource HeaderButtonStyle}" 
                 Command="{Binding NavigateCommand}" 
                 WidthRequest="20"

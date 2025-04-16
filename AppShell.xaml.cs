@@ -1,6 +1,9 @@
 ﻿using Barangay_Office.Services;
 using Barangay_Office.ViewModels;
 using Barangay_Office.Views;
+using Barangay_Office.Views.Customer;
+using Barangay_Office.Views.SuperAdmin;
+using Barangay_Office.Views.Admin;
 
 namespace Barangay_Office
 {

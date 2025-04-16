@@ -2,6 +2,9 @@
 using Barangay_Office.ViewModels;
 using Barangay_Office.ViewModels.CustomerViewModel;
 using Barangay_Office.Views;
+using Barangay_Office.Views.Admin;
+using Barangay_Office.Views.SuperAdmin;
+using Barangay_Office.Views.Customer;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

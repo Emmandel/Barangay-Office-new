@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
-             x:Class="Barangay_Office.Views.AdminProfile"
+             x:Class="Barangay_Office.Views.Admin.AdminProfile"
              x:DataType="vm:AdminProfileViewModel"
              xmlns:controls="clr-namespace:Barangay_Office.Controls"
              Title="Admin Profile">

@@ -24,7 +24,6 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _email = value;
-                ValidateAllFields();
                 OnPropertyChanged();
             }
         }
@@ -34,7 +33,6 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _password = value;
-                ValidateAllFields();
                 OnPropertyChanged();
             }
         }

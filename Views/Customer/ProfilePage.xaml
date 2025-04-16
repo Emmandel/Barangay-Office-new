@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             xmlns:control="clr-namespace:Barangay_Office.Controls"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.ProfilePage"
              x:DataType="vm:CustomerProfileViewModel"
@@ -52,62 +52,149 @@
         <!-- Devider -->
         <BoxView HeightRequest="2" BackgroundColor="#2C3E50" Margin="0,85,0,0" VerticalOptions="Center"/>
 
-        <ScrollView Grid.Row="1" BackgroundColor="Transparent" HeightRequest="575" Margin="0,0,0,15" VerticalOptions="Center" HorizontalOptions="Center">
+        <VerticalStackLayout Grid.Row="1" 
+                             BackgroundColor="Transparent" 
+                             WidthRequest="400" 
+                             HeightRequest="575" 
+                             Margin="0,0,0,15" 
+                             VerticalOptions="Center" 
+                             HorizontalOptions="Center">
 
-            <VerticalStackLayout BackgroundColor="Transparent" Spacing="-2">
-
-                <Border Stroke="Black" WidthRequest="1000" HeightRequest="200">
-                    <VerticalStackLayout Spacing="10" Padding="13" BackgroundColor="Transparent">
-                        <Label Text="Customer profile info should be here" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                    </VerticalStackLayout>
-                </Border>
                 
-                <Border Stroke="Black" WidthRequest="1000" HeightRequest="200">
-                    <VerticalStackLayout Spacing="10" Padding="13" BackgroundColor="Transparent">
-                        <Label Text="Customer profile info should be here" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                    </VerticalStackLayout>
-                </Border>
-                <Border Stroke="Black" WidthRequest="1000" HeightRequest="200">
-                    <VerticalStackLayout Spacing="10" Padding="13" BackgroundColor="Transparent">
-                        <Label Text="Customer profile info should be here" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                    </VerticalStackLayout>
-                </Border>
-
-                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="0,20,0,20">
-                    
-                    <!--Reset password-->
-                    <Border VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" StrokeShape="RoundRectangle 30">
-                        <Button Text="Reset Password"
-                                Command="{Binding ToReset}"
-                                HeightRequest="20"
-                                BackgroundColor="Red"
-                                TextColor="White"/>
+            <!--Profile details-->
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Background="Transparent"
+                                 WidthRequest="400"
+                                 HeightRequest="515">
+                <!--avatar and name-->
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       BackgroundColor="Transparent"
+                                       Padding="20,15,0,15"
+                                       WidthRequest="360"
+                                       Spacing="20">
+                    <Border Stroke="Black"
+                            StrokeShape="RoundRectangle 50">
+                        <Image Source="appicon.png"
+                               WidthRequest="50"
+                               HeightRequest="50"
+                               Aspect="AspectFit"/>
                     </Border>
+                    
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="Jessmar Marcaida"
+                               FontAttributes="Bold"
+                               TextColor="Black"/>
+                        <Label Text="SampleTest@gmail.com"
+                               TextColor="Black"
+                               FontSize="9"/>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <!--Bio or Description-->
+                <Label Text="Description"
+                       FontAttributes="Bold"
+                       Padding="30,0,0,0"
+                       TextColor="Black"/>
+                <Label Text="Add a few description"
+                       Padding="30,5,0,10"
+                       FontSize="11"
+                       TextColor="Black"/>
+                <BoxView WidthRequest="400"
+                         HorizontalOptions="Center"
+                         HeightRequest="2"
+                         Margin="10"
+                         BackgroundColor="Gray"/>
                 
-                    <!--logout-->
-                    <Border VerticalOptions="Center" 
+                <!--Language-->
+                <Label Text="Language"
+                       Padding="30,0,0,0"
+                       FontAttributes="Bold"
+                       TextColor="Black"/>
+                
+                <control:LanguageDropdown/>
+                
+                <BoxView WidthRequest="400"
+                         HorizontalOptions="Center"
+                         HeightRequest="02"
+                         Margin="-2"
+                         BackgroundColor="Gray"/>
+                
+                <!--Notification-->
+                <Label Text="Notification"
+                       Padding="30,0,0,0"
+                       Margin="0,12,0,0"
+                       FontAttributes="Bold"
+                       TextColor="Black"/>
+                <HorizontalStackLayout WidthRequest="400"
+                                       VerticalOptions="Center"
+                                       Spacing="5"
+                                       HorizontalOptions="Center">
+                    <Label Text="General Notification"
+                           Padding="30,0,0,0"
+                           VerticalOptions="Center"
+                           FontAttributes="Bold"
+                           TextColor="Black"/>
+                    <Switch IsToggled="True"
+                            VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <BoxView WidthRequest="400"
+                         HorizontalOptions="Center"
+                         HeightRequest="2"
+                         Margin="10"
+                         BackgroundColor="Gray"/>
+
+
+                <!--Theme-->
+                <Button Text="Theme"
+                        ImageSource="sun.png"
+                        Command="{Binding ToggleTheme}"
+                        HeightRequest="20"
+                        BackgroundColor="Gray"
+                        TextColor="White"/>
+
+            </VerticalStackLayout>
+
+            <!--Buttons-->
+            <HorizontalStackLayout VerticalOptions="Center" 
+                                       HorizontalOptions="Center"
+                                       BackgroundColor="Gray"
+                                       WidthRequest="360"
+                                       HeightRequest="60"
+                                       Margin="0"
+                                       Padding="55"
+                                       Spacing="50">
+                <!--Reset password-->
+                <Border VerticalOptions="Center" 
                             HorizontalOptions="Center" 
-                            WidthRequest="150" 
+                            WidthRequest="100" 
+                            HeightRequest="40" 
                             StrokeShape="RoundRectangle 30">
-                        <Button Text="logout"
+                    <Button Text="Reset Password"
+                                Command="{Binding ToReset}"
+                                FontSize="9"
+                                FontAttributes="Bold"
+                                BackgroundColor="#c10e0e"
+                                TextColor="White"/>
+                </Border>
+
+                <!--logout-->
+                <Border VerticalOptions="Center" 
+                            HorizontalOptions="Center" 
+                            WidthRequest="100" 
+                            HeightRequest="40"
+                            StrokeShape="RoundRectangle 30">
+                    <Button Text="logout"
                                 Command="{Binding ToLogout}"
-                                HeightRequest="20"
+                                FontSize="9"
+                                FontAttributes="Bold"
                                 BackgroundColor="#1f0572"
                                 TextColor="White"/>
-                    </Border>
-                    <Border HorizontalOptions="Center"
-                            StrokeShape="RoundRectangle 30"
-                            VerticalOptions="Center"
-                            WidthRequest="150">
-                        <Button Text="Theme"
-                                Command="{Binding ToggleTheme}"
-                                HeightRequest="20"
-                                BackgroundColor="Gray"
-                                TextColor="White"/>
-                    </Border>
-                </VerticalStackLayout>
-            </VerticalStackLayout>
-        </ScrollView>
+                </Border>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
 
     </Grid>
 </ContentPage>

@@ -4,7 +4,7 @@
              x:Class="Barangay_Office.Views.CustomerPage"
              x:DataType="vm:CustomerPageViewModel"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
-             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             xmlns:control="clr-namespace:Barangay_Office.Controls"
              BackgroundColor="LightGray"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">

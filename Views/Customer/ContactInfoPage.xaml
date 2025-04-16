@@ -5,7 +5,7 @@
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False"
              BackgroundColor="LightGray"
-             xmlns:control="clr-namespace:Barangay_Office.Views.Controls">
+             xmlns:control="clr-namespace:Barangay_Office.Controls">
 
     <Grid>
         <Grid.RowDefinitions>

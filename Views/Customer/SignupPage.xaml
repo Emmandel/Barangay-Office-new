@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.Views.SignupPage"
+             x:DataType="vm:SignupPageViewModel"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              Title="SignupPage"
              Shell.FlyoutBehavior="Disabled"
@@ -18,17 +19,19 @@
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="WidthRequest" Value="150"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
         </Style>
 
         <!--password-->
         <Style x:Key="PasswordEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="WidthRequest" Value="150"/>
             <Setter Property="FontAttributes" Value="Bold"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
             <Setter Property="MaxLength" Value="15"/>
         </Style>
@@ -37,9 +40,10 @@
         <Style x:Key="ConfirmPasswordEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="WidthRequest" Value="150"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
             <Setter Property="MaxLength" Value="15"/>
         </Style>
@@ -115,7 +119,7 @@
 
             <StackLayout Grid.Row="3"
                          Orientation="Vertical"
-                         HorizontalOptions="CenterAndExpand">
+                         HorizontalOptions="Center">
 
                 <Label Text="{Binding Message}" 
                        TextColor="{Binding BorderColor}" 
@@ -148,7 +152,7 @@
                             <Image Source="user.png" 
                                    Aspect="AspectFill"
                                    Grid.Column="0"
-                                   Margin="8"/>
+                                   Margin="10"/>
                         </Border>
 
                         <Entry x:Name="txtEmail"
@@ -158,7 +162,7 @@
                                Keyboard="Email"
                                Style="{StaticResource EntryStyle}"
                                Grid.Column="1"
-                               Margin="0,0,45,0"/>
+                               Margin="0,0,75,0"/>
                     </Grid>
                 </Border>
 
@@ -201,6 +205,7 @@
                                      WidthRequest="5"
                                      HeightRequest="5"
                                      Aspect="AspectFit"
+                                     Scale="0.8"
                                      VerticalOptions="Center"
                                      Margin="0,0,10,0"
                                      Grid.Column="2"/>
@@ -249,6 +254,7 @@
                                      Clicked="OntoggleConfirmPasswordVisibility"
                                      WidthRequest="5"
                                      HeightRequest="5"
+                                     Scale="0.8"
                                      Aspect="AspectFit"
                                      Padding="0"
                                      VerticalOptions="Center"
@@ -292,7 +298,7 @@
 
                 <!-- Login Link -->
                 <StackLayout Orientation="Horizontal" 
-                             HorizontalOptions="CenterAndExpand" 
+                             HorizontalOptions="Center" 
                              Margin="0,60,0,0">
                     <Label 
                         Text="Already registered?"

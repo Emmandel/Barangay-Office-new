@@ -14,6 +14,8 @@ namespace Barangay_Office.ViewModels
     public class CustomerProfileViewModel : BaseViewModel
     {
         private AuthService _authService;
+
+        private ICommand SelectLanguage { get; }
         public ICommand ToReset { get; }
         public ICommand ToLogout { get; }
         public ICommand ToggleTheme { get; }
@@ -24,6 +26,11 @@ namespace Barangay_Office.ViewModels
         public CustomerProfileViewModel(AuthService authService)
         {
             _authService = authService;
+
+            SelectLanguage = new RelayCommand(_ =>
+            {
+                return Task.CompletedTask;
+            });
 
             ToReset = new RelayCommand(async tr =>
             {

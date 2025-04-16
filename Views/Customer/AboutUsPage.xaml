@@ -4,10 +4,13 @@
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels.CustomerViewModel"
              x:Class="Barangay_Office.Views.AboutUsPage"
              x:DataType="vm:C_AboutUsPageViewModel"
-             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             xmlns:control="clr-namespace:Barangay_Office.Controls"
              Shell.NavBarIsVisible="False"
              BackgroundColor="LightGray"
              Title="AboutUsPage">
+    <ContentPage.BindingContext>
+        <vm:C_AboutUsPageViewModel/>
+    </ContentPage.BindingContext>
 
     <Grid>
         <Grid.RowDefinitions>

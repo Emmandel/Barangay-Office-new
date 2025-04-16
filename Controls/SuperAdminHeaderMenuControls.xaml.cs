@@ -1,4 +1,4 @@
-namespace Barangay_Office.Views.Controls;
+namespace Barangay_Office.Controls;
 
 public partial class SuperAdminHeaderMenuControls : ContentView
 {

@@ -2,6 +2,7 @@
 using Barangay_Office.ViewModels;
 using Barangay_Office.ViewModels.CustomerViewModel;
 using Barangay_Office.Views;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Plugin.Maui.Biometric;
@@ -16,6 +17,7 @@ namespace Barangay_Office
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

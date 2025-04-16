@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             xmlns:control="clr-namespace:Barangay_Office.Controls"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.PaymentInfoPage"
              x:DataType="vm:PaymentInfoPageViewModel"

@@ -66,6 +66,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="BCrypt.Net-Next.StrongName" Version="4.0.3" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Google.Apis.Admin.Directory.directory_v1" Version="1.69.0.3700" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
@@ -82,6 +83,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\AdminHeaderMenuControls.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\CustomerHeaderMenuControls.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\LanguageDropdown.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\SuperAdminHeaderMenuControls.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\AdminHeaderMenuStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -113,15 +126,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\ContactInfoPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\AdminHeaderMenuControls.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\CustomerHeaderMenuControls.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Controls\SuperAdminHeaderMenuControls.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Customer\CustomerPage.xaml">
@@ -161,9 +165,30 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Resources\Languages\English.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>English.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Customer\CustomerPage.xaml.cs">
 	    <DependentUpon>CustomerPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Resources\Languages\Filipino.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Filipino.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Languages\English.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>English.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Languages\Filipino.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Filipino.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>

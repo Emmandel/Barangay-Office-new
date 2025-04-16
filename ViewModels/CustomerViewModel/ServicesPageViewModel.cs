@@ -36,9 +36,14 @@ namespace Barangay_Office.ViewModels
             }
         }
 
-        public bool IsEntryVisible(string entryName)
+        //public bool IsEntryVisible(string entryName)
+        //{
+        //    return _entryVisibility.TryGetValue(entryName, out var isVisible) && isVisible;
+        //}
+
+        public Dictionary<string, bool> EntryVisibility
         {
-            return _entryVisibility.TryGetValue(entryName, out var isVisible) && isVisible;
+            get => _entryVisibility;
         }
 
         public bool IsMale
@@ -75,11 +80,13 @@ namespace Barangay_Office.ViewModels
             InitializeEntryVisibility();
         }
 
-
+        //these are the default entries hidden meaning all entries shown are common on all papers
         private void InitializeEntryVisibility()
         {
             _entryVisibility["ICR"] = false;
             _entryVisibility["Citizenship"] = false;
+            _entryVisibility["Height"] = false;
+            _entryVisibility["Weight"] = false;
         }
 
         private void UpdateEntryVisibility()
@@ -94,15 +101,18 @@ namespace Barangay_Office.ViewModels
             if(SelectedFormType == "Tax Certificate")
             {
                 _entryVisibility["ICR"] = true;
-            }else if (SelectedFormType == "Barangay Clearance")
+            }
+            else if (SelectedFormType == "Barangay Clearance")
             {
                 _entryVisibility["Citizenship"] = true;
-            }
-
-            foreach(var key in _entryVisibility.Keys)
+            }else if (SelectedFormType == "Indigency Certificate")
             {
-                OnPropertyChanged($"Is{key}Visible");
+                _entryVisibility["Height"] = true;
+            }else if(SelectedFormType == "Business Permit")
+            {
+                _entryVisibility["Weight"] = true;
             }
+            OnPropertyChanged(nameof(EntryVisibility));
 
         }
     }

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:control="clr-namespace:Barangay_Office.Views.Controls"
+             xmlns:control="clr-namespace:Barangay_Office.Controls"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             xmlns:converter="clr-namespace:Barangay_Office.Converters"
              x:Class="Barangay_Office.Views.ServicesPage"
              x:DataType="vm:ServicesPageViewModel"
              BackgroundColor="White"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:EntryVisibilityConverter x:Key="EntryVisibilityConverter"/>
+        </ResourceDictionary>    
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <vm:ServicesPageViewModel/>
+    </ContentPage.BindingContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -120,24 +130,34 @@
                                FontSize="12" />
                         
                         <!--Gender-->
-                        <RadioButton GroupName="Gender"
-                                     Content="Male"
-                                     IsChecked="{Binding IsMale}"/>
-                        <RadioButton GroupName="Gender"
-                                     Content="Female"
-                                     IsChecked="{Binding IsFemale}"/>
+                        <HorizontalStackLayout Spacing="90"
+                                               HorizontalOptions="Start"
+                                               Margin="0,0,0,0">
+                            <RadioButton GroupName="Gender"
+                                         BorderColor="Black"
+                                         TextColor="Black"
+                                         Content="Male"
+                                         IsChecked="{Binding IsMale}"/>
+                            <RadioButton GroupName="Gender"
+                                         Content="Female"
+                                         TextColor="Black"
+                                         IsChecked="{Binding IsFemale}"/>
+                        </HorizontalStackLayout>
 
                         <!--Citizenship-->
                         <Entry Placeholder="Citizenship" 
                                x:Name="CitizenshipEntry" 
                                TextColor="Black"
+                               IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Citizenship}"
                                FontSize="12" />
                         
                         <!--ICR No.-->
                         <Entry Placeholder="ICR No.(If an alien)" 
                                x:Name="ICREntry" 
                                TextColor="Black"
-                               IsVisible="{Binding IsIcrVisible}"
+                               Keyboard="Numeric"
+                               MaxLength="12"
+                               IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=ICR}"
                                FontSize="12"/>
                         
                         <!--Place of Birth-->
@@ -158,11 +178,13 @@
                         <Entry Placeholder="Height" 
                                x:Name="HeightEntry"
                                TextColor="Black"
+                               IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Height}"
                                FontSize="12" />
                         
                         <!--Weight-->
-                        <Entry Placeholder="Height" 
+                        <Entry Placeholder="Weight" 
                                x:Name="WeightEntry"
+                               IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Weight}"
                                TextColor="Black"
                                FontSize="12" />
                         

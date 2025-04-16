@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Barangay_Office.Views.LoginPage"
+             x:DataType="vm:LoginViewModel"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              Title="LoginPage"
              Shell.FlyoutBehavior="Disabled"
@@ -15,17 +16,17 @@
         <Style x:Key="EntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="WidthRequest" Value="150"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="Margin" Value="0,0,20,0"/>
         </Style>
     </ContentPage.Resources>
 
     
 
-    <Grid
-        BackgroundColor = "#d0d0d0" >
+    <Grid BackgroundColor = "#d0d0d0" >
         <Grid.RowDefinitions>
             <RowDefinition Height="220"/>
             <RowDefinition Height="*"/>
@@ -94,36 +95,37 @@
 
             <StackLayout Grid.Row="3"
                          Orientation="Vertical"
-                         HorizontalOptions="CenterAndExpand">
+                         HorizontalOptions="Center">
 
-                <Label Text="{Binding Message}" TextColor="{Binding BorderColor}" HorizontalOptions="Center" FontSize="Micro"/>
+                <Label Text="{Binding Message}" 
+                       TextColor="{Binding BorderColor}" 
+                       HorizontalOptions="Center" 
+                       FontAttributes="Bold"
+                       FontSize="Micro"/>
 
                 <!-- Email -->
-                <Border
-                    BackgroundColor="Transparent"
-                    Stroke="{Binding EmailColor}"
-                    Padding="0"
-                    Margin="0,0,0,10"
-                    HorizontalOptions="FillAndExpand"
-                    StrokeShape="RoundRectangle 30">
+                <Border BackgroundColor="Transparent"
+                        Stroke="{Binding EmailColor}"
+                        Padding="0"
+                        Margin="0,0,0,10"
+                        HorizontalOptions="Center"
+                        StrokeShape="RoundRectangle 30">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="220"/>
                         </Grid.ColumnDefinitions>
-                        <Border 
-                            BackgroundColor="Transparent"
-                            HeightRequest="40"
-                            WidthRequest="40"
-                            StrokeShape="RoundRectangle 30" 
-                            Padding="0"
-                            Margin="5"
-                            Stroke="Transparent"
-                            Grid.Column="0">
-                            <Image 
-                                Source="/user.png" 
-                                Aspect="AspectFill"
-                                Margin="5"/>
+                        <Border BackgroundColor="Transparent"
+                                HeightRequest="40"
+                                WidthRequest="40"
+                                StrokeShape="RoundRectangle 30" 
+                                Padding="0"
+                                Margin="5"
+                                Stroke="Transparent"
+                                Grid.Column="0">
+                            <Image  Source="/user.png" 
+                                    Aspect="AspectFill"
+                                    Margin="5"/>
                         </Border>
                         <Entry 
                             x:Name="txtEmail"
@@ -137,12 +139,11 @@
                 </Border>
 
                 <!-- password -->
-                <Border
-                    BackgroundColor="Transparent"
-                    Stroke="{Binding PasswordColor}"
-                    Padding="0"
-                    HorizontalOptions="FillAndExpand"
-                    StrokeShape="RoundRectangle 30">
+                <Border BackgroundColor="Transparent"
+                        Stroke="{Binding PasswordColor}"
+                        Padding="0"
+                        HorizontalOptions="Center"
+                        StrokeShape="RoundRectangle 30">
                     
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -150,62 +151,61 @@
                             <ColumnDefinition Width="165"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <Border 
-                            BackgroundColor="Transparent"
-                            HeightRequest="40"
-                            WidthRequest="40"
-                            StrokeShape="RoundRectangle 30" 
-                            Padding="0"
-                            Stroke="Transparent"
-                            Margin="5"
-                            Grid.Column="0">
+                        <Border BackgroundColor="Transparent"
+                                HeightRequest="40"
+                                WidthRequest="40"
+                                StrokeShape="RoundRectangle 30" 
+                                Padding="0"
+                                Stroke="Transparent"
+                                Margin="5"
+                                Grid.Column="0">
                             
-                            <Image 
-                                Source="lock.png" 
-                                Aspect="AspectFill"
-                                Margin="5"/>
+                            <Image  Source="lock.png" 
+                                    Aspect="AspectFill"
+                                    Margin="5"/>
                         </Border>
-                        <Entry 
-                            x:Name="PasswordEntry"
-                            Text="{Binding Password}" 
-                            Placeholder="Password"
-                            IsPassword="True"
-                            Style="{StaticResource EntryStyle}"
-                            Grid.Column="1"/>
+                        <Entry x:Name="PasswordEntry"
+                               Text="{Binding Password}" 
+                               Placeholder="Password"
+                               IsPassword="True"
+                               Style="{StaticResource EntryStyle}"
+                               Grid.Column="1"/>
                         <ImageButton Source="close_eye.png"
                                      Clicked="OntogglePasswordVisibility"
                                      WidthRequest="5"
                                      Aspect="AspectFit"
                                      HeightRequest="5"
+                                     Scale="0.8"
                                      VerticalOptions="Center"
                                      Margin="0,0,10,0"
                                      Grid.Column="2"/>
                     </Grid>
                 </Border>
 
-                <StackLayout 
-                    Orientation="Horizontal" 
-                    Margin="0,10,0,0" 
-                    Padding="0">
+                <StackLayout Orientation="Horizontal" 
+                             Margin="0,10,0,0" 
+                             Padding="0">
                     
                     <!-- Checkbox -->
-                    <CheckBox
-                        IsChecked="False"
-                        Color="Black"/>
+                    <CheckBox IsChecked="False"
+                              Color="Black"
+                              Margin="0"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Center"/>
                     <Label
                         Text="Remember me"
                         TextColor="Black"
                         FontSize="Small"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Center"
-                        Margin="5"/>
-                    <Label
-                        Text="Forgot Password?"
-                        TextColor="Blue"
-                        FontAttributes="Bold"
-                        HorizontalOptions="EndAndExpand"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center">
+                        Margin="0"/>
+                    <Label Margin="5"
+                           Text="Forgot Password?"
+                           TextColor="Blue"
+                           FontAttributes="Bold"
+                           HorizontalOptions="End"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="LinkToForgotPassword"/>
                         </Label.GestureRecognizers>
@@ -231,7 +231,7 @@
                     TextColor="#ffffff"
                     WidthRequest="200"
                     FontSize="12"
-                    Margin="0,15,0,0"
+                    Margin="0,8,0,0"
                     Command="{Binding BiometricLoginCommand}"
                     IsVisible="{Binding IsBiometricEnabled}"
                     BackgroundColor="#38187c"
@@ -240,8 +240,8 @@
                     BorderWidth="1"/>
 
                 <StackLayout Orientation="Horizontal" 
-                     HorizontalOptions="CenterAndExpand" 
-                     Margin="0,60,0,0" 
+                     HorizontalOptions="Center" 
+                     Margin="0,20,0,0" 
                      Padding="0">
                     <Label 
                         Text="Not yet registered?"

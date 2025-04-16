@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              x:Class="Barangay_Office.Views.AdminProfile"
              x:DataType="vm:AdminProfileViewModel"
-             xmlns:controls="clr-namespace:Barangay_Office.Views.Controls"
+             xmlns:controls="clr-namespace:Barangay_Office.Controls"
              Title="Admin Profile">
 
     <Grid BackgroundColor = "#d0d0d0">

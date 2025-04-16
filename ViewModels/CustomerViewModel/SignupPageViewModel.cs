@@ -25,7 +25,6 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _email = value;
-                ValidateAllFields();
                 OnPropertyChanged();
             }
         }
@@ -36,7 +35,6 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _password = value;
-                ValidateAllFields();
                 OnPropertyChanged();
             }
         }
@@ -47,7 +45,6 @@ namespace Barangay_Office.ViewModels
             set
             {
                 _confirmPasword = value;
-                ValidateAllFields();
                 ValidatePasswordMatch();
                 OnPropertyChanged();
             }
@@ -128,7 +125,7 @@ namespace Barangay_Office.ViewModels
             {
                 if (Password == ConfirmPassword)
                 {
-                    Message = "Passwords matched! galing mo diyan.";
+                    Message = "Passwords matched!.";
                     BorderColor = Colors.Green;
 
                     PasswordColor = BorderColor;

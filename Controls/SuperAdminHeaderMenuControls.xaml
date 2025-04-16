@@ -2,10 +2,13 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
-             x:Class="Barangay_Office.Views.Controls.SuperAdminHeaderMenuControls"
+             x:Class="Barangay_Office.Controls.SuperAdminHeaderMenuControls"
              x:DataType="vm:SuperAdminPageViewModels">
+    <ContentView.BindingContext>
+        <vm:SuperAdminPageViewModels/>
+    </ContentView.BindingContext>
 
-    <HorizontalStackLayout BackgroundColor="#1f0572" Padding="10" WidthRequest="400" HorizontalOptions="Center" VerticalOptions="Center">
+        <HorizontalStackLayout BackgroundColor="#1f0572" Padding="10" WidthRequest="400" HorizontalOptions="Center" VerticalOptions="Center">
         <Button Text="Home" Style="{StaticResource SuperAdminHeaderMenu}" Command="{Binding SuperAdminNavigate}" CommandParameter="SuperAdminPage"/>
 
         <Button Text="Profile" Style="{StaticResource SuperAdminHeaderMenu}" Command="{Binding SuperAdminNavigate}" CommandParameter="SuperAdminProfile"/>

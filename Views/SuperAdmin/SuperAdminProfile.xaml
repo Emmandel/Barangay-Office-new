@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
              xmlns:controls="clr-namespace:Barangay_Office.Controls"
-             x:Class="Barangay_Office.Views.SuperAdminProfile"
+             x:Class="Barangay_Office.Views.SuperAdmin.SuperAdminProfile"
              x:DataType="vm:SuperAdminProfileViewModel">
 
     <Grid>

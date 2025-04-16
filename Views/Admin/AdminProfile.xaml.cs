@@ -2,14 +2,14 @@ using Barangay_Office.Services;
 using Barangay_Office.ViewModels;
 using SQLite;
 
-namespace Barangay_Office.Views;
+namespace Barangay_Office.Views.Admin;
 
 public partial class AdminProfile : ContentPage
 {
 	private readonly AuthService _authService;
     public AdminProfile(AuthService authService)
 	{
-		InitializeComponent();
+        InitializeComponent();
         _authService = authService;
         BindingContext = new AdminProfileViewModel();
     }

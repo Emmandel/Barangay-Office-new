@@ -8,6 +8,9 @@
              BackgroundColor="{StaticResource Gray200}"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <vm:PaymentInfoPageViewModel/>
+    </ContentPage.BindingContext>
 
     <Grid>
         <Grid.RowDefinitions>

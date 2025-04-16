@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:control="clr-namespace:Barangay_Office.Controls"
+             x:Class="Barangay_Office.Views.Customer.NotificationPage"
+             Title="NotificationPage"
+             BackgroundColor="LightGray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- for banner layout -->
+        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z">
+            <Path.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0.1" />
+                    <GradientStop Color="Blue" Offset="1.0" />
+                </LinearGradientBrush>
+            </Path.Fill>
+        </Path>
+
+        <!-- for Logo -->
+        <StackLayout Margin="-85">
+            <Border BackgroundColor="Black" 
+        HeightRequest="60" 
+        WidthRequest="60" 
+        StrokeShape="RoundRectangle 30" 
+        Padding="0" 
+        Margin="0,100,0,0" 
+        HorizontalOptions="Center">
+                <Image Source="barangay_pembo.png" 
+                Aspect="AspectFill" 
+                Margin="0"/>
+            </Border>
+        </StackLayout>
+
+        <!-- Header menu -->
+        <control:CustomerHeaderMenuControls/>
+
+        <!-- Devider -->
+        <BoxView HeightRequest="2" BackgroundColor="#2C3E50" Margin="0,85,0,0" VerticalOptions="Center"/>
+
+        <ScrollView Grid.Row="1"
+                x:Name="MainScrollView"
+                HeightRequest="575" 
+                Margin="0,0,0,15" 
+                BackgroundColor="Transparent" 
+                HorizontalOptions="Center">
+
+            <VerticalStackLayout BackgroundColor="Transparent" 
+                                 Spacing="-2" 
+                                 x:Name="ContentLayout">
+
+                <Label Text="Notification Page"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

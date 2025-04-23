@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:control="clr-namespace:Barangay_Office.Controls"
-             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels.CustomerViewModel"
              x:Class="Barangay_Office.Views.ProfilePage"
              x:DataType="vm:CustomerProfileViewModel"
-             BackgroundColor="LightGray"
+             BackgroundColor="{AppThemeBinding Light={DynamicResource Gray200}, Dark={DynamicResource Gray600}}"
              Shell.NavBarIsVisible="False"
              Shell.FlyoutBehavior="Disabled">
     
@@ -50,7 +50,7 @@
         <control:CustomerHeaderMenuControls/>
 
         <!-- Devider -->
-        <BoxView HeightRequest="2" BackgroundColor="#2C3E50" Margin="0,85,0,0" VerticalOptions="Center"/>
+        <BoxView HeightRequest="2" BackgroundColor="{AppThemeBinding Light=#2C3E50, Dark={DynamicResource White}}" Margin="0,85,0,0" VerticalOptions="Center"/>
 
         <VerticalStackLayout Grid.Row="1" 
                              BackgroundColor="Transparent" 
@@ -71,12 +71,12 @@
                 <HorizontalStackLayout HorizontalOptions="Center"
                                        VerticalOptions="Center"
                                        BackgroundColor="Transparent"
-                                       Padding="20,15,0,15"
+                                       Padding="20,25,0,15"
                                        WidthRequest="360"
                                        Spacing="20">
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"
                             StrokeShape="RoundRectangle 50">
-                        <Image Source="appicon.png"
+                        <Image Source="avatar_mess.jpg"
                                WidthRequest="50"
                                HeightRequest="50"
                                Aspect="AspectFit"/>
@@ -85,76 +85,156 @@
                     <VerticalStackLayout VerticalOptions="Center">
                         <Label Text="Jessmar Marcaida"
                                FontAttributes="Bold"
-                               TextColor="Black"/>
+                               TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
                         <Label Text="SampleTest@gmail.com"
-                               TextColor="Black"
+                               TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"
                                FontSize="9"/>
                     </VerticalStackLayout>
+                    
+                    <!--Edit Profile Details Button-->
+                    <Button ImageSource="{AppThemeBinding Light=edit_dark, Dark=edit_light}"
+                            WidthRequest="10"
+                            Padding="0"
+                            Scale="0.6"
+                            HeightRequest="10"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            BackgroundColor="Transparent"/>
                 </HorizontalStackLayout>
 
                 <!--Bio or Description-->
                 <Label Text="Description"
                        FontAttributes="Bold"
                        Padding="30,0,0,0"
-                       TextColor="Black"/>
+                       TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
                 <Label Text="Add a few description"
-                       Padding="30,5,0,10"
-                       FontSize="11"
-                       TextColor="Black"/>
+                           Padding="40,10,0,10"
+                           FontSize="11"
+                           TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
                 <BoxView WidthRequest="400"
-                         HorizontalOptions="Center"
-                         HeightRequest="2"
-                         Margin="10"
-                         BackgroundColor="Gray"/>
+                        HorizontalOptions="Center"
+                        HeightRequest="2"
+                        Margin="10"
+                        BackgroundColor="{AppThemeBinding Light={DynamicResource Gray500}, Dark={DynamicResource Gray200}}"/>
                 
-                <!--Language-->
-                <Label Text="Language"
-                       Padding="30,0,0,0"
-                       FontAttributes="Bold"
-                       TextColor="Black"/>
+                <!--Center Contents-->
+                <ScrollView BackgroundColor="Transparent" 
+                            HeightRequest="350"
+                            WidthRequest="400"
+                            Padding="0"
+                            Margin="0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                    <VerticalStackLayout BackgroundColor="Transparent"
+                                         Spacing="20"
+                                         Padding="0"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                        
+                        <!--Certificates Holder-->
+                        <Button Text="Certificates"
+                                HeightRequest="20"
+                                TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                Background="{AppThemeBinding Dark={StaticResource Gray500}, Light={StaticResource Gray400}}"
+                                ImageSource="{AppThemeBinding Dark=certificate_light, Light=certificate_dark}"/>
+
+                                <!--Language-->
+                        <Label Text="Language"
+                               Padding="30,0,0,0"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
+
+                        <control:LanguageDropdown/>
+
+                        <BoxView WidthRequest="400"
+                                 HorizontalOptions="Center"
+                                 HeightRequest="02"
+                                 Margin="-2"
+                                 BackgroundColor="{AppThemeBinding Light={DynamicResource Gray500}, Dark={DynamicResource Gray200}}"/>
                 
-                <control:LanguageDropdown/>
+
+                        <!--Notification-->
+                        <Label Text="Notification"
+                               Padding="30,0,0,0"
+                               Margin="0,12,0,0"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
                 
-                <BoxView WidthRequest="400"
-                         HorizontalOptions="Center"
-                         HeightRequest="02"
-                         Margin="-2"
-                         BackgroundColor="Gray"/>
+                        <!--General Notification-->
+                        <HorizontalStackLayout WidthRequest="400"
+                                               VerticalOptions="Center"
+                                               Spacing="5"
+                                               HorizontalOptions="Center">
+                            <Label Text="General Notification"
+                                   Padding="40,0,0,0"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
+                            <Switch IsToggled="False"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
                 
-                <!--Notification-->
-                <Label Text="Notification"
-                       Padding="30,0,0,0"
-                       Margin="0,12,0,0"
-                       FontAttributes="Bold"
-                       TextColor="Black"/>
-                <HorizontalStackLayout WidthRequest="400"
-                                       VerticalOptions="Center"
-                                       Spacing="5"
-                                       HorizontalOptions="Center">
-                    <Label Text="General Notification"
-                           Padding="30,0,0,0"
-                           VerticalOptions="Center"
-                           FontAttributes="Bold"
-                           TextColor="Black"/>
-                    <Switch IsToggled="True"
-                            VerticalOptions="Center"/>
-                </HorizontalStackLayout>
+                        <!--Sound-->
+                        <HorizontalStackLayout WidthRequest="400"
+                                               VerticalOptions="Center"
+                                               Spacing="5"
+                                               BackgroundColor="Transparent"
+                                               HorizontalOptions="Center">
+                            <Image Source="{AppThemeBinding Dark=sound_light.png, Light=sound_dark.png}"
+                                   Margin="40,0,0,0"
+                                   WidthRequest="25"
+                                   HeightRequest="25"
+                                   Aspect="AspectFill"/>
+                            <Label Text="Sound"
+                                   Padding="0"
+                                   VerticalOptions="Center"
+                                   TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
+                            <Switch IsToggled="{Binding IsNotificationEnabled}"
+                                    Margin="25,0,0,0"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                
+                        <!--Vibrate-->
+                        <HorizontalStackLayout WidthRequest="400"
+                                               VerticalOptions="Center"
+                                               Spacing="5"
+                                               HorizontalOptions="Center">
+                            <Image Source="{AppThemeBinding Light=vibrate_dark.png, Dark=vibrate_light.png}"
+                                   Margin="40,0,0,0"
+                                   WidthRequest="25"
+                                   HeightRequest="25"
+                                   Aspect="AspectFill"/>
+                            <Label Text="Vibrate" 
+                                   Padding="0"
+                                   VerticalOptions="Center"
+                                   TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
+                            <Switch IsToggled="{Binding IsVibrationEnabled}"
+                                    Margin="20,0,0,0"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
 
-                <BoxView WidthRequest="400"
-                         HorizontalOptions="Center"
-                         HeightRequest="2"
-                         Margin="10"
-                         BackgroundColor="Gray"/>
+                        <BoxView WidthRequest="400"
+                                 HorizontalOptions="Center"
+                                 HeightRequest="2"
+                                 Margin="10"
+                                 BackgroundColor="{AppThemeBinding Light={DynamicResource Gray500}, Dark={DynamicResource Gray200}}"/>
 
 
-                <!--Theme-->
-                <Button Text="Theme"
-                        ImageSource="sun.png"
-                        Command="{Binding ToggleTheme}"
-                        HeightRequest="20"
-                        BackgroundColor="Gray"
-                        TextColor="White"/>
+                        <!--Theme-->
+                        <Button Text="Theme"
+                                Margin="0,0,0,2"
+                                ImageSource="{AppThemeBinding Dark=dark.png, Light=light.png}"
+                                Command="{Binding ToggleTheme}"
+                                HeightRequest="20"
+                                BackgroundColor="{AppThemeBinding Dark={StaticResource Gray200}, Light={StaticResource Gray500}}"
+                                TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"/>
 
+                    </VerticalStackLayout>
+                </ScrollView>
             </VerticalStackLayout>
 
             <!--Buttons-->

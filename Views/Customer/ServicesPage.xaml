@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:control="clr-namespace:Barangay_Office.Controls"
-             xmlns:vm="clr-namespace:Barangay_Office.ViewModels"
+             xmlns:vm="clr-namespace:Barangay_Office.ViewModels.CustomerViewModel"
              xmlns:converter="clr-namespace:Barangay_Office.Converters"
-             x:Class="Barangay_Office.Views.ServicesPage"
+             x:Class="Barangay_Office.Views.Customer.ServicesPage"
              x:DataType="vm:ServicesPageViewModel"
-             BackgroundColor="White"
+             BackgroundColor="{AppThemeBinding Light={DynamicResource Gray200}, Dark={DynamicResource Gray600}}"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
@@ -38,7 +38,7 @@
 
         <!-- for Logo -->
         <StackLayout Margin="-85">
-            <Border BackgroundColor="Black" 
+            <Border BackgroundColor="{AppThemeBinding Dark=White, Light=Black}" 
                     HeightRequest="60" 
                     WidthRequest="60" 
                     StrokeShape="RoundRectangle 30" 
@@ -56,10 +56,17 @@
 
         <!-- Devider -->
         <BoxView HeightRequest="2" 
-                 BackgroundColor="#2C3E50" 
+                 BackgroundColor="{AppThemeBinding Light=#2C3E50, Dark={StaticResource Gray200}}" 
                  Margin="0,85,0,0" 
                  VerticalOptions="Center"/>
 
+        <!-- List of all services
+        *Health Services
+        *Emergency Services
+        *Community Forums
+        *Document Tracking
+        *Local Business Directory-->
+        
         <ScrollView Grid.Row="1" 
                     BackgroundColor="Transparent"
                     HeightRequest="500" 
@@ -71,23 +78,43 @@
                 <!-- Title -->
                 <Label Text="Application Form" 
                        FontSize="Header" 
-                       TextColor="Black" 
+                       TextColor="{AppThemeBinding Light=Black, Dark=White}" 
                        FontFamily="OpenSansRegular" 
                        FontAttributes="Bold" 
                        HorizontalOptions="Center" 
                        Margin="0,10,0,10" />
 
                 <!-- General Information -->
-                <Border Stroke="#2C3E50" 
+                <Border Stroke="{AppThemeBinding Light=#2C3E50, Dark=White}" 
                         StrokeShape="RoundRectangle 10" 
                         Padding="15" 
-                        BackgroundColor="#F0F0F0">
+                        BackgroundColor="{AppThemeBinding Dark=Gray, Light=White}">
                     <VerticalStackLayout Spacing="12">
 
                         <Label Text="General Information" 
                                FontSize="Small" 
                                FontAttributes="Bold" 
-                               TextColor="Black" />
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                        
+                        <!-- Services Picker -->
+                        <Label Text="Select Services" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Start" 
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+                        <Border Stroke="#2C3E50" 
+                                StrokeShape="RoundRectangle 10" 
+                                Padding="10" 
+                                BackgroundColor="Transparent">
+                            <Picker Title="Select-Form-Type" 
+                                    ItemsSource="{Binding FormTypes}"
+                                    SelectedItem="{Binding SelectedFormType}"
+                                    FontSize="12" 
+                                    Style="{StaticResource CustomPickerStyle}"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="Black" 
+                                    BackgroundColor="#F0F0F0"/>
+                        </Border>
                         
                         <!--Fullname-->
                         <HorizontalStackLayout WidthRequest="300"
@@ -102,7 +129,8 @@
                                    FontSize="12" 
                                    TextTransform="Uppercase"
                                    WidthRequest="95"
-                                   TextColor="Black"/>
+                                   PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
+                                   TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
                             
                             <!--Lastname-->
                             <Entry Placeholder="Lastname" 
@@ -110,7 +138,8 @@
                                    WidthRequest="120"
                                    TextTransform="Uppercase"
                                    FontSize="12" 
-                                   TextColor="Black"/>
+                                   PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
+                                   TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
                             
                             <!--Middlename-->
                             <Entry Placeholder="M.I" 
@@ -120,50 +149,78 @@
                                    FontSize="12" 
                                    MaxLength="1"
                                    TextTransform="Uppercase"
-                                   TextColor="Black"/>
+                                   PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
+                                   TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
                         </HorizontalStackLayout>
                         
                         <!--Address-->
                         <Entry Placeholder="Address" 
                                x:Name="AddressEntry" 
-                               TextColor="Black"
+                               PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                FontSize="12" />
                         
                         <!--Gender-->
-                        <HorizontalStackLayout Spacing="90"
+                        <HorizontalStackLayout Spacing="50"
                                                HorizontalOptions="Start"
                                                Margin="0,0,0,0">
                             <RadioButton GroupName="Gender"
                                          BorderColor="Black"
-                                         TextColor="Black"
+                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                          Content="Male"
                                          IsChecked="{Binding IsMale}"/>
                             <RadioButton GroupName="Gender"
+                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                          Content="Female"
-                                         TextColor="Black"
                                          IsChecked="{Binding IsFemale}"/>
                         </HorizontalStackLayout>
 
                         <!--Citizenship-->
                         <Entry Placeholder="Citizenship" 
                                x:Name="CitizenshipEntry" 
-                               TextColor="Black"
+                               PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Citizenship}"
                                FontSize="12" />
                         
                         <!--ICR No.-->
                         <Entry Placeholder="ICR No.(If an alien)" 
                                x:Name="ICREntry" 
-                               TextColor="Black"
+                               PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
+                               TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                Keyboard="Numeric"
                                MaxLength="12"
                                IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=ICR}"
                                FontSize="12"/>
                         
                         <!--Place of Birth-->
-                        <Picker Title="Place of Birth"
-                                TitleColor="Black"
-                                TextColor="Black"/>
+                        <HorizontalStackLayout BackgroundColor="Transparent"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Padding="0"
+                                               Spacing="20">
+                            <!--Province-->
+                            <Picker Title="Province"
+                                    ItemsSource="{Binding Provinces}"
+                                    SelectedItem="{Binding SelectedProvince}"
+                                    TitleColor="{AppThemeBinding Dark=White, Light=Black}"
+                                    TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                    FontSize="12"
+                                    HorizontalTextAlignment="Center"/>
+                            <!--Municipal-->
+                            <Picker Title="Municipal"
+                                    ItemsSource="{Binding Municipalities}"
+                                    SelectedItem="{Binding SelectedMunicipality}"
+                                    HorizontalTextAlignment="Center"
+                                    TitleColor="{AppThemeBinding Dark=White, Light=Black}"
+                                    TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                            <!--Barangay-->
+                            <Picker Title="Barangay"
+                                    ItemsSource="{Binding Barangays}"
+                                    HorizontalTextAlignment="Center"
+                                    TitleColor="{AppThemeBinding Dark=White, Light=Black}"
+                                    TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                        </HorizontalStackLayout>
 
                         <!--Birthdate-->
                         <Label Text=" BirthDate:" 
@@ -208,25 +265,6 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Services Picker -->
-                <Label Text="Select Services" 
-                       FontSize="20" 
-                       FontAttributes="Bold"
-                       HorizontalOptions="Start" 
-                       TextColor="Black" />
-                <Border Stroke="#2C3E50" 
-                        StrokeShape="RoundRectangle 10" 
-                        Padding="10" 
-                        BackgroundColor="Transparent">
-                    <Picker Title="Select-Form-Type" 
-                            ItemsSource="{Binding FormTypes}"
-                            SelectedItem="{Binding SelectedFormType}"
-                            FontSize="12" 
-                            Style="{StaticResource CustomPickerStyle}"
-                            HorizontalTextAlignment="Center"
-                            TextColor="Black" 
-                            BackgroundColor="#F0F0F0"/>
-                </Border>
             </VerticalStackLayout>
         </ScrollView>
         

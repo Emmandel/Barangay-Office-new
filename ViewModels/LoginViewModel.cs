@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Barangay_Office.Services;
-using Barangay_Office.Views;
+using Barangay_Office.Views.Customer;
 using Barangay_Office.Views.SuperAdmin;
 using Plugin.Maui.Biometric;
 

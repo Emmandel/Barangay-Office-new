@@ -2,25 +2,43 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Barangay_Office.Controls.LanguageDropdown">
+             xmlns:converter="clr-namespace:Barangay_Office.Converters"
+             xmlns:local="clr-namespace:Barangay_Office.Controls"
+             BindingContext="{x:Reference ThisControl}"
+             x:Class="Barangay_Office.Controls.LanguageDropdown"
+             x:Name="ThisControl"
+             x:DataType="local:LanguageDropdown">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:SelectedItemToColorConverter x:Key="SelectedItemToColorConverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
     
-    <toolkit:Expander>
+    <toolkit:Expander x:Name="LanguageExpander" ExpandedChanged="Expander_ExpandedChanged">
         <toolkit:Expander.Header>
-            <Border Padding="15"
+            <Border x:Name="HeaderDropdown"
+                    Padding="15"
                     Margin="0,10,0,0"
                     WidthRequest="365"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center">
+                    Stroke="{AppThemeBinding Dark={StaticResource Gray200}, Light={StaticResource Gray500}}"
+                    VerticalOptions="Center"
+                    StrokeThickness="2">
                 <Grid>
-                    <Image Source="globe.png"
+                    <Image Source="{AppThemeBinding Light=globe_dark.png, Dark=globe_light.png}"
                            WidthRequest="20"
                            HeightRequest="20"
                            Aspect="AspectFit"
                            HorizontalOptions="Start"/>
-                    <Label HorizontalOptions="Center"
+                    <Label x:Name="SelectedLanguageLabel"
+                           HorizontalOptions="Start"
+                           Padding="30,0,0,0"
                            Text="Select a language"
-                           TextColor="Black"/>
-                    <Image Source="arrow_down.png"
+                           TextColor="{AppThemeBinding Dark={DynamicResource White}, Light={DynamicResource Black}}"
+                           x:DataType="x:String"/>
+                    <Image Source="{AppThemeBinding Dark=arrow_right_light.png, Light=arrow_right_dark.png}"
+                           x:Name="ArrowIcon"
                            WidthRequest="30"
                            HeightRequest="20"
                            HorizontalOptions="End"/>
@@ -29,23 +47,95 @@
         </toolkit:Expander.Header>
 
         <toolkit:Expander.Content>
-            <Border Background="Gray"
-                        WidthRequest="390"
-                        AbsoluteLayout.LayoutBounds="0.5,1,250,200"
-                    ZIndex="10"
-                        AbsoluteLayout.LayoutFlags="PositionProportional">
-                <VerticalStackLayout VerticalOptions="Center"
-                                     HorizontalOptions="Center"
-                                     Padding="5"
-                                     WidthRequest="380"
-                                     BackgroundColor="Transparent">
-                    <Label Text="English"
-                           HorizontalOptions="Center"
-                           TextColor="Black"/>
-                    <Label Text="Filipino"
-                           HorizontalOptions="Center"
-                           TextColor="Black"/>
-                </VerticalStackLayout>
+                
+            <Border WidthRequest="210"
+                    HorizontalOptions="Start"
+                    Margin="30,0,0,10"
+                    AbsoluteLayout.LayoutBounds="0.5,1,250,200"
+                    ZIndex="1"
+                    Stroke="{AppThemeBinding Light=Black,Dark=White}"
+                    StrokeShape="RoundRectangle 2"
+                    AbsoluteLayout.LayoutFlags="PositionProportional">
+
+                <ScrollView HeightRequest="200"
+                            WidthRequest="300"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            BackgroundColor="Transparent">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="165"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <CollectionView x:Name="LanguageCollectionView"
+                                        SelectionMode="None"
+                                        Grid.Row="0"
+                                        SelectionChanged="OnSelectionChanged">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <Border Stroke="{AppThemeBinding Light=Black, Dark={StaticResource Gray200}}"
+                                            Margin="0"
+                                            Padding="0">
+                                        
+                                            <Label Text="{Binding .}"
+                                                   HorizontalOptions="Center"
+                                                   Padding="10"
+                                                   WidthRequest="206"
+                                                   FontAttributes="{Binding ., Converter={StaticResource SelectedItemToColorConverter}, ConverterParameter={x:Reference ThisControl}}"
+                                                   BackgroundColor="{Binding ., Converter={StaticResource SelectedItemToColorConverter},ConverterParameter={x:Reference ThisControl}}"
+                                                   TextColor="{AppThemeBinding Light=Black, Dark=White}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnLanguageSelected" CommandParameter="{Binding .}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                    
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <HorizontalStackLayout Grid.Row="1"
+                                               Margin="0,0,0,0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               Spacing="35">
+                            <Border Stroke="{AppThemeBinding Dark=White, Light=Black}"
+                                    StrokeShape="RoundRectangle 30"
+                                    WidthRequest="60"
+                                    HeightRequest="25">
+
+                                <Button WidthRequest="80"
+                                        HeightRequest="10"
+                                        Text="OK"
+                                        TextColor="{AppThemeBinding Dark=white, Light=Black}"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        Scale="0.7"
+                                        BackgroundColor="Gray"
+                                        Command="{Binding OkButton}"
+                                        Padding="0"
+                                        Margin="0"/>
+                            </Border>
+
+
+                            <Border Stroke="{AppThemeBinding Dark=White, Light=Black}"
+                                    StrokeShape="RoundRectangle 30"
+                                    WidthRequest="60"
+                                    HeightRequest="25">
+                                
+                                <Button WidthRequest="80"
+                                        TextColor="{AppThemeBinding Dark=white, Light=Black}"
+                                        FontSize="12"
+                                        FontAttributes="Bold"
+                                        Text="Cancel"
+                                        Scale="0.7"
+                                        BackgroundColor="Gray"
+                                        Command="{Binding CancelButton}"
+                                        HeightRequest="10"/>
+                            </Border>
+                        </HorizontalStackLayout>
+
+                    </Grid>
+                </ScrollView>
             </Border>
         </toolkit:Expander.Content>
     </toolkit:Expander>

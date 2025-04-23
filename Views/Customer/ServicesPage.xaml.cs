@@ -1,4 +1,4 @@
-namespace Barangay_Office.Views;
+namespace Barangay_Office.Views.Customer;
 
 public partial class ServicesPage : ContentPage
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,39 @@ using Barangay_Office.Utilities;
 using Barangay_Office.Views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Barangay_Office.ViewModels
+namespace Barangay_Office.ViewModels.CustomerViewModel
 {
-    public class CustomerProfileViewModel : BaseViewModel
+    public partial class CustomerProfileViewModel : BaseViewModel
     {
-        private AuthService _authService;
+        private readonly AuthService _authService;
+        private bool _isNotificationEnabled;
+        private bool _isVibrationEnabled;
 
-        private ICommand SelectLanguage { get; }
+        public bool IsNotificationEnabled
+        {
+            get => _isNotificationEnabled;
+            set
+            {
+                _isNotificationEnabled = value;
+                ToggleNotification(value);
+            }
+        }
+
+        public bool IsVibrationEnabled
+        {
+            get => _isVibrationEnabled;
+            set
+            {
+                _isVibrationEnabled = value;
+                _ = ToggleVibration(value);
+            }
+        }
+
+
         public ICommand ToReset { get; }
         public ICommand ToLogout { get; }
         public ICommand ToggleTheme { get; }
+
         
 
         public CustomerProfileViewModel() : this(new AuthService()) { }
@@ -27,10 +51,6 @@ namespace Barangay_Office.ViewModels
         {
             _authService = authService;
 
-            SelectLanguage = new RelayCommand(_ =>
-            {
-                return Task.CompletedTask;
-            });
 
             ToReset = new RelayCommand(async tr =>
             {
@@ -57,16 +77,37 @@ namespace Barangay_Office.ViewModels
                 {
                     SetTheme(AppTheme.Light);
                 }
+
                 return Task.CompletedTask;
             });
         }
 
         //toggle theme
-        private void SetTheme(AppTheme theme)
+        private static void SetTheme(AppTheme theme)
         {
             if (Application.Current != null)
             {
                 Application.Current.UserAppTheme = theme;
+            }
+        }
+
+        private static void ToggleNotification(bool isEnabled)
+        {
+            // Add platform-specific logic for enabling/disabling notifications
+            Console.WriteLine($"Notifications are now {(isEnabled ? "enabled" : "disabled")}");
+        }
+
+        private static async Task ToggleVibration(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                Vibration.Vibrate(TimeSpan.FromSeconds(5)); // Vibrate for 1 second
+                await Flashlight.TurnOnAsync(); // Turn on flashlight
+            }
+            else
+            {
+                Vibration.Cancel(); // Stop vibration
+                await Flashlight.TurnOffAsync(); // Turn off flashlight
             }
         }
     }

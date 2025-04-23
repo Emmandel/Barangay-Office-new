@@ -92,7 +92,7 @@
     <!-- Customer Page-->
     <ShellContent
         Title="Customer"
-        ContentTemplate="{DataTemplate views:CustomerPage}"
+        ContentTemplate="{DataTemplate CustomerViews:CustomerPage}"
         Route="CustomerPage"/>
 
     <!--Profile Page-->
@@ -122,7 +122,7 @@
     <!--Services-->
     <ShellContent
         Title="Services"
-        ContentTemplate="{DataTemplate views:ServicesPage}"
+        ContentTemplate="{DataTemplate CustomerViews:ServicesPage}"
         Route="ServicesPage"
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>

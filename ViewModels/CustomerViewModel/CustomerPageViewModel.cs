@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Barangay_Office.Utilities;
-using Barangay_Office.Views;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Barangay_Office.ViewModels
+namespace Barangay_Office.ViewModels.CustomerViewModel
 {
-    public class CustomerPageViewModel: BaseViewModel
+    public partial class CustomerPageViewModel: BaseViewModel
     {
         private string _selectedButton = string.Empty;
         private bool _isNavigating;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Barangay_Office.Models;
 using Barangay_Office.Services;
 using Barangay_Office.Utilities;
 using Barangay_Office.Views;
@@ -17,6 +18,23 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
         private readonly AuthService _authService;
         private bool _isNotificationEnabled;
         private bool _isVibrationEnabled;
+
+        //collection to all certificates
+        public ObservableCollection<CertificatesModel> Certificates => CertificateStorage.Certificates;
+        //property to hold the selected certificate
+        private CertificatesModel _selectedCertificate;
+        public CertificatesModel SelectedCertificate
+        {
+            get => _selectedCertificate;
+            set
+            {
+                if (_selectedCertificate != value)
+                {
+                    _selectedCertificate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public bool IsNotificationEnabled
         {
@@ -42,8 +60,9 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
         public ICommand ToReset { get; }
         public ICommand ToLogout { get; }
         public ICommand ToggleTheme { get; }
+        public ICommand ShowCertificates { get; }
 
-        
+
 
         public CustomerProfileViewModel() : this(new AuthService()) { }
 
@@ -52,6 +71,7 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
             _authService = authService;
 
 
+            
             ToReset = new RelayCommand(async tr =>
             {
                 await Shell.Current.Navigation.PushAsync(new ForgotPasswordPage(_authService));
@@ -81,6 +101,8 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
                 return Task.CompletedTask;
             });
         }
+
+
 
         //toggle theme
         private static void SetTheme(AppTheme theme)

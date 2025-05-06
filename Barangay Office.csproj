@@ -61,6 +61,10 @@
 
 	<ItemGroup>
 	  <MauiImage Include="Resources\barangay_pembo_orig.png" />
+	  <MauiImage Include="Resources\CertificatesImage\barangay_clearance.jpg" />
+	  <MauiImage Include="Resources\CertificatesImage\barangay_indigency.jpg" />
+	  <MauiImage Include="Resources\CertificatesImage\business_permit.jpg" />
+	  <MauiImage Include="Resources\CertificatesImage\tax_certificate.jpg" />
 	  <MauiImage Include="Resources\taguig_city_orig.png" />
 	</ItemGroup>
 
@@ -78,7 +82,7 @@
 		<PackageReference Include="MongoDB.Driver" Version="3.3.0" />
 		<PackageReference Include="Npgsql" Version="9.0.3" />
 		<PackageReference Include="Plugin.Maui.Biometric" Version="0.0.2" />
-		<PackageReference Include="SkiaSharp" Version="3.116.1" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
 		<PackageReference Include="System.Text.Json" Version="9.0.4" />

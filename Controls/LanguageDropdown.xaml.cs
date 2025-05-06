@@ -7,15 +7,15 @@ namespace Barangay_Office.Controls;
 public partial class LanguageDropdown : ContentView
 {
     
-    private readonly List<string> _languages = new()
-    {
+    private readonly List<string> _languages =
+    [
        "English",
        "Filipino",
        "Spanish",
        "Japanese",
        "Taiwanese",
        "Chinese"
-    };
+    ];
 
     
     public static readonly BindableProperty SelectedLanguageProperty = BindableProperty.Create(nameof(SelectedLanguage),typeof(string),typeof(LanguageDropdown), default(string),BindingMode.TwoWay);

@@ -1,9 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Windows.Input;
 using Barangay_Office.Models;
 using Barangay_Office.Utilities;
 using Barangay_Office.Views;
+using Barangay_Office.Views.Customer;
+using ZstdSharp.Unsafe;
 
 namespace Barangay_Office.ViewModels.CustomerViewModel
 {
@@ -14,28 +17,36 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
         private string _selectedFormTypes = "Select Form Type";
         private bool _isMale;
         private bool _isFemale;
+        private bool _isSingle;
+        private bool _isMarried;
+        private string _dataLabelText = "BirthDate";
+        private DateComponent _requiredDateComponent = DateComponent.FullDate;
+        private DateTime _selectedDate = DateTime.Now;
+        private string _formattedDate = string.Empty;
+        private string _selectedProvince = string.Empty;
+        private string _selectedMunicipality = string.Empty;
 
-        private RegionData _regionData = new RegionData();
-        public ObservableCollection<string> Provinces { get; set; } = new();
-        public ObservableCollection<string> Municipalities { get; set; } = new();
-        public ObservableCollection<string> Barangays { get; set; } = new();
+
+        private RegionData _regionData = new();
+        public ObservableCollection<string> Provinces { get; set; } = [];
+        public ObservableCollection<string> Municipalities { get; set; } = [];
+        public ObservableCollection<string> Barangays { get; set; } = [];
 
 
 
         //properties
-        private readonly Dictionary<string, bool> _entryVisibility = new();
+        private Dictionary<string, bool> _entryVisibility = [];
         public Dictionary<string, bool> EntryVisibility => _entryVisibility;
 
-        public ObservableCollection<string> FormTypes { get; } = new()
-        {
+        public ObservableCollection<string> FormTypes { get; } =
+        [
             "Barangay Clearance",
             "Indigency Certificate",
             "Tax Certificate",
             "Business Permit"
-        };
+        ];
 
 
-        private string _selectedProvince = string.Empty;
         public string SelectedProvince
         {
             get => _selectedProvince;
@@ -49,8 +60,6 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
                 }
             }
         }
-
-        private string _selectedMunicipality = string.Empty;
         public string SelectedMunicipality
         {
             get => _selectedMunicipality;
@@ -64,8 +73,6 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
                 }
             }
         }
-
-
         public string SelectedFormType
         {
             get => _selectedFormTypes ?? "Select Form Type";
@@ -76,9 +83,55 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
                 UpdateEntryVisibility();
             }
         }
-
-
-
+        public DateComponent RequiredDateComponent
+        {
+            get => _requiredDateComponent;
+            set
+            {
+                if(_requiredDateComponent != value)
+                {
+                    _requiredDateComponent = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public DateTime SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                if(_selectedDate != value)
+                {
+                    _selectedDate = value;
+                    OnPropertyChanged();
+                    UpdateDateComponent();
+                }
+            }
+        }
+        public string FormattedDate
+        {
+            get => _formattedDate;
+            set
+            {
+                if(_formattedDate != value)
+                {
+                    _formattedDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string DateLabelText
+        {
+            get => _dataLabelText;
+            set
+            {
+                if(_dataLabelText != value)
+                {
+                    _dataLabelText = value;
+                    OnPropertiesChanged();
+                }
+            }
+        }
 
         public bool IsMale
         {
@@ -104,8 +157,32 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
                 }
             }
         }
+        public bool IsSingle
+        {
+            get => _isSingle;
+            set
+            {
+                if (_isSingle != value)
+                {
+                    _isSingle = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool IsMarried
+        {
+            get => _isMarried;
+            set
+            {
+                if (_isMarried != value)
+                {
+                    _isMarried = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
-        public ICommand GotoPaymentCommand { get; }
+        public ICommand OnSubmit { get; }
 
         //constructor
         public ServicesPageViewModel()
@@ -115,10 +192,33 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
             //    throw new InvalidOperationException("Application.Current is null. Ensure the application is properly initialized.");
             //}
 
-            GotoPaymentCommand = new RelayCommand(_ => Shell.Current.GoToAsync(nameof(PaymentInfoPage)));
+            OnSubmit = new RelayCommand(async _ =>
+            {
+                GeneratedCertificate();
+                await Shell.Current.GoToAsync(nameof(CustomerPage));
+            });
             InitializeEntryVisibility();
             LoadRegionData();
 
+        }
+
+        private void GeneratedCertificate()
+        {
+            // Collect user inputs
+            string name = "John Doe"; // Replace with actual entry values
+            string address = "Sample Address"; // Replace with actual entry values
+            string formType = SelectedFormType;
+            string date = DateTime.Now.ToString("MMMM dd, yyyy");
+
+            // Generate the certificate using CertificateGenerator
+            var certificateStream = CertificateGenerator.GenerateCertificate("business_permit", name, date, formType, address);
+
+            // Add the certificate to the centralized storage
+            CertificateStorage.Certificates.Add(new CertificatesModel
+            {
+                Title = $"{formType} for {name}",
+                CertificateImage = certificateStream
+            });
         }
 
         //methods
@@ -189,17 +289,21 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
             }
         }
 
-
-
-
         //these are the default entries hidden meaning all entries shown are common on all papers
         private void InitializeEntryVisibility()
         {
             foreach (var key in new[] {
-                "ICR",
+                "Fistname",
+                "Lastname",
+                "Middlename",
+                "Address",
                 "Citizenship",
                 "Height",
-                "Weight" })
+                "Weight",
+                "Date",
+                "Gender",
+            })
+            
             {
                 _entryVisibility[key] = false;
             }
@@ -214,23 +318,67 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
             }
 
             // Update visibility based on the selected form type
-            switch (SelectedFormType)
+            _entryVisibility = SelectedFormType switch
             {
-                case "Tax Certificate":
-                    _entryVisibility["ICR"] = true;
-                    break;
-                case "Barangay Clearance":
-                    _entryVisibility["Citizenship"] = true;
-                    break;
-                case "Indigency Certificate":
-                    _entryVisibility["Height"] = true;
-                    break;
-                case "Business Permit":
-                    _entryVisibility["Weight"] = true;
-                    break;
-            }
+                "Tax Certificate" => new Dictionary<string, bool>
+                {
+                    ["ICR"] = true,
+                    ["Height"] = true,
+                    ["Weight"] = true,
+                    ["Date"] = true,
 
+                },
+                "Barangay Clearance" => new Dictionary<string, bool>
+                {
+
+                    ["Firstname"] = true,
+                    ["Lastname"] = true,
+                    ["Middlename"] = true,
+                    ["Citizenship"] = true,
+                    ["Address"] = true,
+                },
+
+                "Indigency Certificate" => new Dictionary<string, bool>{
+
+                    ["Height"] = true
+                },
+
+                "Business Permit" => new Dictionary<string, bool>
+                {
+
+                    ["Weight"] = true
+                },
+                _ => _entryVisibility
+            };
+            DateLabelText = SelectedFormType switch
+            {
+                "Tax Certificate" => "Year:",
+                "Barangay Clearance" => "Birthdate:",
+                "Indigency Certificate" => "Birthdate:",
+                "Business Permit" => "Birthdate:",
+                _ => "Birthdate:"
+            };
+            
+            OnPropertyChanged(nameof(DateLabelText));
             OnPropertyChanged(nameof(EntryVisibility));
+        }
+        private void UpdateDateComponent()
+        {
+            FormattedDate = RequiredDateComponent switch
+            {
+                DateComponent.Day => FormattedDate = SelectedDate.Day.ToString(),
+                DateComponent.Month => FormattedDate = SelectedDate.ToString("MMMM"),
+                DateComponent.Year => FormattedDate = SelectedDate.ToString(),
+                DateComponent.FullDate or _ => FormattedDate = SelectedDate.ToString("MM/dd/yyyy"),
+            };
+        }
+
+        public enum DateComponent
+        {
+            FullDate,
+            Day,
+            Month,
+            Year
         }
     }
 

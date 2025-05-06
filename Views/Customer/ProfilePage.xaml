@@ -132,13 +132,27 @@
                                          VerticalOptions="Center">
                         
                         <!--Certificates Holder-->
-                        <Button Text="Certificates"
-                                HeightRequest="20"
-                                TextColor="{AppThemeBinding Dark=White, Light=Black}"
-                                Background="{AppThemeBinding Dark={StaticResource Gray500}, Light={StaticResource Gray400}}"
-                                ImageSource="{AppThemeBinding Dark=certificate_light, Light=certificate_dark}"/>
+                        <Label Text="Certificates"/>
+                        <CollectionView ItemsSource="{Binding Certificates}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Text="{Binding Title}"
+                                            HeightRequest="20"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CustomerProfileViewModel}}, Path=SelectedCertificateCommand}"
+                                            CommandParameter="{Binding .}"
+                                            TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                            Background="{AppThemeBinding Dark={StaticResource Gray500}, Light={StaticResource Gray400}}"
+                                            ImageSource="{AppThemeBinding Dark=certificate_light, Light=certificate_dark}"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
-                                <!--Language-->
+                        <Image Source="{Binding SelectedCertificate.CertificateImage}"
+                               Aspect="AspectFit"
+                               HeightRequest="300"
+                               WidthRequest="400"/>
+
+                        <!--Language-->
                         <Label Text="Language"
                                Padding="30,0,0,0"
                                FontAttributes="Bold"

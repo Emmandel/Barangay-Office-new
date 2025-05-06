@@ -9,9 +9,9 @@ using Barangay_Office.Utilities;
 using Barangay_Office.Views;
 using Barangay_Office.Views.Admin;
 
-namespace Barangay_Office.ViewModels
+namespace Barangay_Office.ViewModels.SuperAdminViewModel
 {
-    public class SuperAdminProfileViewModel : BaseViewModel
+    public partial class SuperAdminProfileViewModel : BaseViewModel
     {
         private readonly AuthService _authService;
 

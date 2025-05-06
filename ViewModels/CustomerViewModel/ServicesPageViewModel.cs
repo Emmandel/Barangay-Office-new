@@ -305,7 +305,7 @@ namespace Barangay_Office.ViewModels.CustomerViewModel
             })
             
             {
-                _entryVisibility[key] = false;
+                _entryVisibility[key] = true;
             }
         }
 

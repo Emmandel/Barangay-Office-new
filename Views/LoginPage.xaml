@@ -26,7 +26,7 @@
 
 
 
-    <Grid BackgroundColor = "{AppThemeBinding Light={StaticResource Gray500},Dark=#d0d0d0}" >
+    <Grid BackgroundColor = "{AppThemeBinding Light={StaticResource Gray500},Dark=#d0d0d0}">
         <Grid.RowDefinitions>
             <RowDefinition Height="220"/>
             <RowDefinition Height="*"/>
@@ -35,7 +35,9 @@
 
         
         <!-- for banner layout -->
-        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z">
+        <Path Data="m0,-10.5l699.00002, 0l0,110 -800, 0l0,-536.27948z" 
+              HorizontalOptions="Center"
+              Margin="0">
             <Path.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="Red" Offset="0.1" />
@@ -95,7 +97,8 @@
 
             <StackLayout Grid.Row="3"
                          Orientation="Vertical"
-                         HorizontalOptions="Center">
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
 
                 <Label Text="{Binding Message}" 
                        TextColor="{Binding BorderColor}" 
@@ -123,7 +126,7 @@
                                 Margin="5"
                                 Stroke="Transparent"
                                 Grid.Column="0">
-                            <Image  Source="/user.png" 
+                            <Image  Source="user.png" 
                                     Aspect="AspectFill"
                                     Margin="5"/>
                         </Border>

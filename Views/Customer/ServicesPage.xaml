@@ -104,7 +104,7 @@
                                TextColor="{AppThemeBinding Light=Black, Dark=White}" />
                         <Border Stroke="#2C3E50" 
                                 StrokeShape="RoundRectangle 10" 
-                                Padding="10" 
+                                Padding="2" 
                                 BackgroundColor="Transparent">
                             <Picker Title="Select-Form-Type" 
                                     ItemsSource="{Binding FormTypes}"
@@ -112,8 +112,8 @@
                                     FontSize="12" 
                                     Style="{StaticResource CustomPickerStyle}"
                                     HorizontalTextAlignment="Center"
-                                    TextColor="Black" 
-                                    BackgroundColor="#F0F0F0"/>
+                                    TitleColor="{AppThemeBinding Dark=White, Light=Black}"
+                                    TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                         </Border>
                         
                         <!--Fullname-->
@@ -129,6 +129,7 @@
                                    FontSize="12" 
                                    TextTransform="Uppercase"
                                    WidthRequest="95"
+                                   IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Firstname}"
                                    PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
                                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
                             
@@ -137,6 +138,7 @@
                                    x:Name="Lastname" 
                                    WidthRequest="120"
                                    TextTransform="Uppercase"
+                                   IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Lastname}"
                                    FontSize="12" 
                                    PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
                                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
@@ -149,6 +151,7 @@
                                    FontSize="12" 
                                    MaxLength="1"
                                    TextTransform="Uppercase"
+                                   IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Middlename}"
                                    PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
                                    TextColor="{AppThemeBinding Light=Black, Dark=White}"/>
                         </HorizontalStackLayout>
@@ -158,22 +161,31 @@
                                x:Name="AddressEntry" 
                                PlaceholderColor="{AppThemeBinding Light=Black, Dark=White}"
                                TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                               FontSize="12" />
+                               FontSize="12" 
+                               IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Address}"/>
                         
                         <!--Gender-->
-                        <HorizontalStackLayout Spacing="50"
-                                               HorizontalOptions="Start"
-                                               Margin="0,0,0,0">
-                            <RadioButton GroupName="Gender"
-                                         BorderColor="Black"
-                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                                         Content="Male"
-                                         IsChecked="{Binding IsMale}"/>
-                            <RadioButton GroupName="Gender"
-                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                                         Content="Female"
-                                         IsChecked="{Binding IsFemale}"/>
-                        </HorizontalStackLayout>
+                        <VerticalStackLayout IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Gender}">
+                            
+                            <Label Text="Gender: "
+                                   FontSize="12"
+                                   Margin="0"
+                                   Padding="0"
+                                   TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                            <HorizontalStackLayout Spacing="50"
+                                                   HorizontalOptions="Start"
+                                                   Margin="0,0,0,0">
+                                <RadioButton GroupName="Gender"
+                                             BorderColor="Black"
+                                             TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                             Content="Male"
+                                             IsChecked="{Binding IsMale}"/>
+                                <RadioButton GroupName="Gender"
+                                             TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                             Content="Female"
+                                             IsChecked="{Binding IsFemale}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
 
                         <!--Citizenship-->
                         <Entry Placeholder="Citizenship" 
@@ -194,11 +206,17 @@
                                FontSize="12"/>
                         
                         <!--Place of Birth-->
+                        <Label Text="Place of Birth:"
+                                TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                                FontSize="12"
+                                Margin="0"
+                               Padding="0"/>
                         <HorizontalStackLayout BackgroundColor="Transparent"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"
                                                Padding="0"
-                                               Spacing="20">
+                                               Margin="0,-15,0,0"
+                                               Spacing="5">
                             <!--Province-->
                             <Picker Title="Province"
                                     ItemsSource="{Binding Provinces}"
@@ -222,19 +240,22 @@
                                     TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                         </HorizontalStackLayout>
 
-                        <!--Birthdate-->
-                        <Label Text=" BirthDate:" 
-                               TextColor="Black" 
-                               FontSize="12"/>
-                        <DatePicker x:Name="DateOfBirthPicker" 
-                                    Format="MM/dd/yyyy" 
-                                    TextColor ="Black" 
-                                    FontSize="12" />
+                        <!--Date-->
+                        <VerticalStackLayout IsVisible="True">
+                            
+                            <Label Text=" BirthDate:" 
+                                   TextColor="{AppThemeBinding Dark=White, Light=Black}" 
+                                   FontSize="12"/>
+                            <DatePicker Format="MM/dd/yyyy" 
+                                        Date="{Binding SelectedDate}"
+                                        TextColor="{AppThemeBinding Dark=White, Light=Black}" 
+                                        FontSize="12" />
+                        </VerticalStackLayout>
                         
                         <!--Height-->
                         <Entry Placeholder="Height" 
                                x:Name="HeightEntry"
-                               TextColor="Black"
+                               TextColor="{AppThemeBinding Dark=White, Light=Black}"
                                IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Height}"
                                FontSize="12" />
                         
@@ -242,11 +263,23 @@
                         <Entry Placeholder="Weight" 
                                x:Name="WeightEntry"
                                IsVisible="{Binding EntryVisibility, Converter={StaticResource EntryVisibilityConverter}, ConverterParameter=Weight}"
-                               TextColor="Black"
+                               TextColor="{AppThemeBinding Dark=White, Light=Black}"
                                FontSize="12" />
                         
                         <!--Civil Status-->
-                        <RadioButton/>
+                        <HorizontalStackLayout Spacing="50"
+                                               HorizontalOptions="Start"
+                                               Margin="0,0,0,0">
+                            <RadioButton GroupName="BMI"
+                                         BorderColor="Black"
+                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                         Content="Single"
+                                         IsChecked="{Binding IsSingle}"/>
+                            <RadioButton GroupName="BMI"
+                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                         Content="Married"
+                                         IsChecked="{Binding IsMarried}"/>
+                        </HorizontalStackLayout>
 
                         <!--Contact No-->
                         <Entry Placeholder="Contact Number" 
@@ -292,7 +325,7 @@
                         VerticalOptions="Center"
                         WidthRequest="250" 
                         HeightRequest="50" 
-                        Command="{Binding GotoPaymentCommand}"/>
+                        Command="{Binding OnSubmit}"/>
             </Border>
         </VerticalStackLayout>
     </Grid>
